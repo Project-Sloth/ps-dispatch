@@ -1,9 +1,8 @@
 fx_version 'cerulean'
 game 'gta5'
 
-version '2.7.1'
-description 'https://github.com/thelindat/linden_outlawalert'
-versioncheck 'https://raw.githubusercontent.com/thelindat/linden_outlawalert/master/fxmanifest.lua'
+version '0.0'
+description 'https://github.com/Project-Sloth/qb-dispatch'
 
 shared_scripts {
     'config.lua',
@@ -13,6 +12,7 @@ shared_scripts {
 client_scripts{
     'client/cl_main.lua',
     'client/cl_events.lua',
+    'client/cl_extraalerts',
     'client/cl_loops.lua',
 } 
 server_script {

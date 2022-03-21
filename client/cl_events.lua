@@ -234,6 +234,31 @@ RegisterNetEvent("qb-dispatch:client:pacificbankrobbery", function()
     })
 end)
 
+RegisterNetEvent("qb-dispatch:client:prisonbreak", function()
+    local currentPos = GetEntityCoords(PlayerPedId())
+    local locationInfo = getStreetandZone(currentPos)
+    local gender = GetPedGender()
+    local heading = getCardinalDirectionFromHeading()
+    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
+    TriggerServerEvent("dispatch:server:notify",{
+        dispatchcodename = "prisonbreak", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+        dispatchCode = "10-90",
+        firstStreet = locationInfo,
+        model = nil,
+        plate = nil,
+        priority = 2, -- priority
+        firstColor = nil,
+        automaticGunfire = false,
+        origin = {
+            x = currentPos.x,
+            y = currentPos.y,
+            z = currentPos.z
+        },
+        dispatchMessage = "Prison Break In Progress", -- message
+        job = {"police"} -- jobs that will get the alerts
+    })
+end)
+
 RegisterNetEvent("qb-dispatch:client:vangelicorobbery", function()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
@@ -310,6 +335,6 @@ RegisterNetEvent("qb-dispatch:client:drugsale", function()
     })
 end)
 
-RegisterCommand('testdispatch',function ()
-    TriggerEvent('')
+RegisterCommand('testdispatch',function()
+    TriggerEvent('qb-dispatch:client:unionrobbery')
 end)
