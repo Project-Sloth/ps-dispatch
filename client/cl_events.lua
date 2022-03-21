@@ -3,7 +3,7 @@ RegisterNetEvent("qb-dispatch:client:vehicleshooting", function(vehdata)
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
     local heading = getCardinalDirectionFromHeading()
-    
+    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "vehicleshots", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-60",
@@ -30,7 +30,7 @@ RegisterNetEvent("qb-dispatch:client:speeding", function(vehdata)
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
     local heading = getCardinalDirectionFromHeading()
-    
+    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "speeding", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-11",
@@ -57,7 +57,7 @@ RegisterNetEvent("qb-dispatch:client:shooting", function()
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
     local heading = getCardinalDirectionFromHeading()
-    
+    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "shooting", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-11",
@@ -84,7 +84,7 @@ RegisterNetEvent("qb-dispatch:client:armedplayer", function()
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
     local heading = getCardinalDirectionFromHeading()
-    
+    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "armed", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-11",
