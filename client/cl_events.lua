@@ -310,6 +310,6 @@ RegisterNetEvent("qb-dispatch:client:drugsale", function()
     })
 end)
 
-RegisterCommand('test',function ()
-    TriggerEvent('qb-dispatch:client:drugsale')
+RegisterCommand('testdispatch',function ()
+    TriggerEvent('')
 end)
