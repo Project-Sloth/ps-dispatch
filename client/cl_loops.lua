@@ -47,7 +47,7 @@ Citizen.CreateThread(function()
                     end
                 elseif Config.Timer['Melee'] == 0 and IsPedInMeleeCombat(playerPed) and HasPedBeenDamagedByWeapon(GetMeleeTargetForPed(playerPed), 0, 1) then
                     sleep = 50
-                    TriggerEvent("qb-dispatch:client:armedplayer")
+                    TriggerEvent("qb-dispatch:client:fight")
                     Config.Timer['Melee'] = Config.Melee.Success
                 else sleep = 100 end
             end

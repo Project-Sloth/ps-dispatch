@@ -79,15 +79,15 @@ RegisterNetEvent("qb-dispatch:client:shooting", function()
     })
 end)
 
-RegisterNetEvent("qb-dispatch:client:armedplayer", function()
+RegisterNetEvent("qb-dispatch:client:fight", function()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
     local heading = getCardinalDirectionFromHeading()
     PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
-        dispatchcodename = "armed", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
-        dispatchCode = "10-11",
+        dispatchcodename = "fight", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+        dispatchCode = "10-10",
         firstStreet = locationInfo,
         gender = gender,
         model = nil,
@@ -101,7 +101,7 @@ RegisterNetEvent("qb-dispatch:client:armedplayer", function()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Armed Player",
+        dispatchMessage = "Fight In Progress",
         job = {"police"}
     })
 end)

@@ -13,9 +13,9 @@
 
 dispatchCodes = {
 
-    ["vehicleshots"] =  {displayCode = '10-13', description = "Shots Fired from Vehicle", radius = 0, recipientList = {'police'}, blipSprite = 648, blipColour = 84, blipScale = 1.5, blipLength = 2 },
-	["shooting"] =  {displayCode = '10-13', description ="Shots Fired", radius = 0, recipientList = {'police'}, blipSprite = 648, blipColour = 84, blipScale = 1.5, blipLength = 2 },
-	["speeding"] =  {displayCode = '10-13', description = "Speeding", radius = 0, recipientList = {'police'}, blipSprite = 648, blipColour = 84, blipScale = 1.5, blipLength = 2 },
-    ["armed"] =  {displayCode = '10-13', description = "Armed Player", radius = 0, recipientList = {'police'}, blipSprite = 648, blipColour = 84, blipScale = 1.5, blipLength = 2 },
+    ["vehicleshots"] =  {displayCode = '10-13', description = "Shots Fired from Vehicle", radius = 0, recipientList = {'police'}, blipSprite = 119, blipColour = 1, blipScale = 1.5, blipLength = 2 },
+	["shooting"] =  {displayCode = '10-13', description ="Shots Fired", radius = 0, recipientList = {'police'}, blipSprite = 110, blipColour = 1, blipScale = 1.5, blipLength = 2 },
+	["speeding"] =  {displayCode = '10-13', description = "Speeding", radius = 0, recipientList = {'police'}, blipSprite = 326, blipColour = 84, blipScale = 1.5, blipLength = 2 },
+    ["fight"] =  {displayCode = '10-10', description = "Fight In Progress", radius = 0, recipientList = {'police'}, blipSprite = 685, blipColour = 69, blipScale = 1.5, blipLength = 2 },
 
 }
