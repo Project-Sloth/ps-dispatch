@@ -17,7 +17,6 @@ WIP for cleaner and more easier to setup Dispatch compatible with QB-mdt
 RegisterNetEvent("qb-dispatch:client:storerobbery", function(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
-    local gender = GetPedGender()
     local heading = getCardinalDirectionFromHeading()
     PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
