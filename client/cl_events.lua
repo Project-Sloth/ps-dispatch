@@ -326,5 +326,5 @@ RegisterNetEvent("qb-dispatch:client:drugsale", function()
 end)
 
 RegisterCommand('testdispatch',function()
-    TriggerEvent('qb-dispatch:client:unionrobbery')
+    TriggerEvent('')
 end)
