@@ -159,7 +159,6 @@ RegisterCommand('311', function(source, args, rawCommand)
                 local currentPos = GetEntityCoords(PlayerPedId())
                 local locationInfo = getStreetandZone(currentPos)
                 local gender = GetPedGender()
-                PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
                 TriggerServerEvent("dispatch:server:notify",{
                     dispatchcodename = "311call", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
                     dispatchCode = "311",
@@ -203,7 +202,6 @@ RegisterCommand('311a', function(source, args, rawCommand)
                 local currentPos = GetEntityCoords(PlayerPedId())
                 local locationInfo = getStreetandZone(currentPos)
                 local gender = GetPedGender()
-                PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
                 TriggerServerEvent("dispatch:server:notify",{
                     dispatchcodename = "311call", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
                     dispatchCode = "311",

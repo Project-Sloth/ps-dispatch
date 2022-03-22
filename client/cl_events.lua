@@ -2,7 +2,6 @@ RegisterNetEvent("qb-dispatch:client:vehicleshooting", function(vehdata)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local heading = getCardinalDirectionFromHeading()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "vehicleshots", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-60",
@@ -27,7 +26,6 @@ RegisterNetEvent("qb-dispatch:client:speeding", function(vehdata)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local heading = getCardinalDirectionFromHeading()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "speeding", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-11",
@@ -52,7 +50,6 @@ RegisterNetEvent("qb-dispatch:client:shooting", function()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "shooting", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-11",
@@ -77,7 +74,6 @@ RegisterNetEvent("qb-dispatch:client:fight", function()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "fight", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-10",
@@ -102,7 +98,6 @@ RegisterNetEvent("qb-dispatch:client:civdown", function()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "civdown", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-69",
@@ -128,7 +123,6 @@ RegisterNetEvent("qb-dispatch:client:storerobbery", function(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "storerobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
@@ -154,7 +148,6 @@ RegisterNetEvent("qb-dispatch:client:fleecabankrobbery", function()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "bankrobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
@@ -179,7 +172,6 @@ RegisterNetEvent("qb-dispatch:client:paletobankrobbery", function()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "paletobankrobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
@@ -204,7 +196,6 @@ RegisterNetEvent("qb-dispatch:client:pacificbankrobbery", function()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "pacificbankrobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
@@ -229,7 +220,6 @@ RegisterNetEvent("qb-dispatch:client:prisonbreak", function()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "prisonbreak", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
@@ -279,7 +269,6 @@ RegisterNetEvent("qb-dispatch:client:houserobbery", function()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "houserobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
@@ -304,7 +293,6 @@ RegisterNetEvent("qb-dispatch:client:drugsale", function()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "suspicioushandoff", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-60",
@@ -324,6 +312,7 @@ RegisterNetEvent("qb-dispatch:client:drugsale", function()
         job = {"police"} -- jobs that will get the alerts
     })
 end)
+
 
 RegisterCommand('testdispatch',function()
     TriggerEvent('')
