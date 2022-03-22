@@ -17,12 +17,13 @@ WIP for cleaner and more easier to setup Dispatch compatible with QB-mdt
 RegisterNetEvent("qb-dispatch:client:storerobbery", function(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
-    local heading = getCardinalDirectionFromHeading()
+    local gender = GetPedGender()
     PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "storerobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
         firstStreet = locationInfo,
+        gender = gender,
         camId = camId,
         model = nil,
         plate = nil,
