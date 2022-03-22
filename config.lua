@@ -6,30 +6,14 @@ Config.Timer = {}
 Config.PoliceJob = { "police", "bcso"}
 
 Config.PoliceAndAmbulance = { "police", "ambulance", "bcso"}
+Config.PhoneModel = 'prop_npc_phone_02'
 
 ---------------------------------------------------------------
 Config.Locale = 'en'
-Config.CheckVersion = false
-Config.CheckVersionDelay = 60 -- Minutes
-
--- use phone_number instead of player name for 911 calls
-Config.PhoneNumber = false
-
--- use mdt notifications for 911 calls instead of WF_Alerts
-Config.Default911 = true
 
 -- enable alerts when cops break the law and print to console
 Config.Debug = true
 
--- sets report chance to 100%
-Config.DebugChance = true
-
--- enable default alerts
-Config.Enable.Speeding = true
-Config.Enable.Shooting = true
-Config.Enable.Autotheft = true
-Config.Enable.Melee = true
-Config.Enable.PlayerDowned = true
 ---------------------------------------------------------------
 
 Citizen.CreateThread(function()

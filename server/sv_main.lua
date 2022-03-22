@@ -45,11 +45,30 @@ AddEventHandler("dispatch:addUnit", function(callid, player, cb)
         end
 
         if IsPoliceJob(player.job.name) then
-            table.insert(calls[callid]['units'], { cid = player.cid, fullname = player.fullname, job = 'Police', callsign = player.callsign })
+            calls[callid]['units'][#calls[callid]['units']+1] = { cid = player.cid, fullname = player.fullname, job = 'Police', callsign = player.callsign }
         elseif player.job.name == 'ambulance' then
-            table.insert(calls[callid]['units'], { cid = player.cid, fullname = player.fullname, job = 'EMS', callsign = player.callsign })
+            calls[callid]['units'][#calls[callid]['units']+1] = { cid = player.cid, fullname = player.fullname, job = 'EMS', callsign = player.callsign }
         end
         cb(#calls[callid]['units'])
+    end
+end)
+
+AddEventHandler("dispatch:sendCallResponse", function(player, callid, message, time, cb)
+    local Player = QBCore.Functions.GetPlayer(player)
+    local name = Player.PlayerData.charinfo.firstname.. " " ..Player.PlayerData.charinfo.lastname
+    if calls[callid] then
+        calls[callid]['responses'][#calls[callid]['responses']+1] = {
+            name = name,
+            message = message,
+            time = time
+        }
+        local player = calls[callid]['source']
+        if GetPlayerPing(player) > 0 then
+            TriggerClientEvent('dispatch:getCallResponse', player, message)
+        end
+        cb(true)
+    else
+        cb(false)
     end
 end)
 
@@ -59,10 +78,20 @@ AddEventHandler("dispatch:removeUnit", function(callid, player, cb)
         if #calls[callid]['units'] > 0 then
             for i=1, #calls[callid]['units'] do
                 if calls[callid]['units'][i]['cid'] == player.cid then
-                    table.remove(calls[callid]['units'], i)
+                    calls[callid]['units'][i] = nil
                 end
             end
         end
         cb(#calls[callid]['units'])
     end    
+end)
+
+
+RegisterCommand('togglealerts', function(source, args, user)
+	local source = source
+    local Player = QBCore.Functions.GetPlayer(source)
+	local job = Player.PlayerData.job
+	if IsPoliceJob(job.name) or job.name == 'ambulance' then
+		TriggerClientEvent('dispatch:manageNotifs', source, args[1])
+	end
 end)

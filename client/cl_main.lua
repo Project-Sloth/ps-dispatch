@@ -185,6 +185,30 @@ local function IsValidJob(jobList)
 	return false
 end
 
+-- Dispatch Itself
+
+local disableNotis, disableNotifSounds = false, false
+
+RegisterNetEvent('dispatch:manageNotifs', function(sentSetting)
+    local wantedSetting = tostring(sentSetting)
+    if wantedSetting == "on" then
+        disableNotis = false
+        disableNotifSounds = false
+        QBCore.Functions.Notify("Dispatch enabled", "success")
+    elseif wantedSetting == "off" then
+        disableNotis = true
+        disableNotifSounds = true
+        QBCore.Functions.Notify("Dispatch disabled", "success")
+    elseif wantedSetting == "mute" then
+        disableNotis = false
+        disableNotifSounds = true
+        QBCore.Functions.Notify("Dispatch muted", "success")
+    else
+        QBCore.Functions.Notify('Please choose to have dispatch as "on", "off" or "mute".', "success")
+
+    end
+end)
+
 RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationId, sender)
     if sNotificationData ~= nil then
 		if IsValidJob(sNotificationData['job']) then
@@ -206,7 +230,7 @@ end)
 RegisterNetEvent("qb-dispatch:client:AddCallBlip")
 AddEventHandler("qb-dispatch:client:AddCallBlip", function(coords, data)
 	if IsValidJob(data.recipientList) then
-		Citizen.CreateThread(function()
+		CreateThread(function()
 			local alpha = 255
 			local blip = nil
 			local sprite, colour, scale = 161, 84, 1.0
@@ -226,7 +250,7 @@ AddEventHandler("qb-dispatch:client:AddCallBlip", function(coords, data)
 			AddTextComponentString(data.displayCode..' - '..data.description)
 			EndTextCommandSetBlipName(blip)
 			while alpha ~= 0 do
-				Citizen.Wait(data.blipLength * 1000)
+				Wait(data.blipLength * 1000)
 				alpha = alpha - 1
 				SetBlipAlpha(blip, alpha)
 				if alpha == 0 then
@@ -236,4 +260,21 @@ AddEventHandler("qb-dispatch:client:AddCallBlip", function(coords, data)
 			end
 		end)
 	end
+end)
+
+
+
+RegisterNetEvent('dispatch:getCallResponse', function(message)
+    SendNUIMessage({
+        update = "newCall",
+        callID = math.random(1000, 9999),
+        data = {
+            dispatchCode = 'RSP',
+            priority = 1,
+            dispatchMessage = "Call Response",
+            information = message
+        },
+        timer = 10000,
+        isPolice = true
+    })
 end)

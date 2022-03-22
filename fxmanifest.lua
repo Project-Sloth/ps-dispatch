@@ -12,7 +12,8 @@ shared_scripts {
 client_scripts{
     'client/cl_main.lua',
     'client/cl_events.lua',
-    'client/cl_extraalerts',
+    'client/cl_extraalerts.lua',
+    'client/cl_commands.lua',
     'client/cl_loops.lua',
 } 
 server_script {
