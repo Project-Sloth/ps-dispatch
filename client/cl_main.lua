@@ -230,7 +230,7 @@ end)
 RegisterNetEvent("qb-dispatch:client:AddCallBlip")
 AddEventHandler("qb-dispatch:client:AddCallBlip", function(coords, data)
 	if IsValidJob(data.recipientList) then
-		Citizen.CreateThread(function()
+		CreateThread(function()
 			local alpha = 255
 			local blip = nil
 			local sprite, colour, scale = 161, 84, 1.0
@@ -250,7 +250,7 @@ AddEventHandler("qb-dispatch:client:AddCallBlip", function(coords, data)
 			AddTextComponentString(data.displayCode..' - '..data.description)
 			EndTextCommandSetBlipName(blip)
 			while alpha ~= 0 do
-				Citizen.Wait(data.blipLength * 1000)
+				Wait(data.blipLength * 1000)
 				alpha = alpha - 1
 				SetBlipAlpha(blip, alpha)
 				if alpha == 0 then
