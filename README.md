@@ -53,9 +53,10 @@ Information about each parameter is in the file.
 
 # Work to be done
 
-1. 911, 311 calls (Done)
-2. Locales for alerts
-3. Create basic alerts for qbcore (store, bank, house) (Done)
-4. Edit the blips sprite and color in sv_dispatchcodes.lua (Done)
-5. Add ability to disable notifications (Done)
-6. Add onduty check for alerts
+* Convert Events to Exports
+* Locales for alerts
+* Add onduty check for alerts
+* Panic Buttons for EMS & PD
+* Dispatch Sounds Fixed
+* Vehicle Theft Alert
+* Miscellaneous Alerts (Carboosting, Bobcat, VAR Heist, etc)
