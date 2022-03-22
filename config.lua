@@ -8,6 +8,15 @@ Config.PoliceJob = { "police", "bcso"}
 Config.PoliceAndAmbulance = { "police", "ambulance", "bcso"}
 Config.PhoneModel = 'prop_npc_phone_02'
 
+-- sets report chance to 100%
+Config.DebugChance = true
+
+-- enable default alerts
+Config.Enable.Speeding = true
+Config.Enable.Shooting = true
+Config.Enable.Autotheft = true
+Config.Enable.Melee = true
+Config.Enable.PlayerDowned = true
 ---------------------------------------------------------------
 Config.Locale = 'en'
 
