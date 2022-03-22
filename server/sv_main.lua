@@ -53,6 +53,25 @@ AddEventHandler("dispatch:addUnit", function(callid, player, cb)
     end
 end)
 
+AddEventHandler("dispatch:sendCallResponse", function(player, callid, message, time, cb)
+    local Player = QBCore.Functions.GetPlayer(player)
+    local name = Player.PlayerData.charinfo.firstname.. " " ..Player.PlayerData.charinfo.lastname
+    if calls[callid] then
+        calls[callid]['responses'][#calls[callid]['responses']+1] = {
+            name = name,
+            message = message,
+            time = time
+        }
+        local player = calls[callid]['source']
+        if GetPlayerPing(player) > 0 then
+            TriggerClientEvent('dispatch:getCallResponse', player, message)
+        end
+        cb(true)
+    else
+        cb(false)
+    end
+end)
+
 -- this is mdt call
 AddEventHandler("dispatch:removeUnit", function(callid, player, cb)
     if calls[callid] then
@@ -65,4 +84,14 @@ AddEventHandler("dispatch:removeUnit", function(callid, player, cb)
         end
         cb(#calls[callid]['units'])
     end    
+end)
+
+
+RegisterCommand('togglealerts', function(source, args, user)
+	local source = source
+    local Player = QBCore.Functions.GetPlayer(source)
+	local job = Player.PlayerData.job
+	if IsPoliceJob(job.name) or job.name == 'ambulance' then
+		TriggerClientEvent('dispatch:manageNotifs', source, args[1])
+	end
 end)

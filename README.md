@@ -53,9 +53,9 @@ Information about each parameter is in the file.
 
 # Work to be done
 
-1. 911, 311 calls
+1. 911, 311 calls (Done)
 2. Locales for alerts
 3. Create basic alerts for qbcore (store, bank, house) (Done)
 4. Edit the blips sprite and color in sv_dispatchcodes.lua (Done)
-5. Add ability to disable notifications
+5. Add ability to disable notifications (Done)
 6. Add onduty check for alerts
