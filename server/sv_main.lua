@@ -45,9 +45,9 @@ AddEventHandler("dispatch:addUnit", function(callid, player, cb)
         end
 
         if IsPoliceJob(player.job.name) then
-            table.insert(calls[callid]['units'], { cid = player.cid, fullname = player.fullname, job = 'Police', callsign = player.callsign })
+            calls[callid]['units'][#calls[callid]['units']+1] = { cid = player.cid, fullname = player.fullname, job = 'Police', callsign = player.callsign }
         elseif player.job.name == 'ambulance' then
-            table.insert(calls[callid]['units'], { cid = player.cid, fullname = player.fullname, job = 'EMS', callsign = player.callsign })
+            calls[callid]['units'][#calls[callid]['units']+1] = { cid = player.cid, fullname = player.fullname, job = 'EMS', callsign = player.callsign }
         end
         cb(#calls[callid]['units'])
     end
@@ -78,7 +78,7 @@ AddEventHandler("dispatch:removeUnit", function(callid, player, cb)
         if #calls[callid]['units'] > 0 then
             for i=1, #calls[callid]['units'] do
                 if calls[callid]['units'][i]['cid'] == player.cid then
-                    table.remove(calls[callid]['units'], i)
+                    calls[callid]['units'][i] = nil
                 end
             end
         end

@@ -1,7 +1,7 @@
 
 local playAnim = false
 local phoneProp = 0
-local phoneModel = `prop_npc_phone_02`
+local phoneModel = Config.PhoneModel
 
 
 -- Item checks to return whether or not the client has a phone or not
@@ -19,6 +19,28 @@ local function loadAnimDict(dict)
     end
 end
 
+local function DeletePhone()
+	if phoneProp ~= 0 then
+		DeleteObject(phoneProp)
+		phoneProp = 0
+	end
+end
+
+local function NewPropWhoDis()
+	DeletePhone()
+	RequestModel(phoneModel)
+	while not HasModelLoaded(phoneModel) do
+		Wait(1)
+	end
+	phoneProp = CreateObject(phoneModel, 1.0, 1.0, 1.0, 1, 1, 0)
+
+	local bone = GetPedBoneIndex(PlayerPedId(), 28422)
+	if phoneModel == Config.PhoneModel then
+		AttachEntityToEntity(phoneProp, PlayerPedId(), bone, 0.0, 0.0, 0.0, 50.0, 320.0, 50.0, 1, 1, 0, 0, 2, 1)
+	else
+		AttachEntityToEntity(phoneProp, PlayerPedId(), bone, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 1, 0, 0, 2, 1)
+	end
+end
 
 -- Does the actual animation of the animation when calling 911
 local function PhoneCallAnim()
@@ -35,30 +57,6 @@ local function PhoneCallAnim()
         end
     end)
 end
-
-function NewPropWhoDis()
-	DeletePhone()
-	RequestModel(phoneModel)
-	while not HasModelLoaded(phoneModel) do
-		Wait(1)
-	end
-	phoneProp = CreateObject(phoneModel, 1.0, 1.0, 1.0, 1, 1, 0)
-
-	local bone = GetPedBoneIndex(PlayerPedId(), 28422)
-	if phoneModel == `prop_cs_phone_01` then
-		AttachEntityToEntity(phoneProp, PlayerPedId(), bone, 0.0, 0.0, 0.0, 50.0, 320.0, 50.0, 1, 1, 0, 0, 2, 1)
-	else
-		AttachEntityToEntity(phoneProp, PlayerPedId(), bone, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 1, 0, 0, 2, 1)
-	end
-end
-
-function DeletePhone()
-	if phoneProp ~= 0 then
-		DeleteObject(phoneProp)
-		phoneProp = 0
-	end
-end
-
 
 
 -- Regular 911 call that goes straight to the Police

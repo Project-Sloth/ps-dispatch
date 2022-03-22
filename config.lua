@@ -6,6 +6,7 @@ Config.Timer = {}
 Config.PoliceJob = { "police", "bcso"}
 
 Config.PoliceAndAmbulance = { "police", "ambulance", "bcso"}
+Config.PhoneModel = 'prop_npc_phone_02'
 
 ---------------------------------------------------------------
 Config.Locale = 'en'
