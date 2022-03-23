@@ -314,6 +314,54 @@ RegisterNetEvent("qb-dispatch:client:drugsale", function()
 end)
 
 
+RegisterNetEvent("qb-dispatch:client:officerdown", function()
+    local plyData = QBCore.Functions.GetPlayerData()
+    local currentPos = GetEntityCoords(PlayerPedId())
+    local locationInfo = getStreetandZone(currentPos)
+    TriggerServerEvent("dispatch:server:notify",{
+        dispatchcodename = "officerdown", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+        dispatchCode = "10-99",
+        firstStreet = locationInfo,
+        name = plyData.charinfo.firstname:sub(1,1):upper()..plyData.charinfo.firstname:sub(2).. " ".. plyData.charinfo.lastname:sub(1,1):upper()..plyData.charinfo.lastname:sub(2),
+        model = nil,
+        plate = nil,
+        priority = 2, -- priority
+        firstColor = nil,
+        automaticGunfire = false,
+        origin = {
+            x = currentPos.x,
+            y = currentPos.y,
+            z = currentPos.z
+        },
+        dispatchMessage = "Officer Down", -- message
+        job = {"police", "ambulance"} -- jobs that will get the alerts
+    })
+end) 
+
+RegisterNetEvent("qb-dispatch:client:emsdown", function()
+    local plyData = QBCore.Functions.GetPlayerData()
+    local currentPos = GetEntityCoords(PlayerPedId())
+    local locationInfo = getStreetandZone(currentPos)
+    TriggerServerEvent("dispatch:server:notify",{
+        dispatchcodename = "emsdown", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+        dispatchCode = "10-99",
+        firstStreet = locationInfo,
+        name = plyData.charinfo.firstname:sub(1,1):upper()..plyData.charinfo.firstname:sub(2).. " ".. plyData.charinfo.lastname:sub(1,1):upper()..plyData.charinfo.lastname:sub(2),
+        model = nil,
+        plate = nil,
+        priority = 2, -- priority
+        firstColor = nil,
+        automaticGunfire = false,
+        origin = {
+            x = currentPos.x,
+            y = currentPos.y,
+            z = currentPos.z
+        },
+        dispatchMessage = "EMS Down", -- message
+        job = {"police", "ambulance"} -- jobs that will get the alerts
+    })
+end) 
+
 RegisterCommand('testdispatch',function()
     TriggerEvent('')
 end)

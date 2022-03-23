@@ -56,7 +56,5 @@ Information about each parameter is in the file.
 * Convert Events to Exports
 * Locales for alerts
 * Add onduty check for alerts
-* Panic Buttons for EMS & PD
-* Dispatch Sounds Fixed
 * Vehicle Theft Alert
 * Miscellaneous Alerts (Carboosting, Bobcat, VAR Heist, etc)
