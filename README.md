@@ -9,22 +9,44 @@ WIP for cleaner and more easier to setup Dispatch compatible with QB-mdt
 * Drag and drop sounds folder into interact-sound\client\html\sounds
 * Restart your server.
 
+# Alert Exports
+* exports['qb-dispatch']:VehicleShooting(vehicle)
+* exports['qb-dispatch']:Shooting()
+* exports['qb-dispatch']:SpeedingVehicle(vehicle)
+* exports['qb-dispatch']:Fight()
+* exports['qb-dispatch']:InjuriedPerson()
+* exports['qb-dispatch']:StoreRobbery()
+* exports['qb-dispatch']:FleecaBankRobbery()
+* exports['qb-dispatch']:PaletoBankRobbery()
+* exports['qb-dispatch']:PacificBankRobbery()
+* exports['qb-dispatch']:PrisonBreak()
+* exports['qb-dispatch']:VangelicoRobbery()
+* exports['qb-dispatch']:HouseRobbery()
+* exports['qb-dispatch']:PrisonBreak()
+* exports['qb-dispatch']:DrugSale()
+* exports['qb-dispatch']:ArtGalleryRobbery()
+* exports['qb-dispatch']:HumaneRobery(
+* exports['qb-dispatch']:TrainRobbery()
+* exports['qb-dispatch']:VanRobbery()
+* exports['qb-dispatch']:UndergroundRobbery()
+* exports['qb-dispatch']:DrugBoatRobbery()
+* exports['qb-dispatch']:UnionRobbery()
+* exports['qb-dispatch']:CarBoosting()
+
 # Steps to Create New Alert
 
 1. Create a client event that will be triggered from whatever script you want
 
 ```lua
-RegisterNetEvent("qb-dispatch:client:storerobbery", function(camId)
+local function FleecaBankRobbery()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
-        dispatchcodename = "storerobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+        dispatchcodename = "bankrobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
         firstStreet = locationInfo,
         gender = gender,
-        camId = camId,
         model = nil,
         plate = nil,
         priority = 2, -- priority
@@ -35,17 +57,17 @@ RegisterNetEvent("qb-dispatch:client:storerobbery", function(camId)
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Store Robbery", -- message
+        dispatchMessage = "Fleeca Bank Robbery", -- message
         job = {"police"} -- jobs that will get the alerts
     })
-end)
+end exports('FleecaBankRobbery', FleecaBankRobbery)
 ```
 
 2. Add Dispatch Code in sv_dispatchcodes.lua for the particular robbery to display the blip
 
 `["storerobbery"] is the dispatchcodename you passed with the TriggerServerEvent in step 1`
 ```lua
-    ["storerobbery"] =  {displayCode = '10-90', description = "Store Robbery In Progress", radius = 0, recipientList = {'police'}, blipSprite = 52, blipColour = 1, blipScale = 1.5, blipLength = 2 },
+	["bankrobbery"] =  {displayCode = '10-90', description = "Fleeca Bank Robbery In Progress", radius = 0, recipientList = {'police'}, blipSprite = 500, blipColour = 2, blipScale = 1.5, blipLength = 2, sound = "robberysound"},
 ```
 
 Information about each parameter is in the file.
@@ -53,8 +75,7 @@ Information about each parameter is in the file.
 
 # Work to be done
 
-* Convert Events to Exports
+* Hunting Zones
 * Locales for alerts
 * Add onduty check for alerts
 * Vehicle Theft Alert
-* Miscellaneous Alerts (Carboosting, Bobcat, VAR Heist, etc)
