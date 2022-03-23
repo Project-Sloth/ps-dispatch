@@ -230,6 +230,8 @@ end)
 RegisterNetEvent("qb-dispatch:client:AddCallBlip")
 AddEventHandler("qb-dispatch:client:AddCallBlip", function(coords, data)
 	if IsValidJob(data.recipientList) then
+		PlaySound(-1, data.sound, data.sound2, 0, 0, 1)
+		TriggerServerEvent("InteractSound_SV:PlayOnSource", data.sound, 0.25) -- For Custom Sounds
 		CreateThread(function()
 			local alpha = 255
 			local blip = nil

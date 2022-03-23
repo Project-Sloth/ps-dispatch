@@ -14,8 +14,8 @@ CreateThread(function()
                         if Config.Timer['Shooting'] == 0 and not BlacklistedWeapon(playerPed) and not IsPedCurrentWeaponSilenced(playerPed) and IsPedArmed(playerPed, 4) then
                             sleep = 10
                             if IsPedShooting(playerPed) then
-                                local veh = vehicleData(vehicle)
-                                TriggerEvent("qb-dispatch:client:vehicleshooting", veh)
+                                local vehicle = vehicleData(vehicle)
+                                exports['qb-dispatch']:VehicleShooting(vehicle)
                                 Config.Timer['Shooting'] = Config.Shooting.Success
                             else
                                 Config.Timer['Shooting'] = Config.Shooting.Fail
@@ -25,8 +25,8 @@ CreateThread(function()
                             if (GetEntitySpeed(vehicle) * 3.6) >= (120 + (math.random(30,60))) then
                                 Wait(400)
                                 if IsPedInAnyVehicle(playerPed, true) and ((GetEntitySpeed(vehicle) * 3.6) >= 90) then
-                                    local veh = vehicleData(vehicle)
-                                    TriggerEvent("qb-dispatch:client:speeding", veh)
+                                    local vehicle = vehicleData(vehicle)
+                                    exports['qb-dispatch']:SpeedingVehicle(vehicle)
                                     Config.Timer['Speeding'] = Config.Speeding.Success
                                 end
                             else
@@ -40,14 +40,14 @@ CreateThread(function()
                 if Config.Timer['Shooting'] == 0  and not IsPedCurrentWeaponSilenced(playerPed) and IsPedArmed(playerPed, 4) then
                     sleep = 50
                     if IsPedShooting(playerPed) and not BlacklistedWeapon(playerPed) then
-                        TriggerEvent("qb-dispatch:client:shooting")
+                        exports['qb-dispatch']:Shooting()
                         Config.Timer['Shooting'] = Config.Shooting.Success
                     else
                         Config.Timer['Shooting'] = Config.Shooting.Fail
                     end
                 elseif Config.Timer['Melee'] == 0 and IsPedInMeleeCombat(playerPed) and HasPedBeenDamagedByWeapon(GetMeleeTargetForPed(playerPed), 0, 1) then
                     sleep = 50
-                    TriggerEvent("qb-dispatch:client:fight")
+                    exports['qb-dispatch']:Fight()
                     Config.Timer['Melee'] = Config.Melee.Success
                 else sleep = 100 end
             end

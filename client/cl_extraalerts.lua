@@ -2,11 +2,10 @@
 ----rainmad scripts--------
 ---------------------------
 
-RegisterNetEvent("qb-dispatch:client:artrobbery", function()
+local function ArtGalleryRobbery()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "artgalleryrobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
@@ -25,13 +24,12 @@ RegisterNetEvent("qb-dispatch:client:artrobbery", function()
         dispatchMessage = "Art Gallery Robbery", -- message
         job = {"police"} -- jobs that will get the alerts
     })
-end)
+end exports('ArtGalleryRobbery', ArtGalleryRobbery)
 
-RegisterNetEvent("qb-dispatch:client:humanerobbery", function()
+local function HumaneRobbery()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "humanelabsrobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
@@ -50,13 +48,12 @@ RegisterNetEvent("qb-dispatch:client:humanerobbery", function()
         dispatchMessage = "Humane Labs Robbery", -- message
         job = {"police"} -- jobs that will get the alerts
     })
-end)
+end exports('HumaneRobbery', HumaneRobbery)
 
-RegisterNetEvent("qb-dispatch:client:trainrobbery", function()
+local function TrainRobbery()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "trainrobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
@@ -75,13 +72,12 @@ RegisterNetEvent("qb-dispatch:client:trainrobbery", function()
         dispatchMessage = "Train Robbery", -- message
         job = {"police"} -- jobs that will get the alerts
     })
-end)
+end exports('TrainRobbery', TrainRobbery)
 
-RegisterNetEvent("qb-dispatch:client:vanrobbery", function()
+local function VanRobbery()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "vanrobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
@@ -100,13 +96,12 @@ RegisterNetEvent("qb-dispatch:client:vanrobbery", function()
         dispatchMessage = "Security Van Robbery", -- message
         job = {"police"} -- jobs that will get the alerts
     })
-end)
+end exports('VanRobbery', VanRobbery)
 
-RegisterNetEvent("qb-dispatch:client:undergroundrobbery", function()
+local function UndergroundRobbery()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "undergroundrobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
@@ -122,16 +117,15 @@ RegisterNetEvent("qb-dispatch:client:undergroundrobbery", function()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Underground Tunnels Robbery", -- message
+        dispatchMessage = "Bunker Robbery", -- message
         job = {"police"} -- jobs that will get the alerts
     })
-end)
+end exports('UndergroundRobbery', UndergroundRobbery)
 
-RegisterNetEvent("qb-dispatch:client:drugboatrobbery", function()
+local function DrugBoatRobbery()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "drugboatrobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
@@ -150,13 +144,12 @@ RegisterNetEvent("qb-dispatch:client:drugboatrobbery", function()
         dispatchMessage = "Suspicious Boat", -- message
         job = {"police"} -- jobs that will get the alerts
     })
-end)
+end exports('DrugBoatRobbery', DrugBoatRobbery)
 
-RegisterNetEvent("qb-dispatch:client:unionrobbery", function()
+local function UnionRobbery()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerServerEvent("dispatch:server:notify",{
         dispatchcodename = "unionrobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
@@ -175,4 +168,28 @@ RegisterNetEvent("qb-dispatch:client:unionrobbery", function()
         dispatchMessage = "Union Depository Robbery", -- message
         job = {"police"} -- jobs that will get the alerts
     })
-end)
+end exports('UnionRobbery', UnionRobbery)
+
+local function CarBoosting(vehdata)
+    local currentPos = GetEntityCoords(PlayerPedId())
+    local locationInfo = getStreetandZone(currentPos)
+    local gender = GetPedGender()
+    TriggerServerEvent("dispatch:server:notify",{
+        dispatchcodename = "carboosting", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+        dispatchCode = "10-50",
+        firstStreet = locationInfo,
+        gender = gender,
+        model = vehdata.name,
+        plate = vehdata.plate,
+        priority = 2,
+        firstColor = vehdata.colour,
+        automaticGunfire = false,
+        origin = {
+            x = currentPos.x,
+            y = currentPos.y,
+            z = currentPos.z
+        },
+        dispatchMessage = "Car Boosting In Progress", -- message
+        job = {"police"} -- jobs that will get the alerts
+    })
+end exports('CarBoosting', CarBoosting)
