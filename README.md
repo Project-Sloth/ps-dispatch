@@ -9,29 +9,53 @@ WIP for cleaner and more easier to setup Dispatch compatible with QB-mdt
 * Drag and drop sounds folder into interact-sound\client\html\sounds
 * Restart your server.
 
+
 # Alert Exports
-* exports['qb-dispatch']:VehicleShooting(vehicle)
-* exports['qb-dispatch']:Shooting()
-* exports['qb-dispatch']:SpeedingVehicle(vehicle)
-* exports['qb-dispatch']:Fight()
-* exports['qb-dispatch']:InjuriedPerson()
-* exports['qb-dispatch']:StoreRobbery()
-* exports['qb-dispatch']:FleecaBankRobbery()
-* exports['qb-dispatch']:PaletoBankRobbery()
-* exports['qb-dispatch']:PacificBankRobbery()
-* exports['qb-dispatch']:PrisonBreak()
-* exports['qb-dispatch']:VangelicoRobbery()
-* exports['qb-dispatch']:HouseRobbery()
-* exports['qb-dispatch']:PrisonBreak()
-* exports['qb-dispatch']:DrugSale()
-* exports['qb-dispatch']:ArtGalleryRobbery()
-* exports['qb-dispatch']:HumaneRobery(
-* exports['qb-dispatch']:TrainRobbery()
-* exports['qb-dispatch']:VanRobbery()
-* exports['qb-dispatch']:UndergroundRobbery()
-* exports['qb-dispatch']:DrugBoatRobbery()
-* exports['qb-dispatch']:UnionRobbery()
-* exports['qb-dispatch']:CarBoosting()
+```lua
+- exports['qb-dispatch']:VehicleShooting(vehicle)
+
+- exports['qb-dispatch']:Shooting()
+
+- exports['qb-dispatch']:SpeedingVehicle(vehicle)
+
+- exports['qb-dispatch']:Fight()
+
+- exports['qb-dispatch']:InjuriedPerson()
+
+- exports['qb-dispatch']:StoreRobbery()
+
+- exports['qb-dispatch']:FleecaBankRobbery()
+
+- exports['qb-dispatch']:PaletoBankRobbery()
+
+- exports['qb-dispatch']:PacificBankRobbery()
+
+- exports['qb-dispatch']:PrisonBreak()
+
+- exports['qb-dispatch']:VangelicoRobbery()
+
+- exports['qb-dispatch']:HouseRobbery()
+
+- exports['qb-dispatch']:PrisonBreak()
+
+- exports['qb-dispatch']:DrugSale()
+
+- exports['qb-dispatch']:ArtGalleryRobbery()
+
+- exports['qb-dispatch']:HumaneRobery(
+
+- exports['qb-dispatch']:TrainRobbery()
+
+- exports['qb-dispatch']:VanRobbery()
+
+- exports['qb-dispatch']:UndergroundRobbery()
+
+- exports['qb-dispatch']:DrugBoatRobbery()
+
+- exports['qb-dispatch']:UnionRobbery()
+
+- exports['qb-dispatch']:CarBoosting()
+```
 
 # Steps to Create New Alert
 
