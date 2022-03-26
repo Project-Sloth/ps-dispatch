@@ -22,7 +22,7 @@ WIP for cleaner and more easier to setup Dispatch compatible with QB-mdt
 
 - exports['qb-dispatch']:InjuriedPerson()
 
-- exports['qb-dispatch']:StoreRobbery()
+- exports['qb-dispatch']:StoreRobbery(camId)
 
 - exports['qb-dispatch']:FleecaBankRobbery()
 
@@ -54,7 +54,7 @@ WIP for cleaner and more easier to setup Dispatch compatible with QB-mdt
 
 - exports['qb-dispatch']:UnionRobbery()
 
-- exports['qb-dispatch']:CarBoosting()
+- exports['qb-dispatch']:CarBoosting(vehdata)
 ```
 
 # Steps to Create New Alert
