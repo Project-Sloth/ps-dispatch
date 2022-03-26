@@ -42,7 +42,7 @@ WIP for cleaner and more easier to setup Dispatch compatible with QB-mdt
 
 - exports['qb-dispatch']:ArtGalleryRobbery()
 
-- exports['qb-dispatch']:HumaneRobery(
+- exports['qb-dispatch']:HumaneRobery()
 
 - exports['qb-dispatch']:TrainRobbery()
 
