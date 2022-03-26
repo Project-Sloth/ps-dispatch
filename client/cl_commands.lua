@@ -207,8 +207,8 @@ RegisterCommand('311a', function(source, args, rawCommand)
                     dispatchCode = "311",
                     firstStreet = locationInfo,
                     priority = 2, -- priority
-                    name = plyData.charinfo.firstname:sub(1,1):upper()..plyData.charinfo.firstname:sub(2).. " ".. plyData.charinfo.lastname:sub(1,1):upper()..plyData.charinfo.lastname:sub(2),
-                    number = plyData.charinfo.phone,
+                    name = "Anonymous",
+                    number = "Hidden Number",
                     origin = {
                         x = currentPos.x,
                         y = currentPos.y,
