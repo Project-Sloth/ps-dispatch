@@ -1,6 +1,6 @@
-# qb-dispatch
+# Beta Released
 
-WIP for cleaner and more easier to setup Dispatch compatible with QB-mdt
+Integrated with https://github.com/Project-Sloth/qb-mdt
 
 # Installation
 * Download ZIP
