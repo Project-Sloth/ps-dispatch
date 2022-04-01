@@ -5,11 +5,10 @@ QBCore = exports['qb-core']:GetCoreObject()
 
 -- core related
 
-RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
     isLoggedIn = true
-    PlayerData= QBCore.Functions.GetPlayerData()
-    PlayerJob  = QBCore.Functions.GetPlayerData().job
-    -- generateHuntingZones()
+    PlayerData = QBCore.Functions.GetPlayerData()
+    PlayerJob = QBCore.Functions.GetPlayerData().job
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
@@ -20,7 +19,8 @@ RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     -- removeHuntingZones()
 end)
 
-RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
+RegisterNetEvent("QBCore:Client:OnJobUpdate", function(JobInfo)
+    PlayerData = QBCore.Functions.GetPlayerData()
     PlayerJob = JobInfo
 end)
 
