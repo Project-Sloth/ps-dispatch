@@ -101,5 +101,4 @@ Information about each parameter is in the file.
 
 * Hunting Zones
 * Locales for alerts
-* Add onduty check for alerts
 * Vehicle Theft Alert

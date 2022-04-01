@@ -175,6 +175,13 @@ local function IsValidJob(jobList)
 	return false
 end
 
+local function CheckOnDuty()
+	if Config.OnDutyOnly then
+		return PlayerJob.onduty
+	end
+	return true
+end
+
 -- Dispatch Itself
 
 local disableNotis, disableNotifSounds = false, false
@@ -201,7 +208,7 @@ end)
 
 RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationId, sender)
     if sNotificationData ~= nil and isLoggedIn then
-		if IsValidJob(sNotificationData['job']) then
+		if IsValidJob(sNotificationData['job']) and CheckOnDuty() then
             if not disableNotis then
 				if sNotificationData.origin ~= nil then
 					SendNUIMessage({
