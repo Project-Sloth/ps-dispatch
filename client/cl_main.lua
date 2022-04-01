@@ -3,23 +3,12 @@ PlayerJob = {}
 isLoggedIn = false
 QBCore = exports['qb-core']:GetCoreObject()
 
-
-CreateThread(function()
-    while QBCore == nil do
-        Wait(200)
-    end
-    isLoggedIn = true
-    PlayerData = QBCore.Functions.GetPlayerData()
-    PlayerJob  = QBCore.Functions.GetPlayerData().job
-end)
-
 -- core related
 
-RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
     isLoggedIn = true
-    PlayerData= QBCore.Functions.GetPlayerData()
-    PlayerJob  = QBCore.Functions.GetPlayerData().job
-    -- generateHuntingZones()
+    PlayerData = QBCore.Functions.GetPlayerData()
+    PlayerJob = QBCore.Functions.GetPlayerData().job
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
@@ -30,7 +19,8 @@ RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     -- removeHuntingZones()
 end)
 
-RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
+RegisterNetEvent("QBCore:Client:OnJobUpdate", function(JobInfo)
+    PlayerData = QBCore.Functions.GetPlayerData()
     PlayerJob = JobInfo
 end)
 
@@ -185,6 +175,13 @@ local function IsValidJob(jobList)
 	return false
 end
 
+local function CheckOnDuty()
+	if Config.OnDutyOnly then
+		return PlayerJob.onduty
+	end
+	return true
+end
+
 -- Dispatch Itself
 
 local disableNotis, disableNotifSounds = false, false
@@ -210,8 +207,8 @@ RegisterNetEvent('dispatch:manageNotifs', function(sentSetting)
 end)
 
 RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationId, sender)
-    if sNotificationData ~= nil then
-		if IsValidJob(sNotificationData['job']) then
+    if sNotificationData ~= nil and isLoggedIn then
+		if IsValidJob(sNotificationData['job']) and CheckOnDuty() then
             if not disableNotis then
 				if sNotificationData.origin ~= nil then
 					SendNUIMessage({
