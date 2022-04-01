@@ -1,11 +1,12 @@
 PlayerData = {}
 PlayerJob = {}
-
+isLoggedIn = false
 QBCore = exports['qb-core']:GetCoreObject()
 
 -- core related
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+    isLoggedIn = true
     PlayerData= QBCore.Functions.GetPlayerData()
     PlayerJob  = QBCore.Functions.GetPlayerData().job
     -- generateHuntingZones()
@@ -13,6 +14,7 @@ end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
 	PlayerData = {}
+    isLoggedIn = false
     currentCallSign = ""
     -- currentVehicle, inVehicle, currentlyArmed, currentWeapon = nil, false, false, `WEAPON_UNARMED`
     -- removeHuntingZones()
@@ -198,7 +200,7 @@ RegisterNetEvent('dispatch:manageNotifs', function(sentSetting)
 end)
 
 RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationId, sender)
-    if sNotificationData ~= nil and LocalPlayer.state.isLoggedIn then
+    if sNotificationData ~= nil and isLoggedIn then
 		if IsValidJob(sNotificationData['job']) then
             if not disableNotis then
 				if sNotificationData.origin ~= nil then
