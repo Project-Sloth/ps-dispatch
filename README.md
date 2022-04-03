@@ -54,7 +54,7 @@ Integrated with https://github.com/Project-Sloth/qb-mdt
 
 - exports['qb-dispatch']:UnionRobbery()
 
-- exports['qb-dispatch']:CarBoosting(vehdata)
+- exports['qb-dispatch']:CarBoosting(vehicle)
 ```
 
 # Steps to Create New Alert
@@ -93,9 +93,46 @@ end exports('FleecaBankRobbery', FleecaBankRobbery)
 ```lua
 	["bankrobbery"] =  {displayCode = '10-90', description = "Fleeca Bank Robbery In Progress", radius = 0, recipientList = {'police'}, blipSprite = 500, blipColour = 2, blipScale = 1.5, blipLength = 2, sound = "robberysound"},
 ```
-
 Information about each parameter is in the file.
 
+# Alerts with Vehicle Information
+1. If you want to display vehicle information with a particular alert, you need to pass the vehicle along with the exports like this
+```lua 
+exports["qb-dipatch"]:TestVehicleAlert(vehicle)
+```
+
+and its function in qb-dispatch would look like this
+
+```lua
+local function TestVehicleAlert(vehicle)
+    local vehdata = vehicleData(vehicle)
+    local currentPos = GetEntityCoords(PlayerPedId())
+    local locationInfo = getStreetandZone(currentPos)
+    local heading = getCardinalDirectionFromHeading()
+    TriggerServerEvent("dispatch:server:notify",{
+        dispatchcodename = "speeding", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+        dispatchCode = "10-11",
+        firstStreet = locationInfo,
+        model = vehdata.name, -- vehicle name
+        plate = vehdata.plate, -- vehicle plate
+        priority = 2, 
+        firstColor = vehdata.colour, -- vehicle color
+        heading = heading, 
+        automaticGunfire = false,
+        origin = {
+            x = currentPos.x,
+            y = currentPos.y,
+            z = currentPos.z
+        },
+        dispatchMessage = "Speeding Vehicle",
+        job = {"police"}
+    })
+end 
+
+exports('SpeedingVehicle', SpeedingVehicle)
+```
+
+Rest steps will be similar as mentioned above in Steps to create alerts.
 
 # Work to be done
 
