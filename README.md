@@ -36,8 +36,6 @@ Integrated with https://github.com/Project-Sloth/qb-mdt
 
 - exports['qb-dispatch']:HouseRobbery()
 
-- exports['qb-dispatch']:PrisonBreak()
-
 - exports['qb-dispatch']:DrugSale()
 
 - exports['qb-dispatch']:ArtGalleryRobbery()
