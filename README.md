@@ -55,6 +55,8 @@ Integrated with https://github.com/Project-Sloth/qb-mdt
 - exports['qb-dispatch']:UnionRobbery()
 
 - exports['qb-dispatch']:CarBoosting(vehicle)
+
+- exports['qb-dispatch']:CarJacking(vehicle)
 ```
 
 # Steps to Create New Alert
@@ -138,4 +140,3 @@ Rest steps will be similar as mentioned above in Steps to create alerts.
 
 * Hunting Zones
 * Locales for alerts
-* Vehicle Theft Alert
