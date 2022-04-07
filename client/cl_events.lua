@@ -313,6 +313,30 @@ local function DrugSale()
     })
 end exports('DrugSale', DrugSale)
 
+local function CarJacking(vehicle)
+    local vehdata = vehicleData(vehicle)
+    local currentPos = GetEntityCoords(PlayerPedId())
+    local locationInfo = getStreetandZone(currentPos)
+    local heading = getCardinalDirectionFromHeading()
+    TriggerServerEvent("dispatch:server:notify",{
+        dispatchcodename = "carjack", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+        dispatchCode = "10-35",
+        firstStreet = locationInfo,
+        model = vehdata.name, -- vehicle name
+        plate = vehdata.plate, -- vehicle plate
+        priority = 2, 
+        firstColor = vehdata.colour, -- vehicle color
+        heading = heading, 
+        automaticGunfire = false,
+        origin = {
+            x = currentPos.x,
+            y = currentPos.y,
+            z = currentPos.z
+        },
+        dispatchMessage = "Car Jacking",
+        job = {"police"}
+    })
+end exports('CarJacking', CarJacking)
 
 RegisterNetEvent("qb-dispatch:client:officerdown", function()
     local plyData = QBCore.Functions.GetPlayerData()
