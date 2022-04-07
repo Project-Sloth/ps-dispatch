@@ -120,4 +120,5 @@ exports('UndergroundRobbery', UndergroundRobbery)
 exports('DrugBoatRobbery', DrugBoatRobbery)
 exports('UnionRobbery', UnionRobbery)
 exports('CarBoosting', CarBoosting)
+exports('CarJacking', CarJacking)
 
