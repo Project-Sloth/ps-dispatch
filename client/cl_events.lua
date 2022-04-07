@@ -17,7 +17,7 @@ local function VehicleShooting(vehdata)
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Shots Fired from Vehicle",
+        dispatchMessage = _U('vehicleshooting'),  
         job = {"ambulance","police"}
     })
 end exports('VehicleShooting', VehicleShooting)
@@ -41,7 +41,7 @@ local function Shooting()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Shots Fired",
+        dispatchMessage = _U('shooting'), 
         job = {"police"}
     })
 end exports('Shooting', Shooting)
@@ -65,7 +65,7 @@ local function SpeedingVehicle(vehdata)
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Speeding Vehicle",
+        dispatchMessage = _U('speeding'),
         job = {"police"}
     })
 end exports('SpeedingVehicle', SpeedingVehicle)
@@ -87,9 +87,9 @@ local function Fight()
         origin = {
             x = currentPos.x,
             y = currentPos.y,
-            z = currentPos.z
+            z = currentPos.zs
         },
-        dispatchMessage = "Fight In Progress",
+        dispatchMessage = _U('melee'),
         job = {"police"}
     })
 end exports('Fight', Fight)
@@ -113,8 +113,8 @@ local function InjuriedPerson()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Civilian Down", -- message
-        job = {"ambulance"} -- jobs that will get the alerts
+        dispatchMessage = _U('persondown'), -- message
+        job = {"ambulance", "police"} -- jobs that will get the alerts
     })
 end exports('InjuriedPerson', InjuriedPerson)
 
@@ -139,7 +139,7 @@ local function StoreRobbery(camId)
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Store Robbery", -- message
+        dispatchMessage = _U('storerobbery'), -- message
         job = {"police"} -- jobs that will get the alerts
     })
 end exports('StoreRobbery', StoreRobbery)
@@ -163,7 +163,7 @@ local function FleecaBankRobbery()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Fleeca Bank Robbery", -- message
+        dispatchMessage = _U('fleecabank'), -- message
         job = {"police"} -- jobs that will get the alerts
     })
 end exports('FleecaBankRobbery', FleecaBankRobbery)
@@ -187,7 +187,7 @@ local function PaletoBankRobbery()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Paleto Bank Robbery", -- message
+        dispatchMessage = _U('paletobank'), -- message
         job = {"police"} -- jobs that will get the alerts
     })
 end exports('PaletoBankRobbery', PaletoBankRobbery)
@@ -211,7 +211,7 @@ local function PacificBankRobbery()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Pacific Bank Robbery", -- message
+        dispatchMessage = _U('pacificbank'), -- message
         job = {"police"} -- jobs that will get the alerts
     })
 end exports('PacificBankRobbery', PacificBankRobbery)
@@ -235,7 +235,7 @@ local function PrisonBreak()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Prison Break In Progress", -- message
+        dispatchMessage = _U('prisonbreak'), -- message
         job = {"police"} -- jobs that will get the alerts
     })
 end exports('PrisonBreak', PrisonBreak)
@@ -260,7 +260,7 @@ local function VangelicoRobbery()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Vangelico Robbery", -- message
+        dispatchMessage = _U('vangelico'), -- message
         job = {"police"} -- jobs that will get the alerts
     })
 end exports('VangelicoRobbery', VangelicoRobbery)
@@ -284,7 +284,7 @@ local function HouseRobbery()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "House Robbery", -- message
+        dispatchMessage = _U('houserobbery'), -- message
         job = {"police"} -- jobs that will get the alerts
     })
 end exports('HouseRobbery', HouseRobbery)
@@ -308,10 +308,14 @@ local function DrugSale()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Suspicious Handoff", -- message
+        dispatchMessage = _U('drugsell'), -- message
         job = {"police"} -- jobs that will get the alerts
     })
 end exports('DrugSale', DrugSale)
+
+RegisterNetEvent('qb-dispatch:client:drugsale', function()
+    DrugSale()
+end)
 
 local function CarJacking(vehicle)
     local vehdata = vehicleData(vehicle)
@@ -333,7 +337,7 @@ local function CarJacking(vehicle)
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Car Jacking",
+        dispatchMessage = _U('carjacking'),
         job = {"police"}
     })
 end exports('CarJacking', CarJacking)
@@ -357,7 +361,7 @@ RegisterNetEvent("qb-dispatch:client:officerdown", function()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Officer Down", -- message
+        dispatchMessage = _U('officerdown'), -- message
         job = {"police", "ambulance"} -- jobs that will get the alerts
     })
 end) 
@@ -381,7 +385,7 @@ RegisterNetEvent("qb-dispatch:client:emsdown", function()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "EMS Down", -- message
+        dispatchMessage = _U('emsdown'), -- message
         job = {"police", "ambulance"} -- jobs that will get the alerts
     })
 end) 
