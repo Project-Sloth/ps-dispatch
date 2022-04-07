@@ -54,6 +54,8 @@ Integrated with https://github.com/Project-Sloth/qb-mdt
 
 - exports['qb-dispatch']:UnionRobbery()
 
+- exports['qb-dispatch']:YachtHeist()
+
 - exports['qb-dispatch']:CarBoosting(vehicle)
 
 - exports['qb-dispatch']:CarJacking(vehicle)
