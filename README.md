@@ -2,6 +2,10 @@
 
 Integrated with https://github.com/Project-Sloth/qb-mdt
 
+For all support questions, ask in our Discord support chat. **DO NOT CREATE AN ISSUE**
+
+https://discord.gg/loljoshie
+
 # Installation
 * Download ZIP
 * Drag and drop resource into your server files
