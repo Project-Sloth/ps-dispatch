@@ -114,8 +114,8 @@ function addNewCall(callID, timer, info, isPolice) {
         DispatchItem += `<div class="call-bottom-info"><span class="fas fa-car"></span>${info['model']}</div>`
     }
 
-    if (info['color']) {
-        DispatchItem += `<div class="call-bottom-info"><span class="fas fa-spray-can"></span>${info['color']}</div>`
+    if (info['firstColor']) {
+        DispatchItem += <div class="call-bottom-info"><span class="fas fa-spray-can"></span>${info['firstColor']}</div>`
     }
     
     if (info['automaticGunfire'] == true) {
