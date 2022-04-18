@@ -70,6 +70,7 @@ function timeAgo(dateParam) {
 }
 
 function addNewCall(callID, timer, info, isPolice) {
+    console.log(callID, timer, info, isPolice)
     const prio = info['priority']
     let DispatchItem;
     if (info['isDead']){
@@ -116,7 +117,7 @@ function addNewCall(callID, timer, info, isPolice) {
 
     if (info['firstColor']) {
         DispatchItem += `<div class="call-bottom-info"><span class="fas fa-spray-can"></span>${info['firstColor']}</div>`
-    
+    }
     if (info['automaticGunfire'] == true) {
         DispatchItem += `<div class="call-bottom-info"><span class="fab fa-blackberry"></span>Automatic Gunfire</div>`
     }
@@ -152,5 +153,4 @@ function addNewCall(callID, timer, info, isPolice) {
             $(`.${callID}`).remove();
             }, 1000);
         }, timer || 4500);
-    }
 };
