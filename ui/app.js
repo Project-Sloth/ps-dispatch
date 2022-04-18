@@ -115,8 +115,7 @@ function addNewCall(callID, timer, info, isPolice) {
     }
 
     if (info['firstColor']) {
-        DispatchItem += <div class="call-bottom-info"><span class="fas fa-spray-can"></span>${info['firstColor']}</div>`
-    }
+        DispatchItem += `<div class="call-bottom-info"><span class="fas fa-spray-can"></span>${info['firstColor']}</div>`
     
     if (info['automaticGunfire'] == true) {
         DispatchItem += `<div class="call-bottom-info"><span class="fab fa-blackberry"></span>Automatic Gunfire</div>`
@@ -151,6 +150,7 @@ function addNewCall(callID, timer, info, isPolice) {
         $(`.${callID}`).addClass("animate__backOutRight");
         setTimeout(() => {
             $(`.${callID}`).remove();
-        }, 1000);
-    }, timer || 4500);
+            }, 1000);
+        }, timer || 4500);
+    }
 };
