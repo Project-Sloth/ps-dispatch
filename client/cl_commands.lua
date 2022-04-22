@@ -234,8 +234,8 @@ end)
 
 
 Citizen.CreateThread(function()
-    TriggerEvent('chat:addSuggestion', '/911', 'Send a message to the emergency services', {{ name="message", help="Message to dispatch"}})
-    TriggerEvent('chat:addSuggestion', '/911a', 'Send a message to the emergency services (anonymously)', {{ name="message", help="Message to dispatch"}})
-    TriggerEvent('chat:addSuggestion', '/311', 'Send a message to the emergency services', {{ name="message", help="Message to dispatch"}})
-    TriggerEvent('chat:addSuggestion', '/311a', 'Send a message to the emergency services (anonymously)', {{ name="message", help="Message to dispatch"}})
+    TriggerEvent('chat:addSuggestion', '/911', 'Send a message to the police.', {{ name="message", help="Message to police."}})
+    TriggerEvent('chat:addSuggestion', '/911a', 'Send a message to the police anonymously.', {{ name="message", help="Message to police anonymous."}})
+    TriggerEvent('chat:addSuggestion', '/311', 'Send a message to the EMS.', {{ name="message", help="Message to EMS."}})
+    TriggerEvent('chat:addSuggestion', '/311a', 'Send a message to the EMS anonymously.', {{ name="message", help="Message to EMS anonymous."}})
 end)
