@@ -2,6 +2,10 @@
 
 Integrated with https://github.com/Project-Sloth/qb-mdt
 
+For all support questions, ask in our Discord support chat. Do not create issues if you need help. Issues are for bug reporting and new features only.
+
+https://www.discord.gg/ljlabs
+
 # Installation
 * Download ZIP
 * Drag and drop resource into your server files
@@ -58,7 +62,9 @@ Integrated with https://github.com/Project-Sloth/qb-mdt
 
 - exports['qb-dispatch']:CarBoosting(vehicle)
 
-- exports['qb-dispatch']:CarJacking(vehicle)
+- exports['qb-dispatch']:CarJacking(vehicle
+
+- exports['qb-dispatch']:VehicleTheft(vehicle)
 ```
 
 # Steps to Create New Alert

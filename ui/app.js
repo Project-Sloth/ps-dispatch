@@ -70,6 +70,7 @@ function timeAgo(dateParam) {
 }
 
 function addNewCall(callID, timer, info, isPolice) {
+    console.log(callID, timer, info, isPolice)
     const prio = info['priority']
     let DispatchItem;
     if (info['isDead']){
@@ -96,6 +97,18 @@ function addNewCall(callID, timer, info, isPolice) {
         DispatchItem += `<div class="call-bottom-info"><span class="fas fa-share"></span>${info['heading']}</div>`
     }
 
+    if (info['callsign']) {
+        DispatchItem += `<div class="call-bottom-info"><span class="fas fa-solid fa-eye"></span>${info['callsign']}</div>`
+    }
+
+    if (info['doorCount']) {
+        DispatchItem += `<div class="call-bottom-info"><span class="fas fa-door-open"></span>${info['doorCount']}</div>`
+    }
+
+    if (info['weapon']) {
+        DispatchItem += `<div class="call-bottom-info"><span class="fas fa-bullseye"></span>${info['weapon']}</div>`
+    }
+    
     if (info["camId"]) {
         DispatchItem += `<div class="call-bottom-info"><span class="fas fa-camera"></span>${info['camId']}</div>`
     }
@@ -114,10 +127,9 @@ function addNewCall(callID, timer, info, isPolice) {
         DispatchItem += `<div class="call-bottom-info"><span class="fas fa-car"></span>${info['model']}</div>`
     }
 
-    if (info['color']) {
-        DispatchItem += `<div class="call-bottom-info"><span class="fas fa-spray-can"></span>${info['color']}</div>`
+    if (info['firstColor']) {
+        DispatchItem += `<div class="call-bottom-info"><span class="fas fa-spray-can"></span>${info['firstColor']}</div>`
     }
-    
     if (info['automaticGunfire'] == true) {
         DispatchItem += `<div class="call-bottom-info"><span class="fab fa-blackberry"></span>Automatic Gunfire</div>`
     }
@@ -151,6 +163,6 @@ function addNewCall(callID, timer, info, isPolice) {
         $(`.${callID}`).addClass("animate__backOutRight");
         setTimeout(() => {
             $(`.${callID}`).remove();
-        }, 1000);
-    }, timer || 4500);
+            }, 1000);
+        }, timer || 4500);
 };
