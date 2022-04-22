@@ -386,10 +386,6 @@ local function DrugSale()
     })
 end exports('DrugSale', DrugSale)
 
-RegisterNetEvent('qb-dispatch:client:drugsale', function()
-    DrugSale()
-end)
-
 local function CarJacking(vehicle)
     local vehdata = vehicleData(vehicle)
     local currentPos = GetEntityCoords(PlayerPedId())
