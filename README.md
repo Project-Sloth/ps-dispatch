@@ -60,7 +60,9 @@ https://www.discord.gg/ljlabs
 
 - exports['qb-dispatch']:CarBoosting(vehicle)
 
-- exports['qb-dispatch']:CarJacking(vehicle)
+- exports['qb-dispatch']:CarJacking(vehicle
+
+- exports['qb-dispatch']:VehicleTheft(vehicle)
 ```
 
 # Steps to Create New Alert
