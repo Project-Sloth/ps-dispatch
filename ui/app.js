@@ -97,6 +97,18 @@ function addNewCall(callID, timer, info, isPolice) {
         DispatchItem += `<div class="call-bottom-info"><span class="fas fa-share"></span>${info['heading']}</div>`
     }
 
+    if (info['callsign']) {
+        DispatchItem += `<div class="call-bottom-info"><span class="fas fa-solid fa-eye"></span>${info['callsign']}</div>`
+    }
+
+    if (info['doorCount']) {
+        DispatchItem += `<div class="call-bottom-info"><span class="fas fa-door-open"></span>${info['doorCount']}</div>`
+    }
+
+    if (info['weapon']) {
+        DispatchItem += `<div class="call-bottom-info"><span class="fas fa-bullseye"></span>${info['weapon']}</div>`
+    }
+    
     if (info["camId"]) {
         DispatchItem += `<div class="call-bottom-info"><span class="fas fa-camera"></span>${info['camId']}</div>`
     }
