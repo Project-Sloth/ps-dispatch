@@ -58,7 +58,7 @@ local function VehicleShooting(vehdata)
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = _U('vehicleshooting'),
+        dispatchMessage = _U('vehicleshots'),
         job = {"police"}
     })
 end exports('VehicleShooting', VehicleShooting)

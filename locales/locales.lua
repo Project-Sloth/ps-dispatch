@@ -25,7 +25,7 @@ Locales = {
         ['military'] = "Military vehicle",
         ['truck'] = "Truck",
         -- DISPATCH MESSAGES
-        ['vehicleShooting'] = "Shots Fired from Vehicle",
+        ['vehicleshots'] = "Shots Fired from Vehicle",
         ['shooting'] = "Discharge of a firearm",
         ['melee'] = "Fight in progress",
         ['driveby'] = "Drive-by shooting",
