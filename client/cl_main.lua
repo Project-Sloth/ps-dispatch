@@ -2,7 +2,7 @@ PlayerData = {}
 PlayerJob = {}
 isLoggedIn = false
 QBCore = exports['qb-core']:GetCoreObject()
-
+local AlertSend = false
 -- core related
 
 RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
