@@ -23,7 +23,12 @@ Config.Enable.Shooting = true
 Config.Enable.Autotheft = true
 Config.Enable.Melee = true
 Config.Enable.PlayerDowned = true
+
 ---------------------------------------------------------------
+-- activate/deactivate the Explosion Alert  ( "true" or "false ")
+Config.ExplosionAlert = "true"
+---------------------------------------------------------------
+
 Config.Locale = 'en'
 
 -- enable alerts when cops break the law and print to console

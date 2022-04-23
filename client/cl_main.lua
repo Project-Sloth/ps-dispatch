@@ -2,6 +2,7 @@ PlayerData = {}
 PlayerJob = {}
 isLoggedIn = false
 QBCore = exports['qb-core']:GetCoreObject()
+local AlertSend = false
 
 -- core related
 
@@ -307,14 +308,16 @@ end)
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(1)
-        if IsExplosionInSphere(9, 1396.06, -746.13, 67.21, 99999.0) or IsExplosionInSphere(5, 1396.06, -746.13, 67.21, 99999.0) or IsExplosionInSphere(7, 1396.06, -746.13, 67.21, 99999.0) or IsExplosionInSphere(10, 1396.06, -746.13, 67.21, 99999.0) or IsExplosionInSphere(8, 1396.06, -746.13, 67.21, 99999.0) or IsExplosionInSphere(15, 1396.06, -746.13, 67.21, 99999.0) or IsExplosionInSphere(17, 1396.06, -746.13, 67.21, 99999.0) then
-            if not AlertSend then
-                exports['qb-dispatch']:Explosion()
-                AlertSend = true
-                SetTimeout(Config.AlertCooldown, function()
-                    AlertSend = false
-                end)
-            end
-        end
+	if Config.ExplosionAlert == "true" then
+        	if IsExplosionInSphere(9, 1396.06, -746.13, 67.21, 99999.0) or IsExplosionInSphere(5, 1396.06, -746.13, 67.21, 99999.0) or IsExplosionInSphere(7, 1396.06, -746.13, 67.21, 99999.0) or IsExplosionInSphere(10, 1396.06, -746.13, 67.21, 99999.0) or IsExplosionInSphere(8, 1396.06, -746.13, 67.21, 99999.0) or IsExplosionInSphere(15, 1396.06, -746.13, 67.21, 99999.0) or IsExplosionInSphere(17, 1396.06, -746.13, 67.21, 99999.0) then
+            		if not AlertSend then
+                		exports['qb-dispatch']:Explosion()
+                		AlertSend = true
+                		SetTimeout(Config.AlertCooldown, function()
+                		    AlertSend = false
+                		end)
+            		end
+        	end
+	end
     end
 end)
