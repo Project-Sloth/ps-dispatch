@@ -11,6 +11,9 @@ Config.OnDutyOnly = false
 Config.PoliceAndAmbulance = { "police", "ambulance", "bcso"}
 Config.PhoneModel = 'prop_npc_phone_02'
 
+-- Change it to your likeing so the Explosion Alert doesnt get spammed 1 Million times
+Config.AlertCooldown = math.random(40000, 60000)
+
 -- sets report chance to 100%
 Config.DebugChance = true
 
