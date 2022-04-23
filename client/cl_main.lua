@@ -277,3 +277,110 @@ RegisterNetEvent('dispatch:getCallResponse', function(message)
         isPolice = true
     })
 end)
+
+--Explosion Alerts
+
+Citizen.CreateThread(function()  -- PETROL PUMP
+    while true do
+        Citizen.Wait(1)
+        if IsExplosionInSphere(9, 1396.06, -746.13, 67.21, 99999.0) then
+            if not AlertSend then
+                exports['qb-dispatch']:Explosion()
+                AlertSend = true
+                SetTimeout(Config.AlertCooldown, function()
+                    AlertSend = false
+                end)
+            end
+        end
+    end
+end)
+
+Citizen.CreateThread(function()  -- TANKSHELL
+    while true do
+        Citizen.Wait(1)
+        if IsExplosionInSphere(5, 1396.06, -746.13, 67.21, 99999.0) then
+            if not AlertSend then
+                exports['qb-dispatch']:Explosion()
+                AlertSend = true
+                SetTimeout(Config.AlertCooldown, function()
+                    AlertSend = false
+                end)
+            end
+        end
+    end
+end)
+
+Citizen.CreateThread(function()  -- CARS
+    while true do
+        Citizen.Wait(1)
+        if IsExplosionInSphere(7, 1396.06, -746.13, 67.21, 99999.0) then
+            if not AlertSend then
+                exports['qb-dispatch']:Explosion()
+                AlertSend = true
+                SetTimeout(Config.AlertCooldown, function()
+                    AlertSend = false
+                end)
+            end
+        end
+    end
+end)
+
+Citizen.CreateThread(function()  -- BIKES
+    while true do
+        Citizen.Wait(1)
+        if IsExplosionInSphere(10, 1396.06, -746.13, 67.21, 99999.0) then
+            if not AlertSend then
+                exports['qb-dispatch']:Explosion()
+                AlertSend = true
+                SetTimeout(Config.AlertCooldown, function()
+                    AlertSend = false
+                end)
+            end
+        end
+    end
+end)
+
+Citizen.CreateThread(function()  -- PLANES
+    while true do
+        Citizen.Wait(1)
+        if IsExplosionInSphere(8, 1396.06, -746.13, 67.21, 99999.0) then
+            if not AlertSend then
+                exports['qb-dispatch']:Explosion()
+                AlertSend = true
+                SetTimeout(Config.AlertCooldown, function()
+                    AlertSend = false
+                end)
+            end
+        end
+    end
+end)
+
+Citizen.CreateThread(function()  -- BOATS
+    while true do
+        Citizen.Wait(1)
+        if IsExplosionInSphere(15, 1396.06, -746.13, 67.21, 99999.0) then
+            if not AlertSend then
+                exports['qb-dispatch']:Explosion()
+                AlertSend = true
+                SetTimeout(Config.AlertCooldown, function()
+                    AlertSend = false
+                end)
+            end
+        end
+    end
+end)
+
+Citizen.CreateThread(function()  -- TRUCKS
+    while true do
+        Citizen.Wait(1)
+        if IsExplosionInSphere(17, 1396.06, -746.13, 67.21, 99999.0) then
+            if not AlertSend then
+                exports['qb-dispatch']:Explosion()
+                AlertSend = true
+                SetTimeout(Config.AlertCooldown, function()
+                    AlertSend = false
+                end)
+            end
+        end
+    end
+end)
