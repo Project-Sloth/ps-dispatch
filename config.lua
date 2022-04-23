@@ -29,6 +29,9 @@ Config.Locale = 'en'
 -- enable alerts when cops break the law and print to console
 Config.Debug = true
 
+-- changes the min and max offset for the radius
+Config.MinOffset = 1
+Config.MaxOffset = 120
 ---------------------------------------------------------------
 
 Citizen.CreateThread(function()

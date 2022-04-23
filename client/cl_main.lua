@@ -232,12 +232,33 @@ AddEventHandler("qb-dispatch:client:AddCallBlip", function(coords, data)
 		CreateThread(function()
 			local alpha = 255
 			local blip = nil
+			local radius = nil
+			local radiusAlpha = 128
 			local sprite, colour, scale = 161, 84, 1.0
+			local randomoffset = math.random(1,100)
 			if data.blipSprite then sprite = data.blipSprite end
 			if data.blipColour then colour = data.blipColour end
 			if data.blipScale then scale = data.blipScale end
-			print(data.blipSprite, data.blipColour, data.blipScale)
-			blip = AddBlipForCoord(coords.x, coords.y, coords.z)
+			if data.radius then radius = data.radius end
+			print(data.blipSprite, data.blipColour, data.blipScale, data.radius)
+			if data.offset == "true" then
+				if randomoffset <= 25 then
+					radius = AddBlipForRadius(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
+					blip = AddBlipForCoord(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z)
+				elseif randomoffset >= 26 and randomoffset <= 50 then
+					radius = AddBlipForRadius(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
+					blip = AddBlipForCoord(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z)
+				elseif randomoffset >= 51 and randomoffset <= 74 then
+					radius = AddBlipForRadius(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
+					blip = AddBlipForCoord(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z)
+				elseif randomoffset >= 75 and randomoffset <= 100 then
+					radius = AddBlipForRadius(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
+					blip = AddBlipForCoord(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z)
+				end
+			elseif data.offset == "false" then
+				radius = AddBlipForRadius(coords.x, coords.y, coords.z, data.radius)
+				blip = AddBlipForCoord(coords.x, coords.y, coords.z)
+			end
 			SetBlipSprite(blip, sprite)
 			SetBlipHighDetail(blip, true)
 			SetBlipScale(blip, scale)
@@ -245,14 +266,17 @@ AddEventHandler("qb-dispatch:client:AddCallBlip", function(coords, data)
 			SetBlipAlpha(blip, alpha)
 			SetBlipAsShortRange(blip, false)
 			SetBlipCategory(blip, 2)
+			SetBlipColour(radius, colour)
+			SetBlipAlpha(radius, radiusAlpha)
 			BeginTextCommandSetBlipName('STRING')
 			AddTextComponentString(data.displayCode..' - '..data.description)
 			EndTextCommandSetBlipName(blip)
-			while alpha ~= 0 do
+			while radiusAlpha ~= 0 do
 				Wait(data.blipLength * 1000)
-				alpha = alpha - 1
-				SetBlipAlpha(blip, alpha)
-				if alpha == 0 then
+				radiusAlpha = radiusAlpha - 1
+				SetBlipAlpha(radius, radiusAlpha)	
+				if radiusAlpha == 0 then
+					RemoveBlip(radius)
 					RemoveBlip(blip)
 					return
 				end
