@@ -386,6 +386,12 @@ local function DrugSale()
     })
 end exports('DrugSale', DrugSale)
 
+
+-- for rcore_gangs, haven't tested server side exports so made this instead. Remove if you do not need :)
+RegisterNetEvent('qb-dispatch:client:drugsale', function()
+    DrugSale()
+end)
+
 local function CarJacking(vehicle)
     local vehdata = vehicleData(vehicle)
     local currentPos = GetEntityCoords(PlayerPedId())
