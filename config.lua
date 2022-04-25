@@ -30,6 +30,9 @@ Config.Debug = true
 Config.MinOffset = 1
 Config.MaxOffset = 120
 
+-- Change it to your likeing so the Explosion Alert doesnt get spammed 1 Million times
+Config.AlertCooldown = math.random(40000, 60000)
+
 ---------------------------------------------------------------
 
 Citizen.CreateThread(function()
