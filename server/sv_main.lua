@@ -103,12 +103,11 @@ AddEventHandler('explosionEvent', function(source, info)
 
     for i = 1, (#Config.ExplosionTypes) do
         if info.explosionType == Config.ExplosionTypes[i] then
-            exports['qb-dispatch']:Explosion()
+            TriggerClientEvent("qb-dispatch:client:Explosion", source)
             ExplosionCooldown = true
             SetTimeout(1500, function()
                 ExplosionCooldown = false
             end)
         end
     end
-  end)
-  
+end)

@@ -1,6 +1,6 @@
 PlayerData = {}
 PlayerJob = {}
-isLoggedIn = false
+isLoggedIn = true
 QBCore = exports['qb-core']:GetCoreObject()
 
 -- core related
@@ -302,3 +302,7 @@ RegisterNetEvent('dispatch:getCallResponse', function(message)
     })
 end)
 
+RegisterNetEvent("qb-dispatch:client:Explosion", function(data)
+	exports["qb-dispatch"]:Explosion()
+	
+end)
