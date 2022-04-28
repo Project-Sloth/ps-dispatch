@@ -95,3 +95,20 @@ RegisterCommand('togglealerts', function(source, args, user)
 		TriggerClientEvent('dispatch:manageNotifs', source, args[1])
 	end
 end)
+
+-- Explosion Handler
+local ExplosionCooldown = false
+AddEventHandler('explosionEvent', function(source, info)
+    if ExplosionCooldown then return end
+
+    for i = 1, (#Config.ExplosionTypes) do
+        if info.explosionType == Config.ExplosionTypes[i] then
+            exports['qb-dispatch']:Explosion()
+            ExplosionCooldown = true
+            SetTimeout(1500, function()
+                ExplosionCooldown = false
+            end)
+        end
+    end
+  end)
+  
