@@ -469,6 +469,30 @@ RegisterNetEvent("qb-dispatch:client:emsdown", function()
     })
 end) 
 
+local function Explosion()
+    local currentPos = GetEntityCoords(PlayerPedId())
+    local locationInfo = getStreetandZone(currentPos)
+    local gender = GetPedGender()
+    TriggerServerEvent("dispatch:server:notify",{
+        dispatchcodename = "explosion", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+        dispatchCode = "10-80",
+        firstStreet = locationInfo,
+        gender = nil,
+        model = nil,
+        plate = nil,
+        priority = 2, -- priority
+        firstColor = nil,
+        automaticGunfire = false,
+        origin = {
+            x = currentPos.x,
+            y = currentPos.y,
+            z = currentPos.z
+        },
+        dispatchMessage = "EXPLOSION REPORTED", -- message
+        job = {"police"} -- jobs that will get the alerts
+    })
+end exports('Explosion', Explosion)
+
 RegisterCommand('testdispatch',function()
     TriggerEvent('')
 end)

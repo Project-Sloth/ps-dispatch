@@ -96,29 +96,18 @@ RegisterCommand('togglealerts', function(source, args, user)
 	end
 end)
 
--- Server Sided Exports
+-- Explosion Handler
+local ExplosionCooldown = false
+AddEventHandler('explosionEvent', function(source, info)
+    if ExplosionCooldown then return end
 
-exports('VehicleShooting', VehicleShooting)
-exports('Shooting', Shooting)
-exports('SpeedingVehicle', SpeedingVehicle)
-exports('Fight', Fight)
-exports('InjuriedPerson', InjuriedPerson)
-exports('InjuriedPerson', InjuriedPerson)
-exports('StoreRobbery', StoreRobbery)
-exports('FleecaBankRobbery', FleecaBankRobbery)
-exports('PaletoBankRobbery', PaletoBankRobbery)
-exports('PacificBankRobbery', PacificBankRobbery)
-exports('PrisonBreak', PrisonBreak)
-exports('VangelicoRobbery', VangelicoRobbery)
-exports('HouseRobbery', HouseRobbery)
-exports('YachtHeist', YachtHeist)
-exports('DrugSale', DrugSale)
-exports('ArtGalleryRobbery', ArtGalleryRobbery)
-exports('HumaneRobery', HumaneRobery)
-exports('TrainRobbery', TrainRobbery)
-exports('VanRobbery', VanRobbery)
-exports('UndergroundRobbery', UndergroundRobbery)
-exports('DrugBoatRobbery', DrugBoatRobbery)
-exports('UnionRobbery', UnionRobbery)
-exports('CarBoosting', CarBoosting)
-exports('CarJacking', CarJacking)
+    for i = 1, (#Config.ExplosionTypes) do
+        if info.explosionType == Config.ExplosionTypes[i] then
+            TriggerClientEvent("qb-dispatch:client:Explosion", source)
+            ExplosionCooldown = true
+            SetTimeout(1500, function()
+                ExplosionCooldown = false
+            end)
+        end
+    end
+end)

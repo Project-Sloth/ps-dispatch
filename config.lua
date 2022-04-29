@@ -14,6 +14,10 @@ Config.PhoneModel = 'prop_npc_phone_02'
 -- sets report chance to 100%
 Config.DebugChance = true
 
+-- Explosion Alert Types (Gas Pumps by default)
+-- Ex.  Config.ExplosionTypes = {1, 2, 3, 4, 5}
+Config.ExplosionTypes = {9}
+
 -- enable default alerts
 Config.Enable.Speeding = true
 Config.Enable.Shooting = true
@@ -29,10 +33,6 @@ Config.Debug = true
 -- changes the min and max offset for the radius
 Config.MinOffset = 1
 Config.MaxOffset = 120
-
--- Change it to your likeing so the Explosion Alert doesnt get spammed 1 Million times
-Config.AlertCooldown = math.random(40000, 60000)
-
 ---------------------------------------------------------------
 
 Citizen.CreateThread(function()
