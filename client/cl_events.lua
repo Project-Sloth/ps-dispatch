@@ -167,6 +167,29 @@ local function InjuriedPerson()
     })
 end exports('InjuriedPerson', InjuriedPerson)
 
+local function DeceasedPerson()
+    local currentPos = GetEntityCoords(PlayerPedId())
+    local locationInfo = getStreetandZone(currentPos)
+    local gender = GetPedGender()
+    TriggerServerEvent("dispatch:server:notify",{
+        dispatchcodename = "civdead", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+        dispatchCode = "10-69",
+        firstStreet = locationInfo,
+        gender = gender,
+        model = nil,
+        plate = nil,
+        priority = 2, -- priority
+        firstColor = nil,
+        automaticGunfire = false,
+        origin = {
+            x = currentPos.x,
+            y = currentPos.y,
+            z = currentPos.z
+        },
+        dispatchMessage = "Civilian Bled Out", -- message
+        job = {"ambulance"} -- jobs that will get the alerts
+    })
+end exports('DeceasedPerson', DeceasedPerson)
 
 local function StoreRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
