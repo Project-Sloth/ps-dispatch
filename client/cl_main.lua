@@ -144,8 +144,9 @@ function vehicleData(vehicle)
 end
 
 function GetPedGender()
-    local gender = "Male"
-    if QBCore.Functions.GetPlayerData().charinfo.gender == 1 then gender = "Female" end
+    local gender = {}
+	if QBCore.Functions.GetPlayerData().charinfo.gender == 0 then gender = "Male"
+    elseif QBCore.Functions.GetPlayerData().charinfo.gender == 1 then gender = "Female" end
     return gender
 end
 
