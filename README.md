@@ -38,6 +38,8 @@ https://www.discord.gg/ljlabs
 
 - exports['qb-dispatch']:VangelicoRobbery()
 
+- exports['qb-dispatch']:VangelicoSuspicious()
+
 - exports['qb-dispatch']:HouseRobbery()
 
 - exports['qb-dispatch']:PrisonBreak()
