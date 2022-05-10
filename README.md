@@ -58,9 +58,11 @@ https://www.discord.gg/ljlabs
 
 - exports['qb-dispatch']:UnionRobbery()
 
+- exports['qb-dispatch']:YachtHeist()
+
 - exports['qb-dispatch']:CarBoosting(vehicle)
 
-- exports['qb-dispatch']:CarJacking(vehicle
+- exports['qb-dispatch']:CarJacking(vehicle)
 
 - exports['qb-dispatch']:VehicleTheft(vehicle)
 ```

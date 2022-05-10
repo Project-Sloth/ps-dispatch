@@ -304,5 +304,4 @@ end)
 
 RegisterNetEvent("qb-dispatch:client:Explosion", function(data)
 	exports["qb-dispatch"]:Explosion()
-	
 end)
