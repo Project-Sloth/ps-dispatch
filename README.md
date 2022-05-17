@@ -1,10 +1,10 @@
 # Beta Released
 
-Integrated with https://github.com/Project-Sloth/qb-mdt
+Integrated with https://github.com/Project-Sloth/ps-mdt
 
 For all support questions, ask in our Discord support chat. Do not create issues if you need help. Issues are for bug reporting and new features only.
 
-https://www.discord.gg/ljlabs
+https://www.discord.gg/projectsloth
 
 # Installation
 * Download ZIP
@@ -16,55 +16,55 @@ https://www.discord.gg/ljlabs
 
 # Alert Exports
 ```lua
-- exports['qb-dispatch']:VehicleShooting(vehicle)
+- exports['ps-disptach']:VehicleShooting(vehicle)
 
-- exports['qb-dispatch']:Shooting()
+- exports['ps-disptach']:Shooting()
 
-- exports['qb-dispatch']:SpeedingVehicle(vehicle)
+- exports['ps-disptach']:SpeedingVehicle(vehicle)
 
-- exports['qb-dispatch']:Fight()
+- exports['ps-disptach']:Fight()
 
-- exports['qb-dispatch']:InjuriedPerson()
+- exports['ps-disptach']:InjuriedPerson()
 
-- exports['qb-dispatch']:StoreRobbery(camId)
+- exports['ps-disptach']:StoreRobbery(camId)
 
-- exports['qb-dispatch']:FleecaBankRobbery()
+- exports['ps-disptach']:FleecaBankRobbery()
 
-- exports['qb-dispatch']:PaletoBankRobbery()
+- exports['ps-disptach']:PaletoBankRobbery()
 
-- exports['qb-dispatch']:PacificBankRobbery()
+- exports['ps-disptach']:PacificBankRobbery()
 
-- exports['qb-dispatch']:PrisonBreak()
+- exports['ps-disptach']:PrisonBreak()
 
-- exports['qb-dispatch']:VangelicoRobbery()
+- exports['ps-disptach']:VangelicoRobbery()
 
-- exports['qb-dispatch']:HouseRobbery()
+- exports['ps-disptach']:HouseRobbery()
 
-- exports['qb-dispatch']:PrisonBreak()
+- exports['ps-disptach']:PrisonBreak()
 
-- exports['qb-dispatch']:DrugSale()
+- exports['ps-disptach']:DrugSale()
 
-- exports['qb-dispatch']:ArtGalleryRobbery()
+- exports['ps-disptach']:ArtGalleryRobbery()
 
-- exports['qb-dispatch']:HumaneRobery()
+- exports['ps-disptach']:HumaneRobery()
 
-- exports['qb-dispatch']:TrainRobbery()
+- exports['ps-disptach']:TrainRobbery()
 
-- exports['qb-dispatch']:VanRobbery()
+- exports['ps-disptach']:VanRobbery()
 
-- exports['qb-dispatch']:UndergroundRobbery()
+- exports['ps-disptach']:UndergroundRobbery()
 
-- exports['qb-dispatch']:DrugBoatRobbery()
+- exports['ps-disptach']:DrugBoatRobbery()
 
-- exports['qb-dispatch']:UnionRobbery()
+- exports['ps-disptach']:UnionRobbery()
 
-- exports['qb-dispatch']:YachtHeist()
+- exports['ps-disptach']:YachtHeist()
 
-- exports['qb-dispatch']:CarBoosting(vehicle)
+- exports['ps-disptach']:CarBoosting(vehicle)
 
-- exports['qb-dispatch']:CarJacking(vehicle)
+- exports['ps-disptach']:CarJacking(vehicle)
 
-- exports['qb-dispatch']:VehicleTheft(vehicle)
+- exports['ps-disptach']:VehicleTheft(vehicle)
 ```
 
 # Steps to Create New Alert
@@ -111,7 +111,7 @@ Information about each parameter is in the file.
 exports["qb-dipatch"]:TestVehicleAlert(vehicle)
 ```
 
-and its function in qb-dispatch would look like this
+and its function in ps-disptach would look like this
 
 ```lua
 local function TestVehicleAlert(vehicle)
