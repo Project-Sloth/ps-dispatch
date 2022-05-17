@@ -2,7 +2,7 @@ fx_version 'cerulean'
 game 'gta5'
 
 version '0.0'
-description 'https://github.com/Project-Sloth/qb-dispatch'
+description 'https://github.com/Project-Sloth/ps-dispatch'
 
 shared_scripts {
     'config.lua',

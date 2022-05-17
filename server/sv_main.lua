@@ -25,7 +25,7 @@ AddEventHandler("dispatch:server:notify", function(data)
     calls[newId]['time'] = os.time() * 1000
 
 	TriggerClientEvent('dispatch:clNotify', -1, data, newId, source)
-    TriggerClientEvent("qb-dispatch:client:AddCallBlip", -1, data.origin, dispatchCodes[data.dispatchcodename])
+    TriggerClientEvent("ps-dispatch:client:AddCallBlip", -1, data.origin, dispatchCodes[data.dispatchcodename])
 end)
 
 
@@ -103,7 +103,7 @@ AddEventHandler('explosionEvent', function(source, info)
 
     for i = 1, (#Config.ExplosionTypes) do
         if info.explosionType == Config.ExplosionTypes[i] then
-            TriggerClientEvent("qb-dispatch:client:Explosion", source)
+            TriggerClientEvent("ps-dispatch:client:Explosion", source)
             ExplosionCooldown = true
             SetTimeout(1500, function()
                 ExplosionCooldown = false

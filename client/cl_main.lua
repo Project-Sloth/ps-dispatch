@@ -224,8 +224,8 @@ RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationI
     end
 end)
 
-RegisterNetEvent("qb-dispatch:client:AddCallBlip")
-AddEventHandler("qb-dispatch:client:AddCallBlip", function(coords, data)
+RegisterNetEvent("ps-dispatch:client:AddCallBlip")
+AddEventHandler("ps-dispatch:client:AddCallBlip", function(coords, data)
 	if IsValidJob(data.recipientList) then
 		PlaySound(-1, data.sound, data.sound2, 0, 0, 1)
 		TriggerServerEvent("InteractSound_SV:PlayOnSource", data.sound, 0.25) -- For Custom Sounds
@@ -302,6 +302,6 @@ RegisterNetEvent('dispatch:getCallResponse', function(message)
     })
 end)
 
-RegisterNetEvent("qb-dispatch:client:Explosion", function(data)
-	exports["qb-dispatch"]:Explosion()
+RegisterNetEvent("ps-dispatch:client:Explosion", function(data)
+	exports["ps-dispatch"]:Explosion()
 end)
