@@ -16,55 +16,55 @@ https://www.discord.gg/projectsloth
 
 # Alert Exports
 ```lua
-- exports['ps-disptach']:VehicleShooting(vehicle)
+- exports['ps-dispatch']:VehicleShooting(vehicle)
 
-- exports['ps-disptach']:Shooting()
+- exports['ps-dispatch']:Shooting()
 
-- exports['ps-disptach']:SpeedingVehicle(vehicle)
+- exports['ps-dispatch']:SpeedingVehicle(vehicle)
 
-- exports['ps-disptach']:Fight()
+- exports['ps-dispatch']:Fight()
 
-- exports['ps-disptach']:InjuriedPerson()
+- exports['ps-dispatch']:InjuriedPerson()
 
-- exports['ps-disptach']:StoreRobbery(camId)
+- exports['ps-dispatch']:StoreRobbery(camId)
 
-- exports['ps-disptach']:FleecaBankRobbery()
+- exports['ps-dispatch']:FleecaBankRobbery()
 
-- exports['ps-disptach']:PaletoBankRobbery()
+- exports['ps-dispatch']:PaletoBankRobbery()
 
-- exports['ps-disptach']:PacificBankRobbery()
+- exports['ps-dispatch']:PacificBankRobbery()
 
-- exports['ps-disptach']:PrisonBreak()
+- exports['ps-dispatch']:PrisonBreak()
 
-- exports['ps-disptach']:VangelicoRobbery()
+- exports['ps-dispatch']:VangelicoRobbery()
 
-- exports['ps-disptach']:HouseRobbery()
+- exports['ps-dispatch']:HouseRobbery()
 
-- exports['ps-disptach']:PrisonBreak()
+- exports['ps-dispatch']:PrisonBreak()
 
-- exports['ps-disptach']:DrugSale()
+- exports['ps-dispatch']:DrugSale()
 
-- exports['ps-disptach']:ArtGalleryRobbery()
+- exports['ps-dispatch']:ArtGalleryRobbery()
 
-- exports['ps-disptach']:HumaneRobery()
+- exports['ps-dispatch']:HumaneRobery()
 
-- exports['ps-disptach']:TrainRobbery()
+- exports['ps-dispatch']:TrainRobbery()
 
-- exports['ps-disptach']:VanRobbery()
+- exports['ps-dispatch']:VanRobbery()
 
-- exports['ps-disptach']:UndergroundRobbery()
+- exports['ps-dispatch']:UndergroundRobbery()
 
-- exports['ps-disptach']:DrugBoatRobbery()
+- exports['ps-dispatch']:DrugBoatRobbery()
 
-- exports['ps-disptach']:UnionRobbery()
+- exports['ps-dispatch']:UnionRobbery()
 
-- exports['ps-disptach']:YachtHeist()
+- exports['ps-dispatch']:YachtHeist()
 
-- exports['ps-disptach']:CarBoosting(vehicle)
+- exports['ps-dispatch']:CarBoosting(vehicle)
 
-- exports['ps-disptach']:CarJacking(vehicle)
+- exports['ps-dispatch']:CarJacking(vehicle)
 
-- exports['ps-disptach']:VehicleTheft(vehicle)
+- exports['ps-dispatch']:VehicleTheft(vehicle)
 ```
 
 # Steps to Create New Alert
@@ -108,10 +108,10 @@ Information about each parameter is in the file.
 # Alerts with Vehicle Information
 1. If you want to display vehicle information with a particular alert, you need to pass the vehicle along with the exports like this
 ```lua 
-exports["qb-dipatch"]:TestVehicleAlert(vehicle)
+exports['ps-dispatch']:TestVehicleAlert(vehicle)
 ```
 
-and its function in ps-disptach would look like this
+and its function in ps-dispatch would look like this
 
 ```lua
 local function TestVehicleAlert(vehicle)

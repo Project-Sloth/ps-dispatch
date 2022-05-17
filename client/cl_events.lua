@@ -411,7 +411,7 @@ end exports('DrugSale', DrugSale)
 
 
 -- for rcore_gangs, haven't tested server side exports so made this instead. Remove if you do not need :)
-RegisterNetEvent('qb-dispatch:client:drugsale', function()
+RegisterNetEvent('ps-dispatch:client:drugsale', function()
     DrugSale()
 end)
 
@@ -440,7 +440,7 @@ local function CarJacking(vehicle)
     })
 end exports('CarJacking', CarJacking)
 
-RegisterNetEvent("qb-dispatch:client:officerdown", function()
+RegisterNetEvent("ps-dispatch:client:officerdown", function()
     local plyData = QBCore.Functions.GetPlayerData()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
@@ -466,7 +466,7 @@ RegisterNetEvent("qb-dispatch:client:officerdown", function()
     })
 end) 
 
-RegisterNetEvent("qb-dispatch:client:emsdown", function()
+RegisterNetEvent("ps-dispatch:client:emsdown", function()
     local plyData = QBCore.Functions.GetPlayerData()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
