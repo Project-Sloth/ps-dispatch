@@ -440,7 +440,7 @@ local function CarJacking(vehicle)
     })
 end exports('CarJacking', CarJacking)
 
-RegisterNetEvent("ps-dispatch:client:officerdown", function()
+local function OfficerDown()
     local plyData = QBCore.Functions.GetPlayerData()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
@@ -449,11 +449,11 @@ RegisterNetEvent("ps-dispatch:client:officerdown", function()
         dispatchcodename = "officerdown", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-99",
         firstStreet = locationInfo,
-        name = plyData.charinfo.firstname:sub(1,1):upper()..plyData.charinfo.firstname:sub(2).. " ".. plyData.charinfo.lastname:sub(1,1):upper()..plyData.charinfo.lastname:sub(2),
+        name = "COP - " ..plyData.charinfo.firstname:sub(1,1):upper()..plyData.charinfo.firstname:sub(2).. " ".. plyData.charinfo.lastname:sub(1,1):upper()..plyData.charinfo.lastname:sub(2),
         model = nil,
         plate = nil,
         callsign = callsign,
-        priority = 2, -- priority
+        priority = 1, -- priority
         firstColor = nil,
         automaticGunfire = false,
         origin = {
@@ -462,11 +462,11 @@ RegisterNetEvent("ps-dispatch:client:officerdown", function()
             z = currentPos.z
         },
         dispatchMessage = _U('officerdown'), -- message
-        job = {"police", "ambulance"} -- jobs that will get the alerts
+        job = {"ambulance"} -- jobs that will get the alerts
     })
-end) 
+end exports('OfficerDown', OfficerDown)
 
-RegisterNetEvent("ps-dispatch:client:emsdown", function()
+local function EmsDown()
     local plyData = QBCore.Functions.GetPlayerData()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
@@ -475,11 +475,11 @@ RegisterNetEvent("ps-dispatch:client:emsdown", function()
         dispatchcodename = "emsdown", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-99",
         firstStreet = locationInfo,
-        name = plyData.charinfo.firstname:sub(1,1):upper()..plyData.charinfo.firstname:sub(2).. " ".. plyData.charinfo.lastname:sub(1,1):upper()..plyData.charinfo.lastname:sub(2),
+        name = "EMS - " ..plyData.charinfo.firstname:sub(1,1):upper()..plyData.charinfo.firstname:sub(2).. " ".. plyData.charinfo.lastname:sub(1,1):upper()..plyData.charinfo.lastname:sub(2),
         model = nil,
         plate = nil,
         callsign = callsign,
-        priority = 2, -- priority
+        priority = 1, -- priority
         firstColor = nil,
         automaticGunfire = false,
         origin = {
@@ -488,9 +488,9 @@ RegisterNetEvent("ps-dispatch:client:emsdown", function()
             z = currentPos.z
         },
         dispatchMessage = _U('emsdown'), -- message
-        job = {"police", "ambulance"} -- jobs that will get the alerts
+        job = {"ambulance"} -- jobs that will get the alerts
     })
-end) 
+end exports('EmsDown', EmsDown) 
 
 local function Explosion()
     local currentPos = GetEntityCoords(PlayerPedId())
