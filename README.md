@@ -4,7 +4,7 @@ Integrated with https://github.com/Project-Sloth/ps-mdt
 
 For all support questions, ask in our Discord support chat. Do not create issues if you need help. Issues are for bug reporting and new features only.
 
-https://www.discord.gg/ljlabs
+https://www.discord.gg/projectsloth
 
 # Installation
 * Download ZIP
@@ -108,7 +108,7 @@ Information about each parameter is in the file.
 # Alerts with Vehicle Information
 1. If you want to display vehicle information with a particular alert, you need to pass the vehicle along with the exports like this
 ```lua 
-exports["qb-dipatch"]:TestVehicleAlert(vehicle)
+exports['ps-dispatch']:TestVehicleAlert(vehicle)
 ```
 
 and its function in ps-dispatch would look like this
