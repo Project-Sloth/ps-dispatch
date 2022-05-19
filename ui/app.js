@@ -114,9 +114,7 @@ function addNewCall(callID, timer, info, isPolice) {
     }
 
     if (info['gender']) {
-        let gender = "Male"
-        if (info['gender'] == 0 || info['gender'] == 2) { gender = "Female" }
-        DispatchItem += `<div class="call-bottom-info"><span class="fas fa-genderless"></span>${gender}</div>`
+        DispatchItem += `<div class="call-bottom-info"><span class="fas fa-genderless"></span>${info['gender']}</div>`
     }
 
     if (info['model'] && info['plate']) {
