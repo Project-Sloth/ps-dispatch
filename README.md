@@ -20,6 +20,8 @@ https://www.discord.gg/projectsloth
 
 - exports['ps-dispatch']:Shooting()
 
+- exports['ps-dispatch']:OfficerDown()
+
 - exports['ps-dispatch']:SpeedingVehicle(vehicle)
 
 - exports['ps-dispatch']:Fight()
