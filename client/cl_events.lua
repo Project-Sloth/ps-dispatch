@@ -549,6 +549,10 @@ end
 
 exports('OfficerDown', OfficerDown)
 
+RegisterNetEvent("ps-dispatch:client:officerdown", function ()
+    OfficerDown()
+end)
+
 local function EmsDown()
     local plyData = QBCore.Functions.GetPlayerData()
     local currentPos = GetEntityCoords(PlayerPedId())
@@ -576,6 +580,10 @@ local function EmsDown()
 end
 
 exports('EmsDown', EmsDown)
+
+RegisterNetEvent("ps-dispatch:client:emsdown", function ()
+    EmsDown()
+end)
 
 local function Explosion()
     local currentPos = GetEntityCoords(PlayerPedId())
