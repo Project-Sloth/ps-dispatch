@@ -259,6 +259,11 @@ AddEventHandler("ps-dispatch:client:AddCallBlip", function(coords, data)
 				radius = AddBlipForRadius(coords.x, coords.y, coords.z, data.radius)
 				blip = AddBlipForCoord(coords.x, coords.y, coords.z)
 			end
+			if data.blipflash == "true" then 
+				SetBlipFlashes(blip, true) 
+			elseif data.blipflash == "false" then 
+				SetBlipFlashes(blip, false)
+			end
 			SetBlipSprite(blip, sprite)
 			SetBlipHighDetail(blip, true)
 			SetBlipScale(blip, scale)
