@@ -34,7 +34,11 @@ Config.Debug = true
 Config.MinOffset = 1
 Config.MaxOffset = 120
 ---------------------------------------------------------------
-
+Config.Shootingevent = false
+Config.MeleeEvent = false
+Config.Reckless = false
+Config.VehicleShooting = false
+---------------------------------------------------------------
 Citizen.CreateThread(function()
     -- if not GetPlayerPed(-1) then return end
     -- while not firstname do
