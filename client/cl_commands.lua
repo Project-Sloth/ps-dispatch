@@ -124,9 +124,9 @@ RegisterCommand('911a', function(source, args, rawCommand)
                     name = "Anonymous",
                     number = "Hidden Number",
                     origin = {
-                        x = currentPos.x,
-                        y = currentPos.y,
-                        z = currentPos.z
+                        x = 759.26,
+                        y = 1274.29,
+                        z = 360.3
                     },
                     dispatchMessage = "Incoming Anonymous Call", -- message
                     information = msg,
@@ -210,9 +210,9 @@ RegisterCommand('311a', function(source, args, rawCommand)
                     name = "Anonymous",
                     number = "Hidden Number",
                     origin = {
-                        x = currentPos.x,
-                        y = currentPos.y,
-                        z = currentPos.z
+                        x = 759.26,
+                        y = 1274.29,
+                        z = 360.3
                     },
                     dispatchMessage = "Incoming Call", -- message
                     information = msg,
