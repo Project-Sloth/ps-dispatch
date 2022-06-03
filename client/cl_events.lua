@@ -1,17 +1,63 @@
+local WeaponTable = {
+    [584646201]   = "CLASS 2: AP-Pistol",
+    [453432689]   = "CLASS 1: Pistol",
+    [3219281620]  = "CLASS 1: Pistol MK2",
+    [1593441988]  = "CLASS 1: Combat Pistol",
+    [-1716589765] = "CLASS 1: Heavy Pistol",
+    [-1076751822] = "CLASS 1: SNS-Pistol",
+    [-771403250]  = "CLASS 2: Desert Eagle",
+    [137902532]   = "CLASS 2: Vintage Pistol",
+    [-598887786]  = "CLASS 2: Marksman Pistol",
+    [-1045183535] = "CLASS 2: Revolver",
+    [911657153]   = "Taser",
+    [324215364]   = "CLASS 2: Micro-SMG",
+    [-619010992]  = "CLASS 2: Machine-Pistol",
+    [736523883]   = "CLASS 2: SMG",
+    [2024373456]  = "CLASS 2: SMG MK2",
+    [-270015777]  = "CLASS 2: Assault SMG",
+    [171789620]   = "CLASS 2: Combat PDW",
+    [-1660422300] = "CLASS 4: Combat MG",
+    [3686625920]  = "CLASS 4: Combat MG MK2",
+    [1627465347]  = "CLASS 4: Gusenberg",
+    [-1121678507] = "CLASS 2: Mini SMG",
+    [-1074790547] = "CLASS 3: Assaultrifle",
+    [961495388]   = "CLASS 3: Assaultrifle MK2",
+    [-2084633992] = "CLASS 3: Carbinerifle",
+    [4208062921]  = "CLASS 3: Carbinerifle MK2",
+    [-1357824103] = "CLASS 3: Advancedrifle",
+    [-1063057011] = "CLASS 3: Specialcarbine",
+    [2132975508]  = "CLASS 3: Bulluprifle",
+    [1649403952]  = "CLASS 3: Compactrifle",
+    [100416529]   = "CLASS 4: Sniperrifle",
+    [205991906]   = "CLASS 4: Heavy Sniper",
+    [177293209]   = "CLASS 4: Heavy Sniper MK2",
+    [-952879014]  = "CLASS 4: Marksmanrifle",
+    [487013001]   = "CLASS 2: Pumpshotgun",
+    [2017895192]  = "CLASS 2: Sawnoff Shotgun",
+    [-1654528753] = "CLASS 3: Bullupshotgun",
+    [-494615257]  = "CLASS 3: Assaultshotgun",
+    [-1466123874] = "CLASS 3: Musket",
+    [984333226]   = "CLASS 3: Heavyshotgun",
+    [-275439685]  = "CLASS 2: Doublebarrel Shotgun",
+    [317205821]   = "CLASS 2: Autoshotgun",
+    [-1568386805] = "CLASS 5: GRENADE LAUNCHER",
+    [-1312131151] = "CLASS 5: RPG",
+    [125959754]   = "CLASS 5: Compactlauncher"
+}
 local function VehicleTheft(vehicle)
     local vehdata = vehicleData(vehicle)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local heading = getCardinalDirectionFromHeading()
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "vehicletheft", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-35",
         firstStreet = locationInfo,
         model = vehdata.name, -- vehicle name
         plate = vehdata.plate, -- vehicle plate
-        priority = 2, 
+        priority = 2,
         firstColor = vehdata.colour, -- vehicle color
-        heading = heading, 
+        heading = heading,
         automaticGunfire = false,
         origin = {
             x = currentPos.x,
@@ -19,9 +65,11 @@ local function VehicleTheft(vehicle)
             z = currentPos.z
         },
         dispatchMessage = _U('vehicletheft'),
-        job = {"police"}
+        job = { "police" }
     })
-end exports('VehicleTheft', VehicleTheft)
+end
+
+exports('VehicleTheft', VehicleTheft)
 
 local function VehicleShooting(vehdata)
     local vehicle = QBCore.Functions.GetClosestVehicle()
@@ -31,16 +79,16 @@ local function VehicleShooting(vehdata)
     local heading = getCardinalDirectionFromHeading()
     local gender = GetPedGender()
     local doorCount = 0
-    local weapon = nil
+
     local PlayerPed = PlayerPedId()
     local CurrentWeapon = GetSelectedPedWeapon(PlayerPed)
-    if CurrentWeapon == 584646201 then weapon = "CLASS 2: AP-Pistol" elseif CurrentWeapon == 453432689 then weapon = "CLASS 1: Pistol" elseif CurrentWeapon == 3219281620 then weapon = "CLASS 1: Pistol MK2" elseif CurrentWeapon == 1593441988 then weapon = "CLASS 1: Combat Pistol" elseif CurrentWeapon == -1716589765 then weapon = "CLASS 2: Desert Eagle" elseif CurrentWeapon == -1076751822 then weapon = "CLASS 1: SNS-Pistol" elseif CurrentWeapon == -771403250 then weapon = "CLASS 1: Heavy Pistol" elseif CurrentWeapon == 137902532 then weapon = "CLASS 2: Vintage Pistol" elseif CurrentWeapon == -598887786 then weapon = "CLASS 2: Marksman Pistol" elseif CurrentWeapon == -1045183535 then weapon = "CLASS 2: Revolver" elseif CurrentWeapon == 911657153 then weapon = "Taser" elseif CurrentWeapon == 324215364 then weapon = "CLASS 2: Micro-SMG" elseif CurrentWeapon == -619010992 then weapon = "CLASS 2: Machine-Pistol" elseif CurrentWeapon == 736523883 then weapon = "CLASS 2: SMG" elseif CurrentWeapon == 2024373456 then weapon = "CLASS 2: SMG MK2" elseif CurrentWeapon == -270015777 then weapon = "CLASS 2: Assault SMG" elseif CurrentWeapon == 171789620 then weapon = "CLASS 2: Combat PDW" elseif CurrentWeapon == -1660422300 then weapon = "CLASS 4: MG" elseif CurrentWeapon == -1660422300 then weapon = "CLASS 4: Combat MG" elseif CurrentWeapon == 3686625920 then weapon = "CLASS 4: Combat MG MK2" elseif CurrentWeapon == 1627465347 then weapon = "CLASS 4: Gusenberg" elseif CurrentWeapon == -1121678507 then weapon = "CLASS 2: Mini SMG" elseif CurrentWeapon == -1074790547 then weapon = "CLASS 3: Assaultrifle" elseif CurrentWeapon == 961495388 then weapon = "CLASS 3: Assaultrifle MK2" elseif CurrentWeapon == -2084633992 then weapon = "CLASS 3: Carbinerifle" elseif CurrentWeapon == 4208062921 then weapon = "CLASS 3: Carbinerifle MK2" elseif CurrentWeapon == -1357824103 then weapon = "CLASS 3: Advancedrifle" elseif CurrentWeapon == -1063057011 then weapon = "CLASS 3: Specialcarbine" elseif CurrentWeapon == 2132975508 then weapon = "CLASS 3: Bulluprifle" elseif CurrentWeapon == 1649403952 then weapon = "CLASS 3: Compactrifle" elseif CurrentWeapon == 100416529 then weapon = "CLASS 4: Sniperrifle" elseif CurrentWeapon == 205991906 then weapon = "CLASS 4: Heavy Sniper" elseif CurrentWeapon == 177293209 then weapon = "CLASS 4: Heavy Sniper MK2" elseif CurrentWeapon == -952879014 then weapon = "CLASS 4: Marksmanrifle" elseif CurrentWeapon == 487013001 then weapon = "CLASS 2: Pumpshotgun" elseif CurrentWeapon == 2017895192 then weapon = "CLASS 2: Sawnoff Shotgun" elseif CurrentWeapon == -1654528753 then weapon = "CLASS 3: Bullupshotgun" elseif CurrentWeapon == -494615257 then weapon = "CLASS 3: Assaultshotgun" elseif CurrentWeapon == -1466123874 then weapon = "CLASS 3: Musket" elseif CurrentWeapon == 984333226 then weapon = "CLASS 3: Heavyshotgun" elseif CurrentWeapon == -275439685 then weapon = "CLASS 2: Doublebarrel Shotgun" elseif CurrentWeapon == 317205821 then weapon = "CLASS 2: Autoshotgun" elseif CurrentWeapon == -1568386805 then weapon = "CLASS 5: GRENADE LAUNCHER" elseif CurrentWeapon == -1312131151 then weapon = "CLASS 5: RPG" elseif CurrentWeapon == 125959754 then weapon = "CLASS 5: Compactlauncher" else weapon = "UNKNOWN" end
-	if GetEntityBoneIndexByName(vehicle, 'door_pside_f') ~= -1 then doorCount = doorCount + 1 end
-	if GetEntityBoneIndexByName(vehicle, 'door_pside_r') ~= -1 then doorCount = doorCount + 1 end
-	if GetEntityBoneIndexByName(vehicle, 'door_dside_f') ~= -1 then doorCount = doorCount + 1 end
-	if GetEntityBoneIndexByName(vehicle, 'door_dside_r') ~= -1 then doorCount = doorCount + 1 end
-	if doorCount == 2 then doorCount = "Two-Door" elseif doorCount == 3 then doorCount = "Three-Door" elseif doorCount == 4 then doorCount = "Four-Door" else doorCount = "UNKNOWN" end
-    TriggerServerEvent("dispatch:server:notify",{
+    local weapon = WeaponTable[CurrentWeapon] or "UNKNOWN"
+    if GetEntityBoneIndexByName(vehicle, 'door_pside_f') ~= -1 then doorCount = doorCount + 1 end
+    if GetEntityBoneIndexByName(vehicle, 'door_pside_r') ~= -1 then doorCount = doorCount + 1 end
+    if GetEntityBoneIndexByName(vehicle, 'door_dside_f') ~= -1 then doorCount = doorCount + 1 end
+    if GetEntityBoneIndexByName(vehicle, 'door_dside_r') ~= -1 then doorCount = doorCount + 1 end
+    if doorCount == 2 then doorCount = "Two-Door" elseif doorCount == 3 then doorCount = "Three-Door" elseif doorCount == 4 then doorCount = "Four-Door" else doorCount = "UNKNOWN" end
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "vehicleshots", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-60",
         firstStreet = locationInfo,
@@ -59,21 +107,23 @@ local function VehicleShooting(vehdata)
             z = currentPos.z
         },
         dispatchMessage = _U('vehicleshots'),
-        job = {"police"}
+        job = { "police" }
     })
-end exports('VehicleShooting', VehicleShooting)
+end
+
+exports('VehicleShooting', VehicleShooting)
+
 
 local function Shooting()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
     local PlayerPed = PlayerPedId()
-    local weapon = nil
-    local PlayerPed = PlayerPedId()
     local CurrentWeapon = GetSelectedPedWeapon(PlayerPed)
-    local speed = math.floor(GetEntitySpeed(vehicle) * 2.236936).. " MPH"  -- * 3.6 = KMH    /    * 2.236936 = MPH
-    if CurrentWeapon == 584646201 then weapon = "CLASS 2: AP-Pistol" elseif CurrentWeapon == 453432689 then weapon = "CLASS 1: Pistol" elseif CurrentWeapon == 3219281620 then weapon = "CLASS 1: Pistol MK2" elseif CurrentWeapon == 1593441988 then weapon = "CLASS 1: Combat Pistol" elseif CurrentWeapon == -1716589765 then weapon = "CLASS 1: Heavy Pistol" elseif CurrentWeapon == -1076751822 then weapon = "CLASS 1: SNS-Pistol" elseif CurrentWeapon == -771403250 then weapon = "CLASS 2: Desert Eagle" elseif CurrentWeapon == 137902532 then weapon = "CLASS 2: Vintage Pistol" elseif CurrentWeapon == -598887786 then weapon = "CLASS 2: Marksman Pistol" elseif CurrentWeapon == -1045183535 then weapon = "CLASS 2: Revolver" elseif CurrentWeapon == 911657153 then weapon = "Taser" elseif CurrentWeapon == 324215364 then weapon = "CLASS 2: Micro-SMG" elseif CurrentWeapon == -619010992 then weapon = "CLASS 2: Machine-Pistol" elseif CurrentWeapon == 736523883 then weapon = "CLASS 2: SMG" elseif CurrentWeapon == 2024373456 then weapon = "CLASS 2: SMG MK2" elseif CurrentWeapon == -270015777 then weapon = "CLASS 2: Assault SMG" elseif CurrentWeapon == 171789620 then weapon = "CLASS 2: Combat PDW" elseif CurrentWeapon == -1660422300 then weapon = "CLASS 4: MG" elseif CurrentWeapon == -1660422300 then weapon = "CLASS 4: Combat MG" elseif CurrentWeapon == 3686625920 then weapon = "CLASS 4: Combat MG MK2" elseif CurrentWeapon == 1627465347 then weapon = "CLASS 4: Gusenberg" elseif CurrentWeapon == -1121678507 then weapon = "CLASS 2: Mini SMG" elseif CurrentWeapon == -1074790547 then weapon = "CLASS 3: Assaultrifle" elseif CurrentWeapon == 961495388 then weapon = "CLASS 3: Assaultrifle MK2" elseif CurrentWeapon == -2084633992 then weapon = "CLASS 3: Carbinerifle" elseif CurrentWeapon == 4208062921 then weapon = "CLASS 3: Carbinerifle MK2" elseif CurrentWeapon == -1357824103 then weapon = "CLASS 3: Advancedrifle" elseif CurrentWeapon == -1063057011 then weapon = "CLASS 3: Specialcarbine" elseif CurrentWeapon == 2132975508 then weapon = "CLASS 3: Bulluprifle" elseif CurrentWeapon == 1649403952 then weapon = "CLASS 3: Compactrifle" elseif CurrentWeapon == 100416529 then weapon = "CLASS 4: Sniperrifle" elseif CurrentWeapon == 205991906 then weapon = "CLASS 4: Heavy Sniper" elseif CurrentWeapon == 177293209 then weapon = "CLASS 4: Heavy Sniper MK2" elseif CurrentWeapon == -952879014 then weapon = "CLASS 4: Marksmanrifle" elseif CurrentWeapon == 487013001 then weapon = "CLASS 2: Pumpshotgun" elseif CurrentWeapon == 2017895192 then weapon = "CLASS 2: Sawnoff Shotgun" elseif CurrentWeapon == -1654528753 then weapon = "CLASS 3: Bullupshotgun" elseif CurrentWeapon == -494615257 then weapon = "CLASS 3: Assaultshotgun" elseif CurrentWeapon == -1466123874 then weapon = "CLASS 3: Musket" elseif CurrentWeapon == 984333226 then weapon = "CLASS 3: Heavyshotgun" elseif CurrentWeapon == -275439685 then weapon = "CLASS 2: Doublebarrel Shotgun" elseif CurrentWeapon == 317205821 then weapon = "CLASS 2: Autoshotgun" elseif CurrentWeapon == -1568386805 then weapon = "CLASS 5: GRENADE LAUNCHER" elseif CurrentWeapon == -1312131151 then weapon = "CLASS 5: RPG" elseif CurrentWeapon == 125959754 then weapon = "CLASS 5: Compactlauncher" else weapon = "UNKNOWN" end
-    TriggerServerEvent("dispatch:server:notify",{
+    local speed = math.floor(GetEntitySpeed(vehicle) * 2.236936) .. " MPH" -- * 3.6 = KMH    /    * 2.236936 = MPH
+    local weapon = WeaponTable[CurrentWeapon] or "UNKNOWN"
+
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "shooting", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-11",
         firstStreet = locationInfo,
@@ -91,15 +141,18 @@ local function Shooting()
             z = currentPos.z
         },
         dispatchMessage = _U('shooting'),
-        job = {"police"}
+        job = { "police" }
     })
-end exports('Shooting', Shooting)
+
+end
+
+exports('Shooting', Shooting)
 
 local function SpeedingVehicle(vehdata)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local heading = getCardinalDirectionFromHeading()
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "speeding", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-11",
         firstStreet = locationInfo,
@@ -115,15 +168,17 @@ local function SpeedingVehicle(vehdata)
             z = currentPos.z
         },
         dispatchMessage = _U('speeding'),
-        job = {"police"}
+        job = { "police" }
     })
-end exports('SpeedingVehicle', SpeedingVehicle)
+end
+
+exports('SpeedingVehicle', SpeedingVehicle)
 
 local function Fight()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "fight", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-10",
         firstStreet = locationInfo,
@@ -139,15 +194,17 @@ local function Fight()
             z = currentPos.z
         },
         dispatchMessage = _U('melee'),
-        job = {"police"}
+        job = { "police" }
     })
-end exports('Fight', Fight)
+end
+
+exports('Fight', Fight)
 
 local function InjuriedPerson()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "civdown", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-69",
         firstStreet = locationInfo,
@@ -163,15 +220,17 @@ local function InjuriedPerson()
             z = currentPos.z
         },
         dispatchMessage = _U('persondown'), -- message
-        job = {"ambulance"} -- jobs that will get the alerts
+        job = { "ambulance" } -- jobs that will get the alerts
     })
-end exports('InjuriedPerson', InjuriedPerson)
+end
+
+exports('InjuriedPerson', InjuriedPerson)
 
 local function DeceasedPerson()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "civdead", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-69",
         firstStreet = locationInfo,
@@ -187,15 +246,17 @@ local function DeceasedPerson()
             z = currentPos.z
         },
         dispatchMessage = "Civilian Bled Out", -- message
-        job = {"ambulance"} -- jobs that will get the alerts
+        job = { "ambulance" } -- jobs that will get the alerts
     })
-end exports('DeceasedPerson', DeceasedPerson)
+end
+
+exports('DeceasedPerson', DeceasedPerson)
 
 local function StoreRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "storerobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
         firstStreet = locationInfo,
@@ -212,15 +273,17 @@ local function StoreRobbery(camId)
             z = currentPos.z
         },
         dispatchMessage = _U('storerobbery'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = { "police" } -- jobs that will get the alerts
     })
-end exports('StoreRobbery', StoreRobbery)
+end
+
+exports('StoreRobbery', StoreRobbery)
 
 local function FleecaBankRobbery()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "bankrobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
         firstStreet = locationInfo,
@@ -236,15 +299,17 @@ local function FleecaBankRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('fleecabank'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = { "police" } -- jobs that will get the alerts
     })
-end exports('FleecaBankRobbery', FleecaBankRobbery)
+end
+
+exports('FleecaBankRobbery', FleecaBankRobbery)
 
 local function PaletoBankRobbery()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "paletobankrobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
         firstStreet = locationInfo,
@@ -260,15 +325,17 @@ local function PaletoBankRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('paletobank'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = { "police" } -- jobs that will get the alerts
     })
-end exports('PaletoBankRobbery', PaletoBankRobbery)
+end
+
+exports('PaletoBankRobbery', PaletoBankRobbery)
 
 local function PacificBankRobbery()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "pacificbankrobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
         firstStreet = locationInfo,
@@ -284,15 +351,17 @@ local function PacificBankRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('pacificbank'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = { "police" } -- jobs that will get the alerts
     })
-end exports('PacificBankRobbery', PacificBankRobbery)
+end
+
+exports('PacificBankRobbery', PacificBankRobbery)
 
 local function PrisonBreak()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "prisonbreak", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
         firstStreet = locationInfo,
@@ -308,16 +377,18 @@ local function PrisonBreak()
             z = currentPos.z
         },
         dispatchMessage = _U('prisonbreak'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = { "police" } -- jobs that will get the alerts
     })
-end exports('PrisonBreak', PrisonBreak)
+end
+
+exports('PrisonBreak', PrisonBreak)
 
 local function VangelicoRobbery()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
     PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "vangelicorobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
         firstStreet = locationInfo,
@@ -333,15 +404,17 @@ local function VangelicoRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('vangelico'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = { "police" } -- jobs that will get the alerts
     })
-end exports('VangelicoRobbery', VangelicoRobbery)
+end
+
+exports('VangelicoRobbery', VangelicoRobbery)
 
 local function HouseRobbery()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "houserobbery", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-90",
         firstStreet = locationInfo,
@@ -357,15 +430,17 @@ local function HouseRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('houserobbery'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = { "police" } -- jobs that will get the alerts
     })
-end exports('HouseRobbery', HouseRobbery)
+end
+
+exports('HouseRobbery', HouseRobbery)
 
 local function YachtHeist()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "yachtheist", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-65",
         firstStreet = locationInfo,
@@ -381,15 +456,17 @@ local function YachtHeist()
             z = currentPos.z
         },
         dispatchMessage = _U('yachtheist'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = { "police" } -- jobs that will get the alerts
     })
-end exports('YachtHeist', YachtHeist)
+end
+
+exports('YachtHeist', YachtHeist)
 
 local function DrugSale()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "suspicioushandoff", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-60",
         firstStreet = locationInfo,
@@ -405,9 +482,11 @@ local function DrugSale()
             z = currentPos.z
         },
         dispatchMessage = _U('drugsell'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = { "police" } -- jobs that will get the alerts
     })
-end exports('DrugSale', DrugSale)
+end
+
+exports('DrugSale', DrugSale)
 
 
 -- for rcore_gangs, haven't tested server side exports so made this instead. Remove if you do not need :)
@@ -420,15 +499,15 @@ local function CarJacking(vehicle)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local heading = getCardinalDirectionFromHeading()
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "carjack", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-35",
         firstStreet = locationInfo,
         model = vehdata.name, -- vehicle name
         plate = vehdata.plate, -- vehicle plate
-        priority = 2, 
+        priority = 2,
         firstColor = vehdata.colour, -- vehicle color
-        heading = heading, 
+        heading = heading,
         automaticGunfire = false,
         origin = {
             x = currentPos.x,
@@ -436,20 +515,22 @@ local function CarJacking(vehicle)
             z = currentPos.z
         },
         dispatchMessage = _U('carjacking'),
-        job = {"police"}
+        job = { "police" }
     })
-end exports('CarJacking', CarJacking)
+end
+
+exports('CarJacking', CarJacking)
 
 local function OfficerDown()
     local plyData = QBCore.Functions.GetPlayerData()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local callsign = QBCore.Functions.GetPlayerData().metadata["callsign"]
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "officerdown", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-99",
         firstStreet = locationInfo,
-        name = "COP - " ..plyData.charinfo.firstname:sub(1,1):upper()..plyData.charinfo.firstname:sub(2).. " ".. plyData.charinfo.lastname:sub(1,1):upper()..plyData.charinfo.lastname:sub(2),
+        name = "COP - " .. plyData.charinfo.firstname:sub(1, 1):upper() .. plyData.charinfo.firstname:sub(2) .. " " .. plyData.charinfo.lastname:sub(1, 1):upper() .. plyData.charinfo.lastname:sub(2),
         model = nil,
         plate = nil,
         callsign = callsign,
@@ -462,20 +543,26 @@ local function OfficerDown()
             z = currentPos.z
         },
         dispatchMessage = _U('officerdown'), -- message
-        job = {"ambulance"} -- jobs that will get the alerts
+        job = { "ambulance" } -- jobs that will get the alerts
     })
-end exports('OfficerDown', OfficerDown)
+end
+
+exports('OfficerDown', OfficerDown)
+
+RegisterNetEvent("ps-dispatch:client:officerdown", function ()
+    OfficerDown()
+end)
 
 local function EmsDown()
     local plyData = QBCore.Functions.GetPlayerData()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local callsign = QBCore.Functions.GetPlayerData().metadata["callsign"]
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "emsdown", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-99",
         firstStreet = locationInfo,
-        name = "EMS - " ..plyData.charinfo.firstname:sub(1,1):upper()..plyData.charinfo.firstname:sub(2).. " ".. plyData.charinfo.lastname:sub(1,1):upper()..plyData.charinfo.lastname:sub(2),
+        name = "EMS - " .. plyData.charinfo.firstname:sub(1, 1):upper() .. plyData.charinfo.firstname:sub(2) .. " " .. plyData.charinfo.lastname:sub(1, 1):upper() .. plyData.charinfo.lastname:sub(2),
         model = nil,
         plate = nil,
         callsign = callsign,
@@ -488,15 +575,21 @@ local function EmsDown()
             z = currentPos.z
         },
         dispatchMessage = _U('emsdown'), -- message
-        job = {"ambulance"} -- jobs that will get the alerts
+        job = { "ambulance" } -- jobs that will get the alerts
     })
-end exports('EmsDown', EmsDown) 
+end
+
+exports('EmsDown', EmsDown)
+
+RegisterNetEvent("ps-dispatch:client:emsdown", function ()
+    EmsDown()
+end)
 
 local function Explosion()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    TriggerServerEvent("dispatch:server:notify",{
+    TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "explosion", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-80",
         firstStreet = locationInfo,
@@ -512,10 +605,12 @@ local function Explosion()
             z = currentPos.z
         },
         dispatchMessage = "EXPLOSION REPORTED", -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = { "police" } -- jobs that will get the alerts
     })
-end exports('Explosion', Explosion)
+end
 
-RegisterCommand('testdispatch',function()
+exports('Explosion', Explosion)
+
+RegisterCommand('testdispatch', function()
     TriggerEvent('')
 end)
