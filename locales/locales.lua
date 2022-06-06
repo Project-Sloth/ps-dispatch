@@ -53,6 +53,7 @@ Locales = {
         ['unionrobbery'] = "Union Depository Robbery",
         ['carboosting'] = "Car Boosting In Progress",
         ['yachtheist'] = "Yacht Heist In Progress",
+        ['susactivity'] = "Suspicious Activity",
     },
 
     ['fr'] = {

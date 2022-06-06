@@ -279,7 +279,7 @@ end
 
 exports('StoreRobbery', StoreRobbery)
 
-local function FleecaBankRobbery()
+local function FleecaBankRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
@@ -288,6 +288,7 @@ local function FleecaBankRobbery()
         dispatchCode = "10-90",
         firstStreet = locationInfo,
         gender = gender,
+        camId = camId,
         model = nil,
         plate = nil,
         priority = 2, -- priority
@@ -305,7 +306,7 @@ end
 
 exports('FleecaBankRobbery', FleecaBankRobbery)
 
-local function PaletoBankRobbery()
+local function PaletoBankRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
@@ -314,6 +315,7 @@ local function PaletoBankRobbery()
         dispatchCode = "10-90",
         firstStreet = locationInfo,
         gender = gender,
+        camId = camId,
         model = nil,
         plate = nil,
         priority = 2, -- priority
@@ -331,7 +333,7 @@ end
 
 exports('PaletoBankRobbery', PaletoBankRobbery)
 
-local function PacificBankRobbery()
+local function PacificBankRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
@@ -340,6 +342,7 @@ local function PacificBankRobbery()
         dispatchCode = "10-90",
         firstStreet = locationInfo,
         gender = gender,
+        camId = camId,
         model = nil,
         plate = nil,
         priority = 2, -- priority
@@ -383,7 +386,7 @@ end
 
 exports('PrisonBreak', PrisonBreak)
 
-local function VangelicoRobbery()
+local function VangelicoRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
@@ -393,6 +396,7 @@ local function VangelicoRobbery()
         dispatchCode = "10-90",
         firstStreet = locationInfo,
         gender = gender,
+        camId = camId,
         model = nil,
         plate = nil,
         priority = 2, -- priority
@@ -468,7 +472,7 @@ local function DrugSale()
     local gender = GetPedGender()
     TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "suspicioushandoff", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
-        dispatchCode = "10-60",
+        dispatchCode = "10-13",
         firstStreet = locationInfo,
         gender = gender,
         model = nil,
@@ -610,6 +614,32 @@ local function Explosion()
 end
 
 exports('Explosion', Explosion)
+
+local function SuspiciousActivity()
+    local currentPos = GetEntityCoords(PlayerPedId())
+    local locationInfo = getStreetandZone(currentPos)
+    local gender = GetPedGender()
+    TriggerServerEvent("dispatch:server:notify", {
+        dispatchcodename = "susactivity", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+        dispatchCode = "10-66",
+        firstStreet = locationInfo,
+        gender = gender,
+        model = nil,
+        plate = nil,
+        priority = 2, -- priority
+        firstColor = nil,
+        automaticGunfire = false,
+        origin = {
+            x = currentPos.x,
+            y = currentPos.y,
+            z = currentPos.z
+        },
+        dispatchMessage = _U('susactivity'), -- message
+        job = { "police" } -- jobs that will get the alerts
+    })
+end
+
+exports('SuspiciousActivity', SuspiciousActivity)
 
 RegisterCommand('testdispatch', function()
     TriggerEvent('')
