@@ -67,6 +67,8 @@ https://www.discord.gg/projectsloth
 - exports['ps-dispatch']:CarJacking(vehicle)
 
 - exports['ps-dispatch']:VehicleTheft(vehicle)
+
+- exports['ps-dispatch']:SuspiciousActivity()
 ```
 
 # Steps to Create New Alert
