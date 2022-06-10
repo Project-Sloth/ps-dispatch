@@ -120,7 +120,7 @@ AddEventHandler('explosionEvent', function(source, info)
     end
 end)
 
-QBCore.Commands.Add("cleardispatchcalls", "Clear all dispatch calls", {}, false, function(source, args)
+QBCore.Commands.Add("cleardispatchblips", "Clear all dispatch calls", {}, false, function(source, args)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 	local job = Player.PlayerData.job.name

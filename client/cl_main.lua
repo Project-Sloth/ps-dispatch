@@ -323,4 +323,5 @@ RegisterNetEvent("ps-dispatch:client:clearAllBlips", function()
 	for k, v in pairs(blips) do
 		RemoveBlip(v)
 	end
+	QBCore.Functions.Notify('All dispatch blips cleared', "success")
 end)
