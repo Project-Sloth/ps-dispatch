@@ -22,6 +22,8 @@ https://www.discord.gg/projectsloth
 
 - exports['ps-dispatch']:OfficerDown()
 
+- exports['ps-dispatch']:EmsDown()
+
 - exports['ps-dispatch']:SpeedingVehicle(vehicle)
 
 - exports['ps-dispatch']:Fight()
@@ -41,8 +43,6 @@ https://www.discord.gg/projectsloth
 - exports['ps-dispatch']:VangelicoRobbery(camId)
 
 - exports['ps-dispatch']:HouseRobbery()
-
-- exports['ps-dispatch']:PrisonBreak()
 
 - exports['ps-dispatch']:DrugSale()
 
