@@ -2,6 +2,7 @@ PlayerData = {}
 PlayerJob = {}
 isLoggedIn = true
 QBCore = exports['qb-core']:GetCoreObject()
+local blips = {}
 
 -- core related
 
@@ -225,7 +226,7 @@ RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationI
 end)
 
 RegisterNetEvent("ps-dispatch:client:AddCallBlip")
-AddEventHandler("ps-dispatch:client:AddCallBlip", function(coords, data)
+AddEventHandler("ps-dispatch:client:AddCallBlip", function(coords, data, blipId)
 	if IsValidJob(data.recipientList) then
 		PlaySound(-1, data.sound, data.sound2, 0, 0, 1)
 		TriggerServerEvent("InteractSound_SV:PlayOnSource", data.sound, 0.25) -- For Custom Sounds
@@ -245,19 +246,24 @@ AddEventHandler("ps-dispatch:client:AddCallBlip", function(coords, data)
 				if randomoffset <= 25 then
 					radius = AddBlipForRadius(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
 					blip = AddBlipForCoord(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z)
+					blips[blipId] = blip
 				elseif randomoffset >= 26 and randomoffset <= 50 then
 					radius = AddBlipForRadius(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
 					blip = AddBlipForCoord(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z)
+					blips[blipId] = blip
 				elseif randomoffset >= 51 and randomoffset <= 74 then
 					radius = AddBlipForRadius(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
 					blip = AddBlipForCoord(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z)
+					blips[blipId] = blip
 				elseif randomoffset >= 75 and randomoffset <= 100 then
 					radius = AddBlipForRadius(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
 					blip = AddBlipForCoord(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z)
+					blips[blipId] = blip
 				end
 			elseif data.offset == "false" then
 				radius = AddBlipForRadius(coords.x, coords.y, coords.z, data.radius)
 				blip = AddBlipForCoord(coords.x, coords.y, coords.z)
+				blips[blipId] = blip
 			end
 			if data.blipflash == "true" then 
 				SetBlipFlashes(blip, true) 
@@ -290,8 +296,6 @@ AddEventHandler("ps-dispatch:client:AddCallBlip", function(coords, data)
 	end
 end)
 
-
-
 RegisterNetEvent('dispatch:getCallResponse', function(message)
     SendNUIMessage({
         update = "newCall",
@@ -309,4 +313,14 @@ end)
 
 RegisterNetEvent("ps-dispatch:client:Explosion", function(data)
 	exports["ps-dispatch"]:Explosion()
+end)
+
+RegisterNetEvent("ps-dispatch:client:removeCallBlip", function(blipId)
+	RemoveBlip(blips[blipId])
+end)
+
+RegisterNetEvent("ps-dispatch:client:clearAllBlips", function()
+	for k, v in pairs(blips) do
+		RemoveBlip(v)
+	end
 end)
