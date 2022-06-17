@@ -9,6 +9,7 @@ https://www.discord.gg/projectsloth
 # Installation
 * Download ZIP
 * Drag and drop resource into your server files
+* Rename the folder from `ps-dispatch-main` from the folder name should be `ps-dispatch`
 * Start resource through server.cfg
 * Drag and drop sounds folder into interact-sound\client\html\sounds
 * Restart your server.
