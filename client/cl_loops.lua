@@ -1,9 +1,35 @@
+PlayerData = {}
+PlayerJob = {}
+QBCore = exports['qb-core']:GetCoreObject()
+
+AddEventHandler('onResourceStart', function(resourceName)
+    if GetCurrentResourceName() == resourceName then
+        PlayerData = QBCore.Functions.GetPlayerData()
+        PlayerJob = QBCore.Functions.GetPlayerData().job
+    end
+end)
+
+RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
+    PlayerData = QBCore.Functions.GetPlayerData()
+    PlayerJob = QBCore.Functions.GetPlayerData().job
+end)
+
+RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
+	PlayerData = {}
+    currentCallSign = ""
+end)
+
+RegisterNetEvent("QBCore:Client:OnJobUpdate", function(JobInfo)
+    PlayerData = QBCore.Functions.GetPlayerData()
+    PlayerJob = JobInfo
+end)
+
 CreateThread(function()
 	local vehicleWhitelist = {[0]=true,[1]=true,[2]=true,[3]=true,[4]=true,[5]=true,[6]=true,[7]=true,[8]=true,[9]=true,[10]=true,[11]=true,[12]=true,[17]=true,[19]=true,[20]=true}
 	local sleep = 100
 	while true do
         playerPed = PlayerPedId()
-        if (not isPlayerWhitelisted or Config.Debug) then
+        if PlayerJob.name ~= "police" then -- So police don't get alerts for themselves vehicle shooting/shooting/speed/fighting.
             for k, v in pairs(Config.Timer) do
                 if v > 0 then Config.Timer[k] = v - 1 end
             end
