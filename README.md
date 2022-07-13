@@ -30,15 +30,15 @@ https://www.discord.gg/projectsloth
 
 - exports['ps-dispatch']:StoreRobbery(camId)
 
-- exports['ps-dispatch']:FleecaBankRobbery()
+- exports['ps-dispatch']:FleecaBankRobbery(camId)
 
-- exports['ps-dispatch']:PaletoBankRobbery()
+- exports['ps-dispatch']:PaletoBankRobbery(camId)
 
-- exports['ps-dispatch']:PacificBankRobbery()
+- exports['ps-dispatch']:PacificBankRobbery(camId)
 
 - exports['ps-dispatch']:PrisonBreak()
 
-- exports['ps-dispatch']:VangelicoRobbery()
+- exports['ps-dispatch']:VangelicoRobbery(camId)
 
 - exports['ps-dispatch']:HouseRobbery()
 
@@ -67,6 +67,8 @@ https://www.discord.gg/projectsloth
 - exports['ps-dispatch']:CarJacking(vehicle)
 
 - exports['ps-dispatch']:VehicleTheft(vehicle)
+
+- exports['ps-dispatch']:SuspiciousActivity()
 ```
 
 # Steps to Create New Alert
@@ -74,7 +76,7 @@ https://www.discord.gg/projectsloth
 1. Create a client event that will be triggered from whatever script you want
 
 ```lua
-local function FleecaBankRobbery()
+local function FleecaBankRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
@@ -83,6 +85,7 @@ local function FleecaBankRobbery()
         dispatchCode = "10-90",
         firstStreet = locationInfo,
         gender = gender,
+        camId = camId,
         model = nil,
         plate = nil,
         priority = 2, -- priority

@@ -87,7 +87,8 @@ local function VehicleShooting(vehdata)
     if GetEntityBoneIndexByName(vehicle, 'door_pside_r') ~= -1 then doorCount = doorCount + 1 end
     if GetEntityBoneIndexByName(vehicle, 'door_dside_f') ~= -1 then doorCount = doorCount + 1 end
     if GetEntityBoneIndexByName(vehicle, 'door_dside_r') ~= -1 then doorCount = doorCount + 1 end
-    if doorCount == 2 then doorCount = "Two-Door" elseif doorCount == 3 then doorCount = "Three-Door" elseif doorCount == 4 then doorCount = "Four-Door" else doorCount = "UNKNOWN" end
+    if doorCount == 2 then doorCount = "Two-Door" elseif doorCount == 3 then doorCount = "Three-Door" elseif doorCount ==
+        4 then doorCount = "Four-Door" else doorCount = "UNKNOWN" end
     TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "vehicleshots", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-60",
@@ -279,7 +280,7 @@ end
 
 exports('StoreRobbery', StoreRobbery)
 
-local function FleecaBankRobbery()
+local function FleecaBankRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
@@ -288,6 +289,7 @@ local function FleecaBankRobbery()
         dispatchCode = "10-90",
         firstStreet = locationInfo,
         gender = gender,
+        camId = camId,
         model = nil,
         plate = nil,
         priority = 2, -- priority
@@ -305,7 +307,7 @@ end
 
 exports('FleecaBankRobbery', FleecaBankRobbery)
 
-local function PaletoBankRobbery()
+local function PaletoBankRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
@@ -314,6 +316,7 @@ local function PaletoBankRobbery()
         dispatchCode = "10-90",
         firstStreet = locationInfo,
         gender = gender,
+        camId = camId,
         model = nil,
         plate = nil,
         priority = 2, -- priority
@@ -331,7 +334,7 @@ end
 
 exports('PaletoBankRobbery', PaletoBankRobbery)
 
-local function PacificBankRobbery()
+local function PacificBankRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
@@ -340,6 +343,7 @@ local function PacificBankRobbery()
         dispatchCode = "10-90",
         firstStreet = locationInfo,
         gender = gender,
+        camId = camId,
         model = nil,
         plate = nil,
         priority = 2, -- priority
@@ -383,7 +387,7 @@ end
 
 exports('PrisonBreak', PrisonBreak)
 
-local function VangelicoRobbery()
+local function VangelicoRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
@@ -393,6 +397,7 @@ local function VangelicoRobbery()
         dispatchCode = "10-90",
         firstStreet = locationInfo,
         gender = gender,
+        camId = camId,
         model = nil,
         plate = nil,
         priority = 2, -- priority
@@ -468,7 +473,7 @@ local function DrugSale()
     local gender = GetPedGender()
     TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "suspicioushandoff", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
-        dispatchCode = "10-60",
+        dispatchCode = "10-13",
         firstStreet = locationInfo,
         gender = gender,
         model = nil,
@@ -530,7 +535,10 @@ local function OfficerDown()
         dispatchcodename = "officerdown", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-99",
         firstStreet = locationInfo,
-        name = "COP - " .. plyData.charinfo.firstname:sub(1, 1):upper() .. plyData.charinfo.firstname:sub(2) .. " " .. plyData.charinfo.lastname:sub(1, 1):upper() .. plyData.charinfo.lastname:sub(2),
+        name = "COP - " ..
+            plyData.charinfo.firstname:sub(1, 1):upper() ..
+            plyData.charinfo.firstname:sub(2) ..
+            " " .. plyData.charinfo.lastname:sub(1, 1):upper() .. plyData.charinfo.lastname:sub(2),
         model = nil,
         plate = nil,
         callsign = callsign,
@@ -543,11 +551,15 @@ local function OfficerDown()
             z = currentPos.z
         },
         dispatchMessage = _U('officerdown'), -- message
-        job = { "ambulance" } -- jobs that will get the alerts
+        job = { "ambulance", "police" } -- jobs that will get the alerts
     })
 end
 
 exports('OfficerDown', OfficerDown)
+
+RegisterNetEvent("ps-dispatch:client:officerdown", function()
+    OfficerDown()
+end)
 
 local function EmsDown()
     local plyData = QBCore.Functions.GetPlayerData()
@@ -558,7 +570,10 @@ local function EmsDown()
         dispatchcodename = "emsdown", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-99",
         firstStreet = locationInfo,
-        name = "EMS - " .. plyData.charinfo.firstname:sub(1, 1):upper() .. plyData.charinfo.firstname:sub(2) .. " " .. plyData.charinfo.lastname:sub(1, 1):upper() .. plyData.charinfo.lastname:sub(2),
+        name = "EMS - " ..
+            plyData.charinfo.firstname:sub(1, 1):upper() ..
+            plyData.charinfo.firstname:sub(2) ..
+            " " .. plyData.charinfo.lastname:sub(1, 1):upper() .. plyData.charinfo.lastname:sub(2),
         model = nil,
         plate = nil,
         callsign = callsign,
@@ -571,11 +586,15 @@ local function EmsDown()
             z = currentPos.z
         },
         dispatchMessage = _U('emsdown'), -- message
-        job = { "ambulance" } -- jobs that will get the alerts
+        job = { "ambulance", "police" } -- jobs that will get the alerts
     })
 end
 
 exports('EmsDown', EmsDown)
+
+RegisterNetEvent("ps-dispatch:client:emsdown", function()
+    EmsDown()
+end)
 
 local function Explosion()
     local currentPos = GetEntityCoords(PlayerPedId())
@@ -596,12 +615,38 @@ local function Explosion()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "EXPLOSION REPORTED", -- message
+        dispatchMessage = "Explosion Reported", -- message
         job = { "police" } -- jobs that will get the alerts
     })
 end
 
 exports('Explosion', Explosion)
+
+local function SuspiciousActivity()
+    local currentPos = GetEntityCoords(PlayerPedId())
+    local locationInfo = getStreetandZone(currentPos)
+    local gender = GetPedGender()
+    TriggerServerEvent("dispatch:server:notify", {
+        dispatchcodename = "susactivity", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+        dispatchCode = "10-66",
+        firstStreet = locationInfo,
+        gender = gender,
+        model = nil,
+        plate = nil,
+        priority = 2, -- priority
+        firstColor = nil,
+        automaticGunfire = false,
+        origin = {
+            x = currentPos.x,
+            y = currentPos.y,
+            z = currentPos.z
+        },
+        dispatchMessage = _U('susactivity'), -- message
+        job = { "police" } -- jobs that will get the alerts
+    })
+end
+
+exports('SuspiciousActivity', SuspiciousActivity)
 
 RegisterCommand('testdispatch', function()
     TriggerEvent('')
