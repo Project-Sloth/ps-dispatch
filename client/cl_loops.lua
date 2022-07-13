@@ -3,14 +3,17 @@ local vehicleWhitelist = { [0] = true, [1] = true, [2] = true, [3] = true, [4] =
 
 local check = false
 ---This event will run only when the player enter a vehicle and will stop inmediate after
+--- A notation here, if someone is using the DecorRegister("Player_Vehicle",3) this will lead to --- this event not fire anymore.
 ---@param ad any
 AddEventHandler("CEventShockingSeenCarStolen", function(ad)
-    check = true
+
     local playerPed = PlayerPedId()
-    CreateThread(function()
-        while check do
-            Wait(200)
-            if IsPedInAnyVehicle(playerPed, true) then
+    Wait(300)
+    if IsPedInAnyVehicle(playerPed, true) then
+        check = true
+        CreateThread(function()
+            while check do
+                Wait(200)
                 local Vehicle = GetVehiclePedIsIn(playerPed, true)
                 if not Config.Reckless then
                     if ((GetEntitySpeed(Vehicle) * 3.6) >= 90) then
@@ -22,14 +25,17 @@ AddEventHandler("CEventShockingSeenCarStolen", function(ad)
                         end)
                     end
                 end
-            else
-                check = false
             end
-        end
-    end)
+        end)
+    else
+        check = false
+    end
 end)
 
-
+AddEventHandler("CTaskEnterVehicle", function(...)
+    local args = { ... }
+    print(json.encode(args), { indent = true })
+end)
 
 ---Event fired every time a player shoot, b arg is the player Ped
 ---@param _ table
@@ -81,4 +87,3 @@ AddEventHandler("CEventDamage", function(_, b, c)
         end
     end
 end)
-
