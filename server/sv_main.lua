@@ -13,6 +13,38 @@ function IsPoliceJob(job)
     end
     return false
 end
+local function GetPlayersJob(job)
+	local j = type(job) == "string" and job or tostring(job)
+	  local players = {}
+    local count = 0
+    for src, Player in pairs(QBCore.Functions.GetQBPlayers()) do
+        if Player.PlayerData.job.name == j then
+	 if Config.onDuty then
+		 if Player.PlayerData.job.onduty then
+                	players[#players + 1] = src
+                	count += 1
+           	 end
+	 else
+	      players[#players + 1] = src
+              count += 1
+	 end
+        end
+    end
+    return players, count
+end
+
+local function SendData(src,job,event,...)
+	--check more jobs!
+	if GetInvokingResource() == GetCurrentResourceName() then
+	local players,count = GetPlayersJob(job)
+	for k,v in pairs(players) do
+		local el = players[k]
+		TriggerClientEvent(event,el,...)
+	end
+		else
+		print("Error Detected "..GetPlayerName(src) .." is trying to send data: "..json.encode({...},{indent=true}).." From resource: "..GetInvokingResource())
+	end
+end
 
 RegisterServerEvent("dispatch:server:notify")
 AddEventHandler("dispatch:server:notify", function(data)
@@ -23,7 +55,8 @@ AddEventHandler("dispatch:server:notify", function(data)
     calls[newId]['units'] = {}
     calls[newId]['responses'] = {}
     calls[newId]['time'] = os.time() * 1000
-
+		
+		SendData(source,)
 	TriggerClientEvent('dispatch:clNotify', -1, data, newId, source)
     TriggerClientEvent("ps-dispatch:client:AddCallBlip", -1, data.origin, dispatchCodes[data.dispatchcodename])
 end)
