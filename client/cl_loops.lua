@@ -5,8 +5,7 @@ local check = false
 ---This event will run only when the player enter a vehicle and will stop inmediate after
 --- A notation here, if someone is using the DecorRegister("Player_Vehicle",3) this will lead to --- this event not fire anymore.
 ---@param ad any
-AddEventHandler("CEventShockingSeenCarStolen", function(ad)
-
+AddEventHandler("CEventShockingSeenCarStolen", function(...)
     local playerPed = PlayerPedId()
     Wait(300)
     if IsPedInAnyVehicle(playerPed, true) then
@@ -20,7 +19,7 @@ AddEventHandler("CEventShockingSeenCarStolen", function(ad)
                         local vehicle = vehicleData(Vehicle)
                         exports['ps-dispatch']:SpeedingVehicle(vehicle)
                         Config.Reckless = true
-                        Citizen.SetTimeout(10000, function()
+                        SetTimeout(30000, function()
                             Config.Reckless = false
                         end)
                     end
@@ -32,15 +31,11 @@ AddEventHandler("CEventShockingSeenCarStolen", function(ad)
     end
 end)
 
-AddEventHandler("CTaskEnterVehicle", function(...)
-    local args = { ... }
-    print(json.encode(args), { indent = true })
-end)
-
 ---Event fired every time a player shoot, b arg is the player Ped
 ---@param _ table
 ---@param b number
 ---@param c number
+
 AddEventHandler("CEventGunShot", function(_, b, c)
     local Player = b
     if tonumber(Player) == PlayerPedId() then
@@ -52,7 +47,7 @@ AddEventHandler("CEventGunShot", function(_, b, c)
                     local vehicle = vehicleData(Vehicle)
                     exports['ps-dispatch']:VehicleShooting(vehicle)
                     Config.VehicleShooting = true
-                    Citizen.SetTimeout(10000, function()
+                    SetTimeout(10000, function()
                         Config.VehicleShooting = false
                     end)
                 end
@@ -61,7 +56,7 @@ AddEventHandler("CEventGunShot", function(_, b, c)
             if not Config.Shootingevent then
                 exports['ps-dispatch']:Shooting()
                 Config.Shootingevent = true
-                Citizen.SetTimeout(10000, function()
+                SetTimeout(10000, function()
                     Config.Shootingevent = false
                 end)
             end

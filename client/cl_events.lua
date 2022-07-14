@@ -301,7 +301,8 @@ local function FleecaBankRobbery(camId)
             z = currentPos.z
         },
         dispatchMessage = _U('fleecabank'), -- message
-        job = { "police" } -- jobs that will get the alerts
+        job = { "police" }, -- jobs that will get the alerts,
+        resource = GetInvokingResource()
     })
 end
 

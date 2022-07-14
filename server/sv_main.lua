@@ -14,40 +14,66 @@ local function IsPoliceJob(job)
     return false
 end
 
+---This funcion handle the check of players with X job, and will return the source, this will prevent sending the event to everyone in the server, all players donest need to know the notifications (-1)
+---@param job string | table
+---@return table
 local function GetPlayersJob(job)
-    local j = type(job) == "string" and job or tostring(job)
+    local p = promise.new()
+    local j = type(job) == "string" and job or type(job) == "table" and job or tostring(job)
     local players = {}
-    local count = 0
+    local isTable = type(job) == "table"
+
     for src, Player in pairs(QBCore.Functions.GetQBPlayers()) do
-        if Player.PlayerData.job.name == j then
-            if Config.onDuty then
-                if Player.PlayerData.job.onduty then
-                    players[#players + 1] = src
-                    count += 1
+        if isTable then -- if jobs are a table then lets run and check it
+            for i = 1, #j do
+                local el = j[i]
+                if Player.PlayerData.job.name == el then
+                    if Config.onDuty then
+                        if Player.PlayerData.job.onduty then
+                            players[#players + 1] = src
+                        end
+                    else
+                        players[#players + 1] = src
+                    end
                 end
-            else
-                players[#players + 1] = src
-                count += 1
             end
+            p:resolve(players)
+        else -- if j is only a string lets just return the value and thats it
+            if Player.PlayerData.job.name == j then
+                if Config.onDuty then
+                    if Player.PlayerData.job.onduty then
+                        players[#players + 1] = src
+                    end
+                else
+                    players[#players + 1] = src
+                end
+            end
+            p:resolve(players)
         end
     end
-    return players, count
+    return Citizen.Await(p)
 end
 
-local function SendData(src, job, event, ...)
-    --check more jobs!
-    if GetInvokingResource() == GetCurrentResourceName() then
-        local players, count = GetPlayersJob(job)
-        for k, v in pairs(players) do
-            local el = players[k]
-            TriggerClientEvent(event, el, ...)
+function log(text)
+    print(json.encode(text, { pretty = true, indent = "  ", align_keys = true }))
+end
+
+---Generic function to send data over the net
+---@param job table | string
+---@param event string
+---@param ... unknown
+local function SendData(job, event, ...)
+    if not type(event) == "string" then return end
+    if not job then return end
+    local args = { ... }
+    local players = GetPlayersJob(job)
+    CreateThread(function()
+        for i = 1, #players do
+            SetTimeout(100, function()
+                TriggerClientEvent(event, i, table.unpack(args))
+            end)
         end
-    else
-        print("Error Detected " ..
-            GetPlayerName(src) ..
-            " is trying to send data: " .. json.encode({ ... }, { indent = true }) ..
-            " From resource: " .. GetInvokingResource())
-    end
+    end)
 end
 
 local function IsDispatchJob(job)
@@ -68,10 +94,9 @@ AddEventHandler("dispatch:server:notify", function(data)
     calls[newId]['units'] = {}
     calls[newId]['responses'] = {}
     calls[newId]['time'] = os.time() * 1000
-
-    SendData(source,as)
-    TriggerClientEvent('dispatch:clNotify', -1, data, newId, source)
-    TriggerClientEvent("ps-dispatch:client:AddCallBlip", -1, data.origin, dispatchCodes[data.dispatchcodename], newId)
+    SendData(data.job, "dispatch:clNotify", data, newId, source)
+    SendData(data.job, "ps-dispatch:client:AddCallBlip",
+        data.origin, dispatchCodes[data.dispatchcodename], newId)
 end)
 
 function GetDispatchCalls() return calls end
@@ -168,3 +193,9 @@ QBCore.Commands.Add("cleardispatchblips", "Clear all dispatch blips", {}, false,
         TriggerClientEvent('ps-dispatch:client:clearAllBlips', src)
     end
 end)
+
+-- RegisterCommand("jerico", function(source, args)
+--     print(json.encode(args, { indent = true }))
+--     print(json.encode(SendData(source, { "police" }, "QBCore:Notify", { source, "HOLAAAA" })))
+
+-- end)
