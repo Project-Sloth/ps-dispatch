@@ -1,4 +1,4 @@
-# Beta Released
+# QBCore MDT
 
 Integrated with https://github.com/Project-Sloth/ps-mdt
 
