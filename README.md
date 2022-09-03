@@ -1,4 +1,4 @@
-# QBCore MDT
+# QBCore Dispatch
 
 Integrated with https://github.com/Project-Sloth/ps-mdt
 
