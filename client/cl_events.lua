@@ -129,7 +129,6 @@ local function Shooting()
         firstStreet = locationInfo,
         gender = gender,
         weapon = weapon,
-        speed = speed,
         model = nil,
         plate = nil,
         priority = 2,
