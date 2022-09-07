@@ -69,6 +69,8 @@ https://www.discord.gg/projectsloth
 - exports['ps-dispatch']:VehicleTheft(vehicle)
 
 - exports['ps-dispatch']:SuspiciousActivity()
+
+- exports['ps-dispatch']:SignRobbery()
 ```
 
 # Steps to Create New Alert
