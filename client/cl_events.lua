@@ -640,6 +640,51 @@ end
 
 exports('SuspiciousActivity', SuspiciousActivity)
 
-RegisterCommand('testdispatch', function()
-    TriggerEvent('')
-end)
+local function CustomAlert(data)
+
+    local coords = data.coords or vec3(0.0, 0.0, 0.0)
+    local gender = GetPedGender()
+    if not data.gender then gender = nil end 
+    local job = { "police" }
+    if data.job then job = data.job end
+
+
+    local locationInfo = getStreetandZone(coords)
+    TriggerServerEvent("dispatch:server:notify", {
+        dispatchCode = data.dispatchCode or "NONE", 
+        firstStreet = locationInfo,
+        gender = gender,
+        model = data.model or nil,
+        plate = data.plate or nil,
+        priority = data.priority or 2, -- priority
+        firstColor = data.firstColor or nil,
+        camId = data.camId or nil,
+        callsign = data.callsign or nil,
+        name = data.name or nil,
+        doorCount = data.doorCount or nil,
+        heading = data.heading or nil,
+        automaticGunfire = data.automaticGunfire or false,
+        origin = {
+            x = coords.x,
+            y = coords.y,
+            z = coords.z
+        },
+        dispatchMessage = data.message or "", 
+        job = job,
+        alert = {
+            displayCode = data.dispatchCode or "NONE", 
+            description = data.description or "", 
+            radius = data.radius or 0, 
+            recipientList = job, 
+            blipSprite = data.sprite or 1, 
+            blipColour = data.color or 1, 
+            blipScale = data.scale or 0.5, 
+            blipLength = data.length or 2, 
+            sound = data.sound or "Lose_1st", 
+            sound2 = data.sound2 or "GTAO_FM_Events_Soundset", 
+            offset = data.offset or "false", 
+            blipflash = data.flash or "false"
+        }
+    })
+end
+exports('CustomAlert', CustomAlert)

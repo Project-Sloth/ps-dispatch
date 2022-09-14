@@ -23,8 +23,7 @@ local function IsDispatchJob(job)
     return false
 end
 
-RegisterServerEvent("dispatch:server:notify")
-AddEventHandler("dispatch:server:notify", function(data)
+RegisterServerEvent("dispatch:server:notify", function(data)
 	local newId = #calls + 1
 	calls[newId] = data
     calls[newId]['source'] = source
@@ -34,7 +33,11 @@ AddEventHandler("dispatch:server:notify", function(data)
     calls[newId]['time'] = os.time() * 1000
 
 	TriggerClientEvent('dispatch:clNotify', -1, data, newId, source)
-    TriggerClientEvent("ps-dispatch:client:AddCallBlip", -1, data.origin, dispatchCodes[data.dispatchcodename], newId)
+    if not data.alert then 
+        TriggerClientEvent("ps-dispatch:client:AddCallBlip", -1, data.origin, dispatchCodes[data.dispatchcodename], newId)
+    else
+        TriggerClientEvent("ps-dispatch:client:AddCallBlip", -1, data.origin, data.alert, newId)
+    end
 end)
 
 function GetDispatchCalls() return calls end
