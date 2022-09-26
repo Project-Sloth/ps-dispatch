@@ -6,6 +6,14 @@ local blips = {}
 
 -- core related
 
+AddEventHandler('onResourceStart', function(resourceName)
+    if GetCurrentResourceName() == resourceName then
+		isLoggedIn = true
+        PlayerData = QBCore.Functions.GetPlayerData()
+        PlayerJob = QBCore.Functions.GetPlayerData().job
+    end
+end)
+
 RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
     isLoggedIn = true
     PlayerData = QBCore.Functions.GetPlayerData()
