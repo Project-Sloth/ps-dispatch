@@ -232,4 +232,5 @@ Locales = {
         ['carboosting'] = "Car Boosting",
         ['yachtheist'] = "Yacht Überfall",
         ['susactivity'] = "Verdächtige Aktivität",
+    }
 }
