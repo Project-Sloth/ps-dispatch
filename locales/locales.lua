@@ -203,8 +203,8 @@ Locales = {
         ['military'] = "Militär Fahrzeug",
         ['truck'] = "Truck",
         -- DISPATCH MESSAGES
-        ['vehicleshots'] = "Schüße aus einem Auto",
-        ['shooting'] = "Schüße wurden abgefeuert",
+        ['vehicleshots'] = "Schüsse aus einem Auto",
+        ['shooting'] = "Schüsse wurden abgefeuert",
         ['melee'] = "Angehender Kampf",
         ['driveby'] = "Drive-by shooting",
         ['speeding'] = "Rücksichtsloses Fahren",
