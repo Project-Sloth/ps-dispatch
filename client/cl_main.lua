@@ -1,8 +1,9 @@
-PlayerData = {}
-PlayerJob = {}
-isLoggedIn = true
-QBCore = exports['qb-core']:GetCoreObject()
+local PlayerData = {}
+local PlayerJob = {}
+local isLoggedIn = true
+local QBCore = exports['qb-core']:GetCoreObject()
 local blips = {}
+local Waypoint = nil
 
 -- core related
 
@@ -55,7 +56,7 @@ function refreshPlayerWhitelisted()
 	if not PlayerData then return false end
 	if not PlayerData.job then return false end
 	if Config.Debug then return true end
-	for k,v in ipairs({'police'}) do
+	for k, v in ipairs({'police'}) do
 		if v == PlayerData.job.name then
 			return true
 		end
@@ -227,11 +228,19 @@ RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationI
 						timer = 5000,
 						isPolice = IsPoliceJob(PlayerJob.name)
 					})
+					Waypoint = vector2(sNotificationData.origin.x, sNotificationData.origin.y)
+					Wait(5000)
+					Waypoint = nil
 				end
 			end
         end
     end
 end)
+
+RegisterCommand('setdispatchgps', function()
+    if Waypoint then SetWaypointOff() SetNewWaypoint(Waypoint.x, Waypoint.y) end
+end, false)
+RegisterKeyMapping('setdispatchgps', 'Set waypoint', 'keyboard', 'Y')
 
 RegisterNetEvent("ps-dispatch:client:AddCallBlip", function(coords, data, blipId)
 	if IsValidJob(data.recipientList) and CheckOnDuty() then
