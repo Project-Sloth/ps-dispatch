@@ -44,6 +44,9 @@ local WeaponTable = {
     [-1312131151] = "CLASS 5: RPG",
     [125959754]   = "CLASS 5: Compactlauncher"
 }
+
+local QBCore = exports['qb-core']:GetCoreObject()
+
 local function VehicleTheft(vehicle)
     local vehdata = vehicleData(vehicle)
     local currentPos = GetEntityCoords(PlayerPedId())

@@ -28,3 +28,5 @@ files {
     'ui/app.js',
     'ui/style.css',
 }
+
+lua54 'yes'

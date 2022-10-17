@@ -2,6 +2,7 @@
 local playAnim = false
 local phoneProp = 0
 local phoneModel = Config.PhoneModel
+local QBCore = exports['qb-core']:GetCoreObject()
 
 
 -- Item checks to return whether or not the client has a phone or not
