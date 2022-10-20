@@ -47,6 +47,19 @@ local WeaponTable = {
     [-1568386805] = "CLASS 5: Grenade Launcher",
     [-1312131151] = "CLASS 5: RPG",
     [125959754]   = "CLASS 5: Compact Launcher",
+    [-370585943] = "CLASS 1: Ceramic Pistol",
+    [-2094392714] = "CLASS 2: Navy Revolver",
+    [2050882666] = "CLASS 1: Double Action Revolver",
+    [626847828] = "CLASS 5: EMP Launcher",
+    [491091384] = "CLASS 5: Firework Launcher",
+    [1901887007] = "CLASS 5: Homing Launcher",
+    [422658457] = "CLASS 5: Minigun",
+    [-1876506235] = "CLASS 5: Railgun",
+    [-229787679]   = "CLASS 2: Heavy Revolver MK2",
+    [377247090] = "CLASS 5: Unholy Hellbringer",
+    [-1450059032] = "CLASS 5: Widowmaker",
+    [-697859071] = "CLASS 5: Up-N-Atomizer",
+    [635492121] = "CLASS 3: Military Rifle",
 }
 local function VehicleTheft(vehicle)
     local vehdata = vehicleData(vehicle)
