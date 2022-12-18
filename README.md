@@ -201,8 +201,3 @@ Rest steps will be similar as mentioned above in Steps to create alerts.
 
 * Hunting Zones
 * Locales for alerts
-
-# DMCA Protection Certificate
-![image](https://user-images.githubusercontent.com/82112471/169714852-1c4597b8-0ed3-4b56-a439-d0462681e3ff.png)
-
-https://www.dmca.com/r/d03ek52
