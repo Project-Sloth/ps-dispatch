@@ -4,6 +4,11 @@ isLoggedIn = true
 QBCore = exports['qb-core']:GetCoreObject()
 local blips = {}
 
+-- Debugging and testing dispatch alerts - Uncomment to use. 
+--RegisterCommand('testdispatch',function ()
+--    TriggerEvent('')
+--end)
+
 -- core related
 
 AddEventHandler('onResourceStart', function(resourceName)
