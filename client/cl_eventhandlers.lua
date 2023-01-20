@@ -9,7 +9,6 @@ local function isPlayerAWitness(witnesses)
     return false
 end
 
----Event that is triggered for gunshots.
 ---@param witnesses table  array of peds that witnessed the shots
 ---@param ped number  the ped that shot the gun
 AddEventHandler("CEventGunShot", function(witnesses, ped)
