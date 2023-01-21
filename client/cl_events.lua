@@ -55,7 +55,7 @@ local function VehicleTheft(vehicle, ped, coords)
     local vehdata = vehicleData(vehicle)
     local currentPos = coords or GetEntityCoords(player)
     local locationInfo = getStreetandZone(currentPos)
-    local heading = getCardinalDirectionFromHeading()
+    local heading = getCardinalDirectionFromHeading(player)
     TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "vehicletheft", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-35",
@@ -86,7 +86,7 @@ local function VehicleShooting(vehdata, ped, coords)
     local vehdata = vehdata or vehicleData(QBCore.Functions.GetClosestVehicle())
     local currentPos = coords or GetEntityCoords(player)
     local locationInfo = getStreetandZone(currentPos)
-    local heading = getCardinalDirectionFromHeading()
+    local heading = getCardinalDirectionFromHeading(player)
     local gender = GetPedGender()
     local CurrentWeapon = GetSelectedPedWeapon(player)
     local weapon = WeaponTable[CurrentWeapon] or "UNKNOWN"
@@ -156,7 +156,7 @@ local function SpeedingVehicle(vehdata, ped, coords)
     local player = ped or PlayerPedId()
     local currentPos = coords or GetEntityCoords(player)
     local locationInfo = getStreetandZone(currentPos)
-    local heading = getCardinalDirectionFromHeading()
+    local heading = getCardinalDirectionFromHeading(player)
     TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "speeding", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-11",
@@ -514,7 +514,7 @@ local function CarJacking(vehicle, ped, coords)
     local vehdata = vehicleData(vehicle)
     local currentPos = coords or GetEntityCoords(player)
     local locationInfo = getStreetandZone(currentPos)
-    local heading = getCardinalDirectionFromHeading()
+    local heading = getCardinalDirectionFromHeading(player)
     TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "carjack", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-35",

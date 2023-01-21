@@ -151,8 +151,10 @@ function GetPedGender()
     return gender
 end
 
-function getCardinalDirectionFromHeading()
-    local heading = GetEntityHeading(PlayerPedId())
+---@param entity number or nil | The entity to get the heading from, if nil it will use the player
+function getCardinalDirectionFromHeading(entity)
+	local player = entity or PlayerPedId()
+    local heading = GetEntityHeading(player)
     if heading >= 315 or heading < 45 then return "North Bound"
     elseif heading >= 45 and heading < 135 then return "West Bound"
     elseif heading >=135 and heading < 225 then return "South Bound"
