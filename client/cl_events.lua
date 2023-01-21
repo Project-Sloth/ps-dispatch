@@ -46,6 +46,7 @@ local WeaponTable = {
     [-1312131151] = "CLASS 5: RPG",
     [125959754]   = "CLASS 5: Compactlauncher"
 }
+
 local function VehicleTheft(vehicle)
     local vehdata = vehicleData(vehicle)
     local currentPos = GetEntityCoords(PlayerPedId())
@@ -73,23 +74,18 @@ end
 
 exports('VehicleTheft', VehicleTheft)
 
-local function VehicleShooting(vehdata)
-    local vehicle = QBCore.Functions.GetClosestVehicle()
-    local vehdata = vehicleData(vehicle)
-    local currentPos = GetEntityCoords(PlayerPedId())
+---@param vehdata table | Vehicle Data for Alert
+---@param ped number | Ped ID
+---@param coords 'vector3' | Coordinates of the shooter
+local function VehicleShooting(vehdata, ped, coords)
+    local player = ped or PlayerPedId()
+    local vehdata = vehdata or vehicleData(QBCore.Functions.GetClosestVehicle())
+    local currentPos = coords or GetEntityCoords(player)
     local locationInfo = getStreetandZone(currentPos)
     local heading = getCardinalDirectionFromHeading()
     local gender = GetPedGender()
-    local doorCount = 0
-
-    local PlayerPed = PlayerPedId()
-    local CurrentWeapon = GetSelectedPedWeapon(PlayerPed)
+    local CurrentWeapon = GetSelectedPedWeapon(player)
     local weapon = WeaponTable[CurrentWeapon] or "UNKNOWN"
-    if GetEntityBoneIndexByName(vehicle, 'door_pside_f') ~= -1 then doorCount = doorCount + 1 end
-    if GetEntityBoneIndexByName(vehicle, 'door_pside_r') ~= -1 then doorCount = doorCount + 1 end
-    if GetEntityBoneIndexByName(vehicle, 'door_dside_f') ~= -1 then doorCount = doorCount + 1 end
-    if GetEntityBoneIndexByName(vehicle, 'door_dside_r') ~= -1 then doorCount = doorCount + 1 end
-    if doorCount == 2 then doorCount = "Two-Door" elseif doorCount == 3 then doorCount = "Three-Door" elseif doorCount == 4 then doorCount = "Four-Door" else doorCount = "UNKNOWN" end
     TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "vehicleshots", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-60",
@@ -98,7 +94,7 @@ local function VehicleShooting(vehdata)
         plate = vehdata.plate,
         gender = gender,
         weapon = weapon,
-        doorCount = doorCount,
+        doorCount = vehdata.doors,
         priority = 2,
         firstColor = vehdata.colour,
         heading = heading,
@@ -125,7 +121,6 @@ local function Shooting(ped, coords)
     local CurrentWeapon = GetSelectedPedWeapon(player)
     local speed = math.floor(GetEntitySpeed(vehicle) * 2.236936) .. " MPH" -- * 3.6 = KMH    /    * 2.236936 = MPH
     local weapon = WeaponTable[CurrentWeapon] or "UNKNOWN"
-
     TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "shooting", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-11",
