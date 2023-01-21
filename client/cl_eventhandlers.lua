@@ -30,11 +30,11 @@ AddEventHandler("CEventGunShot", function(witnesses, ped)
     if vehicle ~= 0 then
         if vehicleWhitelist[GetVehicleClass(vehicle)] then
             vehicle = vehicleData(vehicle)
-            exports['ps-dispatch']:VehicleShooting(vehicle)
+            exports['ps-dispatch']:VehicleShooting(vehicle, ped)
             Config.Timer['Shooting'] = Config.Shooting.Success
         end
     else
-        exports['ps-dispatch']:Shooting()
+        exports['ps-dispatch']:Shooting(ped)
         Config.Timer['Shooting'] = Config.Shooting.Success
     end
 end)
@@ -60,7 +60,7 @@ AddEventHandler('CEventShockingMadDriver', function(witnesses, ped, x, y, z)
                 Wait(400)
                 if ((GetEntitySpeed(vehicle) * 3.6) >= 90) then
                     vehicle = vehicleData(vehicle)
-                    exports['ps-dispatch']:SpeedingVehicle(vehicle)
+                    exports['ps-dispatch']:SpeedingVehicle(vehicle, ped, vector3(x, y, z))
                     Config.Timer['Speeding'] = Config.Speeding.Success
                 end
             else
@@ -80,6 +80,6 @@ AddEventHandler('CEventMeleeAction', function(witnesses, attacker)
     if Config.AuthorizedJobs.LEO.Check() and not Config.Debug then return end
     -- Use the timer to prevent the event from being triggered multiple times.
     if Config.Timer['Melee'] ~= 0 then return end
-    exports['ps-dispatch']:Fight()
+    exports['ps-dispatch']:Fight(attacker)
     Config.Timer['Melee'] = Config.Melee.Success
 end)

@@ -113,13 +113,14 @@ end
 
 exports('VehicleShooting', VehicleShooting)
 
-
-local function Shooting()
-    local currentPos = GetEntityCoords(PlayerPedId())
+---@param ped number | Shooters Ped ID
+---@param coords 'vector3' | Shooters Coords
+local function Shooting(ped, coords)
+    local player = ped or PlayerPedId()
+    local currentPos = coords or GetEntityCoords(player)
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    local PlayerPed = PlayerPedId()
-    local CurrentWeapon = GetSelectedPedWeapon(PlayerPed)
+    local CurrentWeapon = GetSelectedPedWeapon(player)
     local speed = math.floor(GetEntitySpeed(vehicle) * 2.236936) .. " MPH" -- * 3.6 = KMH    /    * 2.236936 = MPH
     local weapon = WeaponTable[CurrentWeapon] or "UNKNOWN"
 
@@ -147,8 +148,12 @@ end
 
 exports('Shooting', Shooting)
 
-local function SpeedingVehicle(vehdata)
-    local currentPos = GetEntityCoords(PlayerPedId())
+---@param vehdata table | Vehicle Data for Alert
+---@param ped | Drivers Ped ID
+---@param coords 'vector3' | Drivers Coords
+local function SpeedingVehicle(vehdata, ped, coords)
+    local player = ped or PlayerPedId()
+    local currentPos = coords or GetEntityCoords(player)
     local locationInfo = getStreetandZone(currentPos)
     local heading = getCardinalDirectionFromHeading()
     TriggerServerEvent("dispatch:server:notify", {
@@ -173,8 +178,11 @@ end
 
 exports('SpeedingVehicle', SpeedingVehicle)
 
-local function Fight()
-    local currentPos = GetEntityCoords(PlayerPedId())
+---@param ped | Attackers Ped ID
+---@param coords 'vector3' | Attackers Coords
+local function Fight(ped, coords)
+    local player = ped or PlayerPedId()
+    local currentPos = coords or GetEntityCoords(player)
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
     TriggerServerEvent("dispatch:server:notify", {
