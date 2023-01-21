@@ -74,13 +74,13 @@ Citizen.CreateThread(function()
             if Config.Enable[k] ~= false then
                 Config[k] = {}
                 Config.Timer[k] = 0 -- Default to 0 seconds
-                Config[k].Success = 300 -- Default to 30 seconds
-                Config[k].Fail = 20 -- Default to 2 seconds
+                Config[k].Success = 30 -- Default to 30 seconds
+                Config[k].Fail = 2 -- Default to 2 seconds
             end
         end
         -- If you want to set specific timers, do it here
         if Config.Shooting then
-            Config.Shooting.Success = 100 -- 10 seconds
+            Config.Shooting.Success = 10 -- 10 seconds
             Config.Shooting.Fail = 0 -- 0 seconds
         end
             

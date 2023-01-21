@@ -1,5 +1,5 @@
 CreateThread(function()
-	local sleep = 100
+	local sleep = 1000
 	while true do
         if LocalPlayer.state.isLoggedIn then
             if (not Config.AuthorizedJobs.LEO.Check() or Config.Debug) then

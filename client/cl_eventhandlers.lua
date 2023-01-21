@@ -90,7 +90,7 @@ AddEventHandler('CEventShockingSeenMeleeAction', function(witnesses, attacker, c
 end)
 
 ---@param witnesses table | Array of peds that witnessed the event
----@param jacker number | The ped that used the melee weapon
+---@param jacker number | The ped that jacked the vehicle
 ---@param coords table | The coords of the attacker
 AddEventHandler('CEventShockingSeenCarStolen', function(witnesses, jacker, coords)
     local coords = vector3(coords[1][1], coords[1][2], coords[1][3])
@@ -105,7 +105,12 @@ AddEventHandler('CEventShockingSeenCarStolen', function(witnesses, jacker, coord
    --  if #witnesses == 1 and witnesses[1] ~= GetMeleeTargetForPed(ped) then return end
     local vehicle = GetVehiclePedIsUsing(jacker, true)
     if vehicleWhitelist[GetVehicleClass(vehicle)] then
-        exports['ps-dispatch']:CarJacking(vehicle, jacker, coords)
-        Config.Timer['Autotheft'] = Config.Autotheft.Success
+        if GetSelectedPedWeapon(jacker) ~= `WEAPON_UNARMED` then
+            exports['ps-dispatch']:CarJacking(vehicle, jacker, coords)
+            Config.Timer['Autotheft'] = Config.Autotheft.Success
+        else
+            exports['ps-dispatch']:VehicleTheft(vehicle, jacker, coords)
+            Config.Timer['Autotheft'] = Config.Autotheft.Success
+        end
     end
 end)
