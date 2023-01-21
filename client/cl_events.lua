@@ -1,3 +1,5 @@
+local QBCore = exports['qb-core']:GetCoreObject()
+
 local WeaponTable = {
     [584646201]   = "CLASS 2: AP-Pistol",
     [453432689]   = "CLASS 1: Pistol",
