@@ -52,18 +52,6 @@ function getStreetandZone(coords)
 	return playerStreetsLocation
 end
 
-function refreshPlayerWhitelisted()
-	if not PlayerData then return false end
-	if not PlayerData.job then return false end
-	if Config.Debug then return true end
-	for k,v in ipairs({'police'}) do
-		if v == PlayerData.job.name then
-			return true
-		end
-	end
-	return false
-end
-
 function BlacklistedWeapon(playerPed)
 	for i = 1, #Config.WeaponBlacklist do
 		local weaponHash = GetHashKey(Config.WeaponBlacklist[i])
