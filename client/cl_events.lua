@@ -47,9 +47,13 @@ local WeaponTable = {
     [125959754]   = "CLASS 5: Compactlauncher"
 }
 
-local function VehicleTheft(vehicle)
+---@param vehicle number | Vehicle ID
+---@param ped number | Ped ID
+---@param coords 'vector3' | Coordinates of the ped
+local function VehicleTheft(vehicle, ped, coords)
+    local player = ped or PlayerPedId()
     local vehdata = vehicleData(vehicle)
-    local currentPos = GetEntityCoords(PlayerPedId())
+    local currentPos = coords or GetEntityCoords(player)
     local locationInfo = getStreetandZone(currentPos)
     local heading = getCardinalDirectionFromHeading()
     TriggerServerEvent("dispatch:server:notify", {
@@ -502,9 +506,13 @@ RegisterNetEvent('ps-dispatch:client:drugsale', function()
     DrugSale()
 end)
 
-local function CarJacking(vehicle)
+---@param vehicle number | Vehicle ID
+---@param ped number | Ped ID
+---@param coords table | Coordinates
+local function CarJacking(vehicle, ped, coords)
+    local player = ped or PlayerPedId()
     local vehdata = vehicleData(vehicle)
-    local currentPos = GetEntityCoords(PlayerPedId())
+    local currentPos = coords or GetEntityCoords(player)
     local locationInfo = getStreetandZone(currentPos)
     local heading = getCardinalDirectionFromHeading()
     TriggerServerEvent("dispatch:server:notify", {

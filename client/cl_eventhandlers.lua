@@ -105,7 +105,7 @@ AddEventHandler('CEventShockingSeenCarStolen', function(witnesses, jacker, coord
    --  if #witnesses == 1 and witnesses[1] ~= GetMeleeTargetForPed(ped) then return end
     local vehicle = GetVehiclePedIsUsing(jacker, true)
     if vehicleWhitelist[GetVehicleClass(vehicle)] then
-        exports['ps-dispatch']:VehicleTheft(vehicle)
+        exports['ps-dispatch']:CarJacking(vehicle, jacker, coords)
         Config.Timer['Autotheft'] = Config.Autotheft.Success
     end
 end)
