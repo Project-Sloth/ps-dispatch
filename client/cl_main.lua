@@ -34,6 +34,10 @@ RegisterNetEvent("QBCore:Client:OnJobUpdate", function(JobInfo)
     PlayerJob = JobInfo
 end)
 
+RegisterNetEvent("QBCore:Client:SetDuty", function(newDuty)
+    PlayerJob.onduty = newDuty
+end)
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function _U(entry)
