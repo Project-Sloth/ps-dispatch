@@ -1,7 +1,6 @@
-PlayerData = {}
-PlayerJob = {}
-isLoggedIn = true
-QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
+local PlayerData = {}
+local PlayerJob = {}
 local blips = {}
 
 -- Debugging and testing dispatch alerts - Uncomment to use. 
@@ -13,21 +12,18 @@ local blips = {}
 
 AddEventHandler('onResourceStart', function(resourceName)
     if GetCurrentResourceName() == resourceName then
-		isLoggedIn = true
         PlayerData = QBCore.Functions.GetPlayerData()
         PlayerJob = QBCore.Functions.GetPlayerData().job
     end
 end)
 
 RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
-    isLoggedIn = true
     PlayerData = QBCore.Functions.GetPlayerData()
     PlayerJob = QBCore.Functions.GetPlayerData().job
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
 	PlayerData = {}
-    isLoggedIn = false
     currentCallSign = ""
     -- currentVehicle, inVehicle, currentlyArmed, currentWeapon = nil, false, false, `WEAPON_UNARMED`
     -- removeHuntingZones()
@@ -171,15 +167,6 @@ function getCardinalDirectionFromHeading()
     elseif heading >= 225 and heading < 315 then return "East Bound" end
 end
 
-function IsPoliceJob(job)
-    for k, v in pairs(Config.PoliceJob) do
-        if job == v then
-            return true
-        end
-    end
-    return false
-end
-
 local function IsValidJob(jobList)
 	for k, v in pairs(jobList) do
 		if v == PlayerJob.name then
@@ -221,7 +208,7 @@ RegisterNetEvent('dispatch:manageNotifs', function(sentSetting)
 end)
 
 RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationId, sender)
-    if sNotificationData ~= nil and isLoggedIn then
+    if sNotificationData ~= nil and LocalPlayer.state.isLoggedIn then
 		if IsValidJob(sNotificationData['job']) and CheckOnDuty() then
             if not disableNotis then
 				if sNotificationData.origin ~= nil then
@@ -230,7 +217,7 @@ RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationI
 						callID = sNotificationId,
 						data = sNotificationData,
 						timer = 5000,
-						isPolice = IsPoliceJob(PlayerJob.name)
+						isPolice = Config.AuthorizedJobs.LEO.Check()
 					})
 				end
 			end

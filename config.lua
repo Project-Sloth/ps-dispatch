@@ -1,14 +1,41 @@
+local QBCore = exports['qb-core']:GetCoreObject()
+
 Config = {}
 
 Config.Enable = {}
 Config.Timer = {}
 
-Config.PoliceJob = { "police", "bcso"}
+Config.AuthorizedJobs = {
+    LEO = { -- this is for job checks which should only return true for police officers
+        Jobs = {['police'] = true, ['fib'] = true, ['sheriff'] = true},
+        Types = {['police'] = true, ['leo'] = true},
+        Check = function()
+            local PlyData = QBCore.Functions.GetPlayerData()
+            local job, jobtype = PlyData.job.name, PlyData.job.type
+            if Config.AuthorizedJobs.LEO.Jobs[job] or Config.AuthorizedJobs.LEO.Types[jobtype] then return true end
+        end
+    },
+    EMS = { -- this if for job checks which should only return true for ems workers
+        Jobs = {['ambulance'] = true, ['fire'] = true},
+        Types = {['ambulance'] = true, ['fire'] = true, ['ems'] = true},
+        Check = function()
+            local PlyData = QBCore.Functions.GetPlayerData()
+            local job, jobtype = PlyData.job.name, PlyData.job.type
+            if Config.AuthorizedJobs.EMS.Jobs[job] or Config.AuthorizedJobs.EMS.Types[jobtype] then return true end
+        end
+    },
+    FirstResponder = { -- do not touch, this is a combined job checking function for emergency services (police and ems)
+        Check = function()
+            local PlyData = QBCore.Functions.GetPlayerData()
+            local job, jobtype = PlyData.job.name, PlyData.job.type
+            if Config.AuthorizedJobs.LEO.Check(jobtype, job) or Config.AuthorizedJobs.EMS.Check(jobtype, job) then return true end            
+        end
+    }
+}
 
 -- Enable if you only want to send alerts to onDuty officers
 Config.OnDutyOnly = false
 
-Config.PoliceAndAmbulance = { "police", "ambulance", "bcso"}
 Config.PhoneModel = 'prop_npc_phone_02'
 
 -- sets report chance to 100%

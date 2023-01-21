@@ -21,7 +21,7 @@ AddEventHandler("CEventGunShot", function(witnesses, ped)
     if witnesses and not isPlayerAWitness(witnesses) then return end
     -- If the player is a whitelisted job, then we don't want to trigger the event.
     -- However, if the player is not whitelisted or Debug mode is true, then we want to trigger the event.
-    if IsPoliceJob(PlayerJob.name) and not Config.Debug then return end
+    if Config.AuthorizedJobs.LEO.Check() and not Config.Debug then return end
     -- Use the timer to prevent the event from being triggered multiple times.
     if Config.Timer['Shooting'] ~= 0 then return end
     -- If the weapon is silenced or blacklisted, then we don't want to trigger the event.
@@ -49,7 +49,7 @@ AddEventHandler('CEventShockingMadDriver', function(witnesses, ped, x, y, z)
     if PlayerPedId() ~= ped then return end
     -- If the player is a whitelisted job, then we don't want to trigger the event.
     -- However, if the player is not whitelisted or Debug mode is true, then we want to trigger the event.
-    if IsPoliceJob(PlayerJob.name) and not Config.Debug then return end
+    if Config.AuthorizedJobs.LEO.Check() and not Config.Debug then return end
     -- Use the timer to prevent the event from being triggered multiple times.
     if Config.Timer['Speeding'] ~= 0 then return end
     local vehicle = GetVehiclePedIsUsing(ped, true)
@@ -77,7 +77,7 @@ AddEventHandler('CEventMeleeAction', function(witnesses, attacker)
     if PlayerPedId() ~= attacker then return end
     -- If the player is a whitelisted job, then we don't want to trigger the event.
     -- However, if the player is not whitelisted or Debug mode is true, then we want to trigger the event.
-    if IsPoliceJob(PlayerJob.name) and not Config.Debug then return end
+    if Config.AuthorizedJobs.LEO.Check() and not Config.Debug then return end
     -- Use the timer to prevent the event from being triggered multiple times.
     if Config.Timer['Melee'] ~= 0 then return end
     exports['ps-dispatch']:Fight()
