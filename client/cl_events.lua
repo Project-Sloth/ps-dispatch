@@ -244,7 +244,7 @@ local function DeceasedPerson()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Civilian Bled Out", -- message
+        dispatchMessage = _U('persondeceased'), -- message
         job = { "ambulance" } -- jobs that will get the alerts
     })
 end
