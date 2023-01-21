@@ -1,5 +1,8 @@
 local vehicleWhitelist = {[0]=true,[1]=true,[2]=true,[3]=true,[4]=true,[5]=true,[6]=true,[7]=true,[8]=true,[9]=true,[10]=true,[11]=true,[12]=true,[17]=true,[19]=true,[20]=true}
 
+---@param witnesses table | Array of peds that witnessed the event
+---@param ped number | Ped ID to check
+---@return boolean | Returns true if the ped is in the witnesses table
 local function isPedAWitness(witnesses, ped)
     for k, v in pairs(witnesses) do
         if v == ped then
@@ -9,9 +12,9 @@ local function isPedAWitness(witnesses, ped)
     return false
 end
 
----@param witnesses table | Array of peds that witnessed the shots
----@param ped number | The ped that shot the gun
----@param coords table | The coords of the ped that shot the gun
+---@param witnesses table | Array of Ped IDs that witnessed the shooting
+---@param ped number | The Ped ID of the shooter
+---@param coords table | The Coords of the shooter
 AddEventHandler('CEventShockingGunshotFired', function(witnesses, ped, coords)
     local coords = vector3(coords[1][1], coords[1][2], coords[1][3])
     -- Use the timer to prevent the event from being triggered multiple times.
@@ -41,9 +44,9 @@ AddEventHandler('CEventShockingGunshotFired', function(witnesses, ped, coords)
     end
 end)
 
----@param witnesses table | Array of entity handles who witnessed the event
----@param ped number | Entity handle of the ped who triggered the event
----@param coords table | The coords of the ped who triggered the event
+---@param witnesses table | Array of Ped IDs that witnessed the crash
+---@param ped number | The Ped ID of the ped who triggered the event
+---@param coords table | The Coords of the ped who triggered the event
 AddEventHandler('CEventShockingCarCrash', function(witnesses, ped, coords)
     local coords = vector3(coords[1][1], coords[1][2], coords[1][3])
     -- Use the timer to prevent the event from being triggered multiple times.
@@ -71,9 +74,9 @@ AddEventHandler('CEventShockingCarCrash', function(witnesses, ped, coords)
     end
 end)
 
----@param witnesses table | Array of peds that witnessed the event
----@param attacker number | The ped that used the melee weapon
----@param coords table | The coords of the attacker
+---@param witnesses table | Array of Ped IDs that witnessed the event
+---@param attacker number | The Ped ID of the attacker
+---@param coords table | The Coords of the attacker
 AddEventHandler('CEventShockingSeenMeleeAction', function(witnesses, attacker, coords)
     local coords = vector3(coords[1][1], coords[1][2], coords[1][3])
     -- Use the timer to prevent the event from being triggered multiple times.
@@ -89,8 +92,8 @@ AddEventHandler('CEventShockingSeenMeleeAction', function(witnesses, attacker, c
     Config.Timer['Melee'] = Config.Melee.Success
 end)
 
----@param witnesses table | Array of peds that witnessed the event
----@param jacker number | The ped that jacked the vehicle
+---@param witnesses table | Array of Ped IDs that witnessed the event
+---@param jacker number | The Ped ID of the jacker
 AddEventHandler('CEventPedJackingMyVehicle', function(witnesses, jacker)
     -- Use the timer to prevent the event from being triggered multiple times.
     if Config.Timer['Autotheft'] ~= 0 then return end
@@ -108,9 +111,9 @@ AddEventHandler('CEventPedJackingMyVehicle', function(witnesses, jacker)
     end
 end)
 
----@param witnesses table | Array of peds that witnessed the event
----@param thief number | The ped that jacked the vehicle
----@param coords table | The coords of the attacker
+---@param witnesses table | Array of Ped IDs that witnessed the event
+---@param thief number | The Ped ID of the thief
+---@param coords table | The Coords of the thief
 AddEventHandler('CEventShockingCarAlarm', function(witnesses, thief, coords)
     local coords = vector3(coords[1][1], coords[1][2], coords[1][3])
     -- Use the timer to prevent the event from being triggered multiple times.

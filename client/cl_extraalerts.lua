@@ -170,6 +170,7 @@ local function UnionRobbery()
     })
 end exports('UnionRobbery', UnionRobbery)
 
+---@param vehicle number | Vehicle ID
 local function CarBoosting(vehicle)
     local vehdata = vehicleData(vehicle)
     local currentPos = GetEntityCoords(PlayerPedId())

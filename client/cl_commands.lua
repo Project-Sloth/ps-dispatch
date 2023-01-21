@@ -12,6 +12,7 @@ end
 
 
 -- Loads the animdict so we can execute it on the ped
+---@param dict string | The animdict to load
 local function loadAnimDict(dict)
     RequestAnimDict(dict)
 

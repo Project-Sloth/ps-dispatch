@@ -48,8 +48,8 @@ local WeaponTable = {
 }
 
 ---@param vehicle number | Vehicle ID
----@param ped number | Ped ID
----@param coords 'vector3' | Coordinates of the ped
+---@param ped number or nil | Ped ID, defaults to PlayerPedId()
+---@param coords 'vector3' or nil | Coords of the ped, defaults to GetEntityCoords(PlayerPedId())
 local function VehicleTheft(vehicle, ped, coords)
     local player = ped or PlayerPedId()
     local vehdata = vehicleData(vehicle)
@@ -78,9 +78,9 @@ end
 
 exports('VehicleTheft', VehicleTheft)
 
----@param vehdata table | Vehicle Data for Alert
----@param ped number | Ped ID
----@param coords 'vector3' | Coordinates of the shooter
+---@param vehdata table or nil | Vehicle data, defaults to vehicleData(QBCore.Functions.GetClosestVehicle())
+---@param ped number or nil | Ped ID, defaults to PlayerPedId()
+---@param coords 'vector3' or nil | Coords of the ped, defaults to GetEntityCoords(PlayerPedId())
 local function VehicleShooting(vehdata, ped, coords)
     local player = ped or PlayerPedId()
     local vehdata = vehdata or vehicleData(QBCore.Functions.GetClosestVehicle())
@@ -115,8 +115,8 @@ end
 
 exports('VehicleShooting', VehicleShooting)
 
----@param ped number | Shooters Ped ID
----@param coords 'vector3' | Shooters Coords
+---@param ped number or nil | Ped ID, defaults to PlayerPedId()
+---@param coords 'vector3' or nil | Coords of the ped, defaults to GetEntityCoords(PlayerPedId())
 local function Shooting(ped, coords)
     local player = ped or PlayerPedId()
     local currentPos = coords or GetEntityCoords(player)
@@ -150,8 +150,8 @@ end
 exports('Shooting', Shooting)
 
 ---@param vehdata table | Vehicle Data for Alert
----@param ped | Drivers Ped ID
----@param coords 'vector3' | Drivers Coords
+---@param ped number or nil | Ped ID, defaults to PlayerPedId()
+---@param coords 'vector3' or nil | Coords of the ped, defaults to GetEntityCoords(PlayerPedId())
 local function SpeedingVehicle(vehdata, ped, coords)
     local player = ped or PlayerPedId()
     local currentPos = coords or GetEntityCoords(player)
@@ -179,8 +179,8 @@ end
 
 exports('SpeedingVehicle', SpeedingVehicle)
 
----@param ped | Attackers Ped ID
----@param coords 'vector3' | Attackers Coords
+---@param ped number or nil | Ped ID, defaults to PlayerPedId()
+---@param coords 'vector3' or nil | Coords of the ped, defaults to GetEntityCoords(PlayerPedId())
 local function Fight(ped, coords)
     local player = ped or PlayerPedId()
     local currentPos = coords or GetEntityCoords(player)
@@ -260,6 +260,7 @@ end
 
 exports('DeceasedPerson', DeceasedPerson)
 
+---@param camId number | Camera ID
 local function StoreRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
@@ -287,6 +288,7 @@ end
 
 exports('StoreRobbery', StoreRobbery)
 
+---@param camId number | Camera ID
 local function FleecaBankRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
@@ -314,6 +316,7 @@ end
 
 exports('FleecaBankRobbery', FleecaBankRobbery)
 
+---@param camId number | Camera ID
 local function PaletoBankRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
@@ -341,6 +344,7 @@ end
 
 exports('PaletoBankRobbery', PaletoBankRobbery)
 
+---@param camId number | Camera ID
 local function PacificBankRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
@@ -394,6 +398,7 @@ end
 
 exports('PrisonBreak', PrisonBreak)
 
+---@param camId number | Camera ID
 local function VangelicoRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
@@ -507,8 +512,8 @@ RegisterNetEvent('ps-dispatch:client:drugsale', function()
 end)
 
 ---@param vehicle number | Vehicle ID
----@param ped number | Ped ID
----@param coords table | Coordinates
+---@param ped number or nil | Ped ID, defaults to PlayerPedId()
+---@param coords 'vector3' or nil | Coords of the ped, defaults to GetEntityCoords(PlayerPedId())
 local function CarJacking(vehicle, ped, coords)
     local player = ped or PlayerPedId()
     local vehdata = vehicleData(vehicle)
@@ -653,6 +658,7 @@ end
 
 exports('SuspiciousActivity', SuspiciousActivity)
 
+---@param data table | Table of Custom Alert Data
 local function CustomAlert(data)
 
     local coords = data.coords or vec3(0.0, 0.0, 0.0)
