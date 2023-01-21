@@ -22,29 +22,20 @@ AddEventHandler("CEventGunShot", function(witnesses, ped)
     -- If the player is a whitelisted job, then we don't want to trigger the event.
     -- However, if the player is not whitelisted or Debug mode is true, then we want to trigger the event.
     if IsPoliceJob(PlayerJob.name) and not Config.Debug then return end
+    -- Use the timer to prevent the event from being triggered multiple times.
+    if Config.Timer['Shooting'] ~= 0 then return end
+    -- If the weapon is silenced or blacklisted, then we don't want to trigger the event.
+    if IsPedCurrentWeaponSilenced(ped) or BlacklistedWeapon(ped) then return end
     local vehicle = GetVehiclePedIsUsing(ped, true)
     if vehicle ~= 0 then
         if vehicleWhitelist[GetVehicleClass(vehicle)] then
-            local driver = GetPedInVehicleSeat(vehicle, -1)
-            if Config.Timer['Shooting'] == 0 and not BlacklistedWeapon(ped) and not IsPedCurrentWeaponSilenced(ped) and IsPedArmed(ped, 4) then
-                if IsPedShooting(ped) then
-                    local vehicle = vehicleData(vehicle)
-                    exports['ps-dispatch']:VehicleShooting(vehicle)
-                    Config.Timer['Shooting'] = Config.Shooting.Success
-                else
-                    Config.Timer['Shooting'] = Config.Shooting.Fail
-                end
-            end
+            vehicle = vehicleData(vehicle)
+            exports['ps-dispatch']:VehicleShooting(vehicle)
+            Config.Timer['Shooting'] = Config.Shooting.Success
         end
     else
-        if Config.Timer['Shooting'] == 0  and not IsPedCurrentWeaponSilenced(ped) and IsPedArmed(ped, 4) then
-            if IsPedShooting(ped) and not BlacklistedWeapon(ped) then
-                exports['ps-dispatch']:Shooting()
-                Config.Timer['Shooting'] = Config.Shooting.Success
-            else
-                Config.Timer['Shooting'] = Config.Shooting.Fail
-            end
-        end
+        exports['ps-dispatch']:Shooting()
+        Config.Timer['Shooting'] = Config.Shooting.Success
     end
 end)
 
@@ -59,13 +50,15 @@ AddEventHandler('CEventShockingMadDriver', function(witnesses, ped, x, y, z)
     -- If the player is a whitelisted job, then we don't want to trigger the event.
     -- However, if the player is not whitelisted or Debug mode is true, then we want to trigger the event.
     if IsPoliceJob(PlayerJob.name) and not Config.Debug then return end
+    -- Use the timer to prevent the event from being triggered multiple times.
+    if Config.Timer['Speeding'] ~= 0 then return end
     local vehicle = GetVehiclePedIsUsing(ped, true)
     local driver = GetPedInVehicleSeat(vehicle, -1)
     if vehicleWhitelist[GetVehicleClass(vehicle)] then
-        if Config.Timer['Speeding'] == 0 and ped == driver then
+        if ped == driver then
             if (GetEntitySpeed(vehicle) * 3.6) >= (120 + (math.random(30,60))) then
                 Wait(400)
-                if IsPedInAnyVehicle(ped, true) and ((GetEntitySpeed(vehicle) * 3.6) >= 90) then
+                if ((GetEntitySpeed(vehicle) * 3.6) >= 90) then
                     vehicle = vehicleData(vehicle)
                     exports['ps-dispatch']:SpeedingVehicle(vehicle)
                     Config.Timer['Speeding'] = Config.Speeding.Success
@@ -85,8 +78,8 @@ AddEventHandler('CEventMeleeAction', function(witnesses, attacker)
     -- If the player is a whitelisted job, then we don't want to trigger the event.
     -- However, if the player is not whitelisted or Debug mode is true, then we want to trigger the event.
     if IsPoliceJob(PlayerJob.name) and not Config.Debug then return end
-    if Config.Timer['Melee'] == 0 then
-        exports['ps-dispatch']:Fight()
-        Config.Timer['Melee'] = Config.Melee.Success
-    end
+    -- Use the timer to prevent the event from being triggered multiple times.
+    if Config.Timer['Melee'] ~= 0 then return end
+    exports['ps-dispatch']:Fight()
+    Config.Timer['Melee'] = Config.Melee.Success
 end)
