@@ -12,7 +12,7 @@ end
 ---@param witnesses table | Array of peds that witnessed the shots
 ---@param ped number | The ped that shot the gun
 ---@param coords table | The coords of the ped that shot the gun
-AddEventHandler("CEventShockingGunshotFired", function(witnesses, ped, coords)
+AddEventHandler('CEventShockingGunshotFired', function(witnesses, ped, coords)
     local coords = vector3(coords[1][1], coords[1][2], coords[1][3])
     -- Use the timer to prevent the event from being triggered multiple times.
     if Config.Timer['Shooting'] ~= 0 then return end
@@ -91,9 +91,7 @@ end)
 
 ---@param witnesses table | Array of peds that witnessed the event
 ---@param jacker number | The ped that jacked the vehicle
----@param coords table | The coords of the attacker
-AddEventHandler('CEventShockingSeenCarStolen', function(witnesses, jacker, coords)
-    local coords = vector3(coords[1][1], coords[1][2], coords[1][3])
+AddEventHandler('CEventPedJackingMyVehicle', function(witnesses, jacker)
     -- Use the timer to prevent the event from being triggered multiple times.
     if Config.Timer['Autotheft'] ~= 0 then return end
     -- The ped that melee attacked must be the player.
@@ -105,12 +103,28 @@ AddEventHandler('CEventShockingSeenCarStolen', function(witnesses, jacker, coord
    --  if #witnesses == 1 and witnesses[1] ~= GetMeleeTargetForPed(ped) then return end
     local vehicle = GetVehiclePedIsUsing(jacker, true)
     if vehicleWhitelist[GetVehicleClass(vehicle)] then
-        if GetSelectedPedWeapon(jacker) ~= `WEAPON_UNARMED` then
-            exports['ps-dispatch']:CarJacking(vehicle, jacker, coords)
-            Config.Timer['Autotheft'] = Config.Autotheft.Success
-        else
-            exports['ps-dispatch']:VehicleTheft(vehicle, jacker, coords)
-            Config.Timer['Autotheft'] = Config.Autotheft.Success
-        end
+        exports['ps-dispatch']:CarJacking(vehicle, jacker)
+        Config.Timer['Autotheft'] = Config.Autotheft.Success
+    end
+end)
+
+---@param witnesses table | Array of peds that witnessed the event
+---@param thief number | The ped that jacked the vehicle
+---@param coords table | The coords of the attacker
+AddEventHandler('CEventShockingCarAlarm', function(witnesses, thief, coords)
+    local coords = vector3(coords[1][1], coords[1][2], coords[1][3])
+    -- Use the timer to prevent the event from being triggered multiple times.
+    if Config.Timer['Autotheft'] ~= 0 then return end
+    -- The ped that melee attacked must be the player.
+    if PlayerPedId() ~= thief then return end
+    -- If the player is a whitelisted job, then we don't want to trigger the event.
+    -- However, if the player is not whitelisted or Debug mode is true, then we want to trigger the event.
+    if Config.AuthorizedJobs.LEO.Check() and not Config.Debug then return end
+    -- If the only witnesses is the victim, then we don't want to trigger the event.
+   --  if #witnesses == 1 and witnesses[1] ~= GetMeleeTargetForPed(ped) then return end
+    local vehicle = GetVehiclePedIsUsing(thief, true)
+    if vehicleWhitelist[GetVehicleClass(vehicle)] then
+        exports['ps-dispatch']:VehicleTheft(vehicle, thief, coords)
+        Config.Timer['Autotheft'] = Config.Autotheft.Success
     end
 end)
