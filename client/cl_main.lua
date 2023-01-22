@@ -1,8 +1,8 @@
-local PlayerData = {}
-local PlayerJob = {}
-local isLoggedIn = true
-local QBCore = exports['qb-core']:GetCoreObject()
-local blips = {}
+PlayerData = {}
+PlayerJob = {}
+isLoggedIn = true
+QBCore = exports['qb-core']:GetCoreObject()
+blips = {}
 local Waypoint = nil
 
 -- core related
