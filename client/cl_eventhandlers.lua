@@ -29,8 +29,10 @@ AddEventHandler('CEventShockingGunshotFired', function(witnesses, ped, coords)
     -- If the player is a whitelisted job, then we don't want to trigger the event.
     -- However, if the player is not whitelisted or Debug mode is true, then we want to trigger the event.
     if Config.AuthorizedJobs.LEO.Check() and not Config.Debug then return end
-    -- If the weapon is silenced or blacklisted, then we don't want to trigger the event.
-    if IsPedCurrentWeaponSilenced(ped) or BlacklistedWeapon(ped) then return end
+    -- If the weapon is silenced then we don't want to trigger the event.
+    if IsPedCurrentWeaponSilenced(ped) then return end 
+    -- If the weapon is blacklisted then we set the timer to the fail time and return.
+    if BlacklistedWeapon(ped) then Config.Timer['Shooting'] = Config.Shooting.Fail return end
     local vehicle = GetVehiclePedIsUsing(ped, true)
     if vehicle ~= 0 then
         if vehicleWhitelist[GetVehicleClass(vehicle)] then
@@ -86,8 +88,8 @@ AddEventHandler('CEventShockingSeenMeleeAction', function(witnesses, attacker, c
     -- If the player is a whitelisted job, then we don't want to trigger the event.
     -- However, if the player is not whitelisted or Debug mode is true, then we want to trigger the event.
     if Config.AuthorizedJobs.LEO.Check() and not Config.Debug then return end
-    -- If the only witnesses is the victim, then we don't want to trigger the event.
-    if #witnesses == 1 and witnesses[1] ~= GetMeleeTargetForPed(attacker) then return end
+    -- If the only witnesses is the victim, then we set the timer to the fail time and return.
+    if #witnesses == 1 and witnesses[1] == GetMeleeTargetForPed(attacker) then Config.Timer['Melee'] = Config.Melee.Fail return end
     exports['ps-dispatch']:Fight(attacker, coords)
     Config.Timer['Melee'] = Config.Melee.Success
 end)
