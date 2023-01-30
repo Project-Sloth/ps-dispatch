@@ -191,7 +191,7 @@ end
 
 local function CheckOnDuty()
 	if Config.OnDutyOnly then
-		return PlayerJob.onduty
+		return QBCore.Functions.GetPlayerData().job.onduty
 	end
 	return true
 end
