@@ -1,3 +1,5 @@
+local QBCore = exports['qb-core']:GetCoreObject()
+
 local WeaponTable = {
     [584646201]   = "CLASS 2: AP-Pistol",
     [453432689]   = "CLASS 1: Pistol",
@@ -44,11 +46,16 @@ local WeaponTable = {
     [-1312131151] = "CLASS 5: RPG",
     [125959754]   = "CLASS 5: Compactlauncher"
 }
-local function VehicleTheft(vehicle)
+
+---@param vehicle number | Vehicle ID
+---@param ped number or nil | Ped ID, defaults to PlayerPedId()
+---@param coords 'vector3' or nil | Coords of the ped, defaults to GetEntityCoords(PlayerPedId())
+local function VehicleTheft(vehicle, ped, coords)
+    local player = ped or PlayerPedId()
     local vehdata = vehicleData(vehicle)
-    local currentPos = GetEntityCoords(PlayerPedId())
+    local currentPos = coords or GetEntityCoords(player)
     local locationInfo = getStreetandZone(currentPos)
-    local heading = getCardinalDirectionFromHeading()
+    local heading = getCardinalDirectionFromHeading(player)
     TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "vehicletheft", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-35",
@@ -71,23 +78,18 @@ end
 
 exports('VehicleTheft', VehicleTheft)
 
-local function VehicleShooting(vehdata)
-    local vehicle = QBCore.Functions.GetClosestVehicle()
-    local vehdata = vehicleData(vehicle)
-    local currentPos = GetEntityCoords(PlayerPedId())
+---@param vehdata table or nil | Vehicle data, defaults to vehicleData(QBCore.Functions.GetClosestVehicle())
+---@param ped number or nil | Ped ID, defaults to PlayerPedId()
+---@param coords 'vector3' or nil | Coords of the ped, defaults to GetEntityCoords(PlayerPedId())
+local function VehicleShooting(vehdata, ped, coords)
+    local player = ped or PlayerPedId()
+    local vehdata = vehdata or vehicleData(QBCore.Functions.GetClosestVehicle())
+    local currentPos = coords or GetEntityCoords(player)
     local locationInfo = getStreetandZone(currentPos)
-    local heading = getCardinalDirectionFromHeading()
+    local heading = getCardinalDirectionFromHeading(player)
     local gender = GetPedGender()
-    local doorCount = 0
-
-    local PlayerPed = PlayerPedId()
-    local CurrentWeapon = GetSelectedPedWeapon(PlayerPed)
+    local CurrentWeapon = GetSelectedPedWeapon(player)
     local weapon = WeaponTable[CurrentWeapon] or "UNKNOWN"
-    if GetEntityBoneIndexByName(vehicle, 'door_pside_f') ~= -1 then doorCount = doorCount + 1 end
-    if GetEntityBoneIndexByName(vehicle, 'door_pside_r') ~= -1 then doorCount = doorCount + 1 end
-    if GetEntityBoneIndexByName(vehicle, 'door_dside_f') ~= -1 then doorCount = doorCount + 1 end
-    if GetEntityBoneIndexByName(vehicle, 'door_dside_r') ~= -1 then doorCount = doorCount + 1 end
-    if doorCount == 2 then doorCount = "Two-Door" elseif doorCount == 3 then doorCount = "Three-Door" elseif doorCount == 4 then doorCount = "Four-Door" else doorCount = "UNKNOWN" end
     TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "vehicleshots", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-60",
@@ -96,7 +98,7 @@ local function VehicleShooting(vehdata)
         plate = vehdata.plate,
         gender = gender,
         weapon = weapon,
-        doorCount = doorCount,
+        doorCount = vehdata.doors,
         priority = 2,
         firstColor = vehdata.colour,
         heading = heading,
@@ -113,16 +115,16 @@ end
 
 exports('VehicleShooting', VehicleShooting)
 
-
-local function Shooting()
-    local currentPos = GetEntityCoords(PlayerPedId())
+---@param ped number or nil | Ped ID, defaults to PlayerPedId()
+---@param coords 'vector3' or nil | Coords of the ped, defaults to GetEntityCoords(PlayerPedId())
+local function Shooting(ped, coords)
+    local player = ped or PlayerPedId()
+    local currentPos = coords or GetEntityCoords(player)
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
-    local PlayerPed = PlayerPedId()
-    local CurrentWeapon = GetSelectedPedWeapon(PlayerPed)
+    local CurrentWeapon = GetSelectedPedWeapon(player)
     local speed = math.floor(GetEntitySpeed(vehicle) * 2.236936) .. " MPH" -- * 3.6 = KMH    /    * 2.236936 = MPH
     local weapon = WeaponTable[CurrentWeapon] or "UNKNOWN"
-
     TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "shooting", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-11",
@@ -147,10 +149,14 @@ end
 
 exports('Shooting', Shooting)
 
-local function SpeedingVehicle(vehdata)
-    local currentPos = GetEntityCoords(PlayerPedId())
+---@param vehdata table | Vehicle Data for Alert
+---@param ped number or nil | Ped ID, defaults to PlayerPedId()
+---@param coords 'vector3' or nil | Coords of the ped, defaults to GetEntityCoords(PlayerPedId())
+local function SpeedingVehicle(vehdata, ped, coords)
+    local player = ped or PlayerPedId()
+    local currentPos = coords or GetEntityCoords(player)
     local locationInfo = getStreetandZone(currentPos)
-    local heading = getCardinalDirectionFromHeading()
+    local heading = getCardinalDirectionFromHeading(player)
     TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "speeding", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-11",
@@ -173,8 +179,11 @@ end
 
 exports('SpeedingVehicle', SpeedingVehicle)
 
-local function Fight()
-    local currentPos = GetEntityCoords(PlayerPedId())
+---@param ped number or nil | Ped ID, defaults to PlayerPedId()
+---@param coords 'vector3' or nil | Coords of the ped, defaults to GetEntityCoords(PlayerPedId())
+local function Fight(ped, coords)
+    local player = ped or PlayerPedId()
+    local currentPos = coords or GetEntityCoords(player)
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
     TriggerServerEvent("dispatch:server:notify", {
@@ -244,13 +253,14 @@ local function DeceasedPerson()
             y = currentPos.y,
             z = currentPos.z
         },
-        dispatchMessage = "Civilian Bled Out", -- message
+        dispatchMessage = _U('persondeceased'), -- message
         job = { "ambulance" } -- jobs that will get the alerts
     })
 end
 
 exports('DeceasedPerson', DeceasedPerson)
 
+---@param camId number | Camera ID
 local function StoreRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
@@ -278,6 +288,7 @@ end
 
 exports('StoreRobbery', StoreRobbery)
 
+---@param camId number | Camera ID
 local function FleecaBankRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
@@ -305,6 +316,7 @@ end
 
 exports('FleecaBankRobbery', FleecaBankRobbery)
 
+---@param camId number | Camera ID
 local function PaletoBankRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
@@ -332,6 +344,7 @@ end
 
 exports('PaletoBankRobbery', PaletoBankRobbery)
 
+---@param camId number | Camera ID
 local function PacificBankRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
@@ -385,6 +398,7 @@ end
 
 exports('PrisonBreak', PrisonBreak)
 
+---@param camId number | Camera ID
 local function VangelicoRobbery(camId)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
@@ -497,11 +511,15 @@ RegisterNetEvent('ps-dispatch:client:drugsale', function()
     DrugSale()
 end)
 
-local function CarJacking(vehicle)
+---@param vehicle number | Vehicle ID
+---@param ped number or nil | Ped ID, defaults to PlayerPedId()
+---@param coords 'vector3' or nil | Coords of the ped, defaults to GetEntityCoords(PlayerPedId())
+local function CarJacking(vehicle, ped, coords)
+    local player = ped or PlayerPedId()
     local vehdata = vehicleData(vehicle)
-    local currentPos = GetEntityCoords(PlayerPedId())
+    local currentPos = coords or GetEntityCoords(player)
     local locationInfo = getStreetandZone(currentPos)
-    local heading = getCardinalDirectionFromHeading()
+    local heading = getCardinalDirectionFromHeading(player)
     TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "carjack", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-35",
@@ -640,6 +658,7 @@ end
 
 exports('SuspiciousActivity', SuspiciousActivity)
 
+---@param data table | Table of Custom Alert Data
 local function CustomAlert(data)
 
     local coords = data.coords or vec3(0.0, 0.0, 0.0)

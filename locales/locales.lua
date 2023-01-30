@@ -32,6 +32,7 @@ Locales = {
         ['speeding'] = "Reckless driving",
         ['autotheft'] = "Theft of a motor vehicle",
         ['persondown'] = "Person is injured",
+        ['persondeceased'] = "Person has bled out",
         ['storerobbery'] = "Store Robbery",
         ['fleecabank'] = "Fleeca Bank Robbery",
         ['paletobank'] = "Paleto Bank Robbery",

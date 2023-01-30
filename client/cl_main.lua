@@ -1,7 +1,6 @@
-PlayerData = {}
-PlayerJob = {}
-isLoggedIn = true
-QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
+local PlayerData = {}
+local PlayerJob = {}
 local blips = {}
 
 -- Debugging and testing dispatch alerts - Uncomment to use. 
@@ -13,21 +12,18 @@ local blips = {}
 
 AddEventHandler('onResourceStart', function(resourceName)
     if GetCurrentResourceName() == resourceName then
-		isLoggedIn = true
         PlayerData = QBCore.Functions.GetPlayerData()
         PlayerJob = QBCore.Functions.GetPlayerData().job
     end
 end)
 
 RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
-    isLoggedIn = true
     PlayerData = QBCore.Functions.GetPlayerData()
     PlayerJob = QBCore.Functions.GetPlayerData().job
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
 	PlayerData = {}
-    isLoggedIn = false
     currentCallSign = ""
     -- currentVehicle, inVehicle, currentlyArmed, currentWeapon = nil, false, false, `WEAPON_UNARMED`
     -- removeHuntingZones()
@@ -36,6 +32,10 @@ end)
 RegisterNetEvent("QBCore:Client:OnJobUpdate", function(JobInfo)
     PlayerData = QBCore.Functions.GetPlayerData()
     PlayerJob = JobInfo
+end)
+
+RegisterNetEvent("QBCore:Client:SetDuty", function(newDuty)
+    PlayerJob.onduty = newDuty
 end)
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -54,18 +54,6 @@ function getStreetandZone(coords)
 	currentStreetName = GetStreetNameFromHashKey(currentStreetHash)
 	playerStreetsLocation = currentStreetName .. ", " .. zone
 	return playerStreetsLocation
-end
-
-function refreshPlayerWhitelisted()
-	if not PlayerData then return false end
-	if not PlayerData.job then return false end
-	if Config.Debug then return true end
-	for k,v in ipairs({'police'}) do
-		if v == PlayerData.job.name then
-			return true
-		end
-	end
-	return false
 end
 
 function BlacklistedWeapon(playerPed)
@@ -163,21 +151,14 @@ function GetPedGender()
     return gender
 end
 
-function getCardinalDirectionFromHeading()
-    local heading = GetEntityHeading(PlayerPedId())
+---@param entity number or nil | The entity to get the heading from, if nil it will use the player
+function getCardinalDirectionFromHeading(entity)
+	local player = entity or PlayerPedId()
+    local heading = GetEntityHeading(player)
     if heading >= 315 or heading < 45 then return "North Bound"
     elseif heading >= 45 and heading < 135 then return "West Bound"
     elseif heading >=135 and heading < 225 then return "South Bound"
     elseif heading >= 225 and heading < 315 then return "East Bound" end
-end
-
-function IsPoliceJob(job)
-    for k, v in pairs(Config.PoliceJob) do
-        if job == v then
-            return true
-        end
-    end
-    return false
 end
 
 local function IsValidJob(jobList)
@@ -221,7 +202,7 @@ RegisterNetEvent('dispatch:manageNotifs', function(sentSetting)
 end)
 
 RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationId, sender)
-    if sNotificationData ~= nil and isLoggedIn then
+    if sNotificationData ~= nil and LocalPlayer.state.isLoggedIn then
 		if IsValidJob(sNotificationData['job']) and CheckOnDuty() then
             if not disableNotis then
 				if sNotificationData.origin ~= nil then
@@ -230,7 +211,7 @@ RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationI
 						callID = sNotificationId,
 						data = sNotificationData,
 						timer = 5000,
-						isPolice = IsPoliceJob(PlayerJob.name)
+						isPolice = Config.AuthorizedJobs.LEO.Check()
 					})
 				end
 			end

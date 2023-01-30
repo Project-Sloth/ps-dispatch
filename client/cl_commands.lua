@@ -1,3 +1,4 @@
+local QBCore = exports['qb-core']:GetCoreObject()
 
 local playAnim = false
 local phoneProp = 0
@@ -11,6 +12,7 @@ end
 
 
 -- Loads the animdict so we can execute it on the ped
+---@param dict string | The animdict to load
 local function loadAnimDict(dict)
     RequestAnimDict(dict)
 
