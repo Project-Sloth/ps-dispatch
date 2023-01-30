@@ -90,8 +90,6 @@ sound2 -- GTA sound to play
 
 - exports['ps-dispatch']:HouseRobbery()
 
-- exports['ps-dispatch']:PrisonBreak()
-
 - exports['ps-dispatch']:DrugSale()
 
 - exports['ps-dispatch']:ArtGalleryRobbery()
