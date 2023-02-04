@@ -20,7 +20,7 @@ Functions.QBCore.Notify = function(...)
     Core.Functions.Notify(...)
 end
 Functions.QBCore.GetName = function(playerData)
-    return playerData.charinfo.firstname, playerData.charinfo.gender.lastname
+    return playerData.charinfo.firstname, playerData.charinfo.lastname
 end
 Functions.QBCore.HasPhone = function()
     return Core.Functions.HasItem("phone")
@@ -32,7 +32,7 @@ Functions.QBCore.GetCallSign = function(playerData)
     return playerData.metadata["callsign"]
 end
 Functions.QBCore.IsHandcuffed = function()
-    return exports['qb-police']:IsHandcuffed()
+    return exports['qb-policejob']:IsHandcuffed()
 end
 
 -- ESX
@@ -94,18 +94,18 @@ end)
 
 AddEventHandler('esx:setPlayerData', function(key, val, last)
     if GetInvokingResource() == 'es_extended' then
-        ESX.PlayerData[key] = val
+        Core.PlayerData[key] = val
     end
 end)
 
 RegisterNetEvent('esx:playerLoaded', function(xPlayer)
-    ESX.PlayerData = xPlayer
-    ESX.PlayerLoaded = true
+    Core.PlayerData = xPlayer
+    Core.PlayerLoaded = true
     isLoggedIn = true
 end)
 
 RegisterNetEvent('esx:onPlayerLogout', function()
-    ESX.PlayerLoaded = false
-    ESX.PlayerData = {}
+    Core.PlayerLoaded = false
+    Core.PlayerData = {}
     isLoggedIn = false
 end)
