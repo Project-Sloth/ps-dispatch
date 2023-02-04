@@ -4,8 +4,6 @@ game 'gta5'
 version '0.0'
 description 'https://github.com/Project-Sloth/ps-dispatch'
 
-client_script '@es_extended/imports.lua'
-
 shared_scripts {
     'config.lua',
     'locales/locales.lua',
