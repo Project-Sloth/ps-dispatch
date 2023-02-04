@@ -1,4 +1,5 @@
 local calls = {}
+local recentCalls = {}
 
 function _U(entry)
 	return Locales[Config.Locale][entry] 
@@ -31,6 +32,14 @@ RegisterServerEvent("dispatch:server:notify", function(data)
     calls[newId]['responses'] = {}
     calls[newId]['time'] = os.time() * 1000
 
+    local recentSize = #recentCalls
+
+    if recentSize >= Config.RecentCallsSize then
+        table.remove(recentCalls, 1)
+    end
+
+    table.insert(recentCalls, calls[newId])
+
 	TriggerClientEvent('dispatch:clNotify', -1, data, newId, source)
     if not data.alert then 
         TriggerClientEvent("ps-dispatch:client:AddCallBlip", -1, data.origin, dispatchCodes[data.dispatchcodename], newId)
@@ -38,6 +47,9 @@ RegisterServerEvent("dispatch:server:notify", function(data)
         TriggerClientEvent("ps-dispatch:client:AddCallBlip", -1, data.origin, data.alert, newId)
     end
 end)
+
+function GetRecentDispatchCalls() return recentCalls end
+exports('GetRecentDispatchCalls', GetRecentDispatchCalls) -- 
 
 function GetDispatchCalls() return calls end
 exports('GetDispatchCalls', GetDispatchCalls) -- 
