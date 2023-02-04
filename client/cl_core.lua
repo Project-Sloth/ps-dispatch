@@ -67,7 +67,7 @@ end
 
 AddEventHandler('onResourceStart', function(resourceName)
     if GetCurrentResourceName() == resourceName then
-		isLoggedIn = true
+        isLoggedIn = true
         PlayerData = Functions[Config.Core].GetPlayerData()
         PlayerJob = PlayerData.job
     end
@@ -80,7 +80,7 @@ RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
-	PlayerData = {}
+    PlayerData = {}
     isLoggedIn = false
     currentCallSign = ""
     -- currentVehicle, inVehicle, currentlyArmed, currentWeapon = nil, false, false, `WEAPON_UNARMED`
