@@ -95,6 +95,7 @@ end)
 AddEventHandler('esx:setPlayerData', function(key, val, last)
     if GetInvokingResource() == 'es_extended' then
         Core.PlayerData[key] = val
+        PlayerJob = Core.PlayerData.job
     end
 end)
 
@@ -102,6 +103,7 @@ RegisterNetEvent('esx:playerLoaded', function(xPlayer)
     Core.PlayerData = xPlayer
     Core.PlayerLoaded = true
     isLoggedIn = true
+    PlayerJob = xPlayer.job
 end)
 
 RegisterNetEvent('esx:onPlayerLogout', function()
