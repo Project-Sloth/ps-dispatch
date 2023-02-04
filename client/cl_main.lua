@@ -309,8 +309,3 @@ RegisterNetEvent("ps-dispatch:client:clearAllBlips", function()
 	end
 	Functions[Config.Core].Notify('All dispatch blips cleared', "success")
 end)
-
-
-RegisterCommand("test", function()
-	exports['ps-dispatch']:PrisonBreak()
-end)
