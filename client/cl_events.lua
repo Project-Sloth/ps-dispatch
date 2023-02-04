@@ -525,10 +525,10 @@ end
 exports('CarJacking', CarJacking)
 
 local function OfficerDown()
-    local plyData = QBCore.Functions.GetPlayerData()
+    local plyData = Functions[Config.Core].GetPlayerData()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
-    local callsign = QBCore.Functions.GetPlayerData().metadata["callsign"]
+    local callsign = Functions[Config.Core].GetCallSign(plyData)
     TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "officerdown", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-99",
@@ -557,10 +557,10 @@ RegisterNetEvent("ps-dispatch:client:officerdown", function ()
 end)
 
 local function EmsDown()
-    local plyData = QBCore.Functions.GetPlayerData()
+    local plyData = Functions[Config.Core].GetPlayerData()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
-    local callsign = QBCore.Functions.GetPlayerData().metadata["callsign"]
+    local callsign = Functions[Config.Core].GetCallSign(plyData)
     TriggerServerEvent("dispatch:server:notify", {
         dispatchcodename = "emsdown", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
         dispatchCode = "10-99",

@@ -1,42 +1,13 @@
 PlayerData = {}
 PlayerJob = {}
 isLoggedIn = true
-QBCore = exports['qb-core']:GetCoreObject()
+
 local blips = {}
 
 -- Debugging and testing dispatch alerts - Uncomment to use. 
 --RegisterCommand('testdispatch',function ()
 --    TriggerEvent('')
 --end)
-
--- core related
-
-AddEventHandler('onResourceStart', function(resourceName)
-    if GetCurrentResourceName() == resourceName then
-		isLoggedIn = true
-        PlayerData = QBCore.Functions.GetPlayerData()
-        PlayerJob = QBCore.Functions.GetPlayerData().job
-    end
-end)
-
-RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
-    isLoggedIn = true
-    PlayerData = QBCore.Functions.GetPlayerData()
-    PlayerJob = QBCore.Functions.GetPlayerData().job
-end)
-
-RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
-	PlayerData = {}
-    isLoggedIn = false
-    currentCallSign = ""
-    -- currentVehicle, inVehicle, currentlyArmed, currentWeapon = nil, false, false, `WEAPON_UNARMED`
-    -- removeHuntingZones()
-end)
-
-RegisterNetEvent("QBCore:Client:OnJobUpdate", function(JobInfo)
-    PlayerData = QBCore.Functions.GetPlayerData()
-    PlayerJob = JobInfo
-end)
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -159,7 +130,7 @@ end
 
 function GetPedGender()
     local gender = "Male"
-    if QBCore.Functions.GetPlayerData().charinfo.gender == 1 then gender = "Female" end
+    if Functions[Config.Core].GetGender(PlayerData) == 1 then gender = "Female" end
     return gender
 end
 
@@ -191,7 +162,7 @@ end
 
 local function CheckOnDuty()
 	if Config.OnDutyOnly then
-		return QBCore.Functions.GetPlayerData().job.onduty
+		return Functions[Config.Core].GetOnDuty(PlayerData)
 	end
 	return true
 end
@@ -200,22 +171,23 @@ end
 
 local disableNotis, disableNotifSounds = false, false
 
+-- @TODO notify
 RegisterNetEvent('dispatch:manageNotifs', function(sentSetting)
     local wantedSetting = tostring(sentSetting)
     if wantedSetting == "on" then
         disableNotis = false
         disableNotifSounds = false
-        QBCore.Functions.Notify("Dispatch enabled", "success")
+        Functions[Config.Core].Notify("Dispatch enabled", "success")
     elseif wantedSetting == "off" then
         disableNotis = true
         disableNotifSounds = true
-        QBCore.Functions.Notify("Dispatch disabled", "success")
+        Functions[Config.Core].Notify("Dispatch disabled", "success")
     elseif wantedSetting == "mute" then
         disableNotis = false
         disableNotifSounds = true
-        QBCore.Functions.Notify("Dispatch muted", "success")
+        Functions[Config.Core].Notify("Dispatch muted", "success")
     else
-        QBCore.Functions.Notify('Please choose to have dispatch as "on", "off" or "mute".', "success")
+        Functions[Config.Core].Notify('Please choose to have dispatch as "on", "off" or "mute".', "success")
 
     end
 end)
@@ -335,5 +307,10 @@ RegisterNetEvent("ps-dispatch:client:clearAllBlips", function()
 	for k, v in pairs(blips) do
 		RemoveBlip(v)
 	end
-	QBCore.Functions.Notify('All dispatch blips cleared', "success")
+	Functions[Config.Core].Notify('All dispatch blips cleared', "success")
+end)
+
+
+RegisterCommand("test", function()
+	exports['ps-dispatch']:PrisonBreak()
 end)

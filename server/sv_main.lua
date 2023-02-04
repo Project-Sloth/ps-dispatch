@@ -1,4 +1,3 @@
-local QBCore = exports['qb-core']:GetCoreObject()
 local calls = {}
 
 function _U(entry)
@@ -65,8 +64,8 @@ AddEventHandler("dispatch:addUnit", function(callid, player, cb)
 end)
 
 AddEventHandler("dispatch:sendCallResponse", function(player, callid, message, time, cb)
-    local Player = QBCore.Functions.GetPlayer(player)
-    local name = Player.PlayerData.charinfo.firstname.. " " ..Player.PlayerData.charinfo.lastname
+    local Player = Functions[Config.Core].GetPlayer(player)
+    local name = Functions[Config.Core].GetName(Player)
     if calls[callid] then
         calls[callid]['responses'][#calls[callid]['responses']+1] = {
             name = name,
@@ -86,13 +85,16 @@ end)
 -- this is mdt call
 AddEventHandler("dispatch:removeUnit", function(callid, player, cb)
     if calls[callid] then
-        if #calls[callid]['units'] > 0 then
-            for i=1, #calls[callid]['units'] do
-                if calls[callid]['units'][i]['cid'] == player.cid then
-                    calls[callid]['units'][i] = nil
-                end
+        local newCallUnits = {}
+        local oldCallUnits = calls[callid]['units']
+
+        for k, v in ipairs(oldCallUnits) do
+            if v['cid'] ~= player.cid then
+                table.insert(newCallUnits, v)
             end
         end
+
+        calls[callid]['units'] = newCallUnits
         cb(#calls[callid]['units'])
     end    
 end)
@@ -100,8 +102,9 @@ end)
 
 RegisterCommand('togglealerts', function(source, args, user)
 	local source = source
-    local Player = QBCore.Functions.GetPlayer(source)
-	local job = Player.PlayerData.job
+    local Player = Functions[Config.Core].GetPlayer(source)
+	local job = Functions[Config.Core].GetJob(Player)
+
 	if IsPoliceJob(job.name) or job.name == 'ambulance' then
 		TriggerClientEvent('dispatch:manageNotifs', source, args[1])
 	end
@@ -123,11 +126,12 @@ AddEventHandler('explosionEvent', function(source, info)
     end
 end)
 
-QBCore.Commands.Add("cleardispatchblips", "Clear all dispatch blips", {}, false, function(source, args)
-    local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-	local job = Player.PlayerData.job.name
+Functions[Config.Core].RegisterCommand("cleardispatchblips", "Clear all dispatch blips", {}, false, function(player, args)
+    local job = Functions[Config.Core].GetJob(player)
+
     if IsDispatchJob(job) then
         TriggerClientEvent('ps-dispatch:client:clearAllBlips', src)
     end
 end)
+
+

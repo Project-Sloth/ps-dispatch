@@ -6,7 +6,7 @@ local phoneModel = Config.PhoneModel
 
 -- Item checks to return whether or not the client has a phone or not
 local function HasPhone()
-    return QBCore.Functions.HasItem("phone")
+    return Functions[Config.Core].HasPhone()
 end
 
 
@@ -63,22 +63,25 @@ end
 RegisterCommand('911', function(source, args, rawCommand)
     local msg = rawCommand:sub(5)
     if string.len(msg) > 0 then
-        if not exports['qb-policejob']:IsHandcuffed() then
+        if not Functions[Config.Core].IsHandcuffed() then
             if HasPhone() then
                 PhoneCallAnim()
                 Wait(math.random(3,8) * 1000)
                 playAnim = false
-                local plyData = QBCore.Functions.GetPlayerData()
+                local plyData = Functions[Config.Core].GetPlayerData()
                 local currentPos = GetEntityCoords(PlayerPedId())
                 local locationInfo = getStreetandZone(currentPos)
                 local gender = GetPedGender()
+
+                local firstname, lastname = Functions[Config.Core].GetName(plyData)
+
                 TriggerServerEvent("dispatch:server:notify",{
                     dispatchcodename = "911call", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
                     dispatchCode = "911",
                     firstStreet = locationInfo,
                     priority = 2, -- priority
-                    name = plyData.charinfo.firstname:sub(1,1):upper()..plyData.charinfo.firstname:sub(2).. " ".. plyData.charinfo.lastname:sub(1,1):upper()..plyData.charinfo.lastname:sub(2),
-                    number = plyData.charinfo.phone,
+                    name = firstname:sub(1,1):upper()..firstname:sub(2) .. " ".. lastname:sub(1,1):upper()..lastname:sub(2),
+                    number = Functions[Config.Core].GetPhoneNumber(plyData),
                     origin = {
                         x = currentPos.x,
                         y = currentPos.y,
@@ -92,25 +95,24 @@ RegisterCommand('911', function(source, args, rawCommand)
                 DeletePhone()
                 StopEntityAnim(PlayerPedId(), 'cellphone_text_to_call', "cellphone@", 3)
             else
-                QBCore.Functions.Notify("You can't call without a Phone!", "error", 4500)
+                Functions[Config.Core].Notify("You can't call without a Phone!", "error", 4500)
             end
         else
-            QBCore.Functions.Notify("You can't call police while handcuffed!", "error", 4500)
+            Functions[Config.Core].Notify("You can't call police while handcuffed!", "error", 4500)
         end
     else
-        QBCore.Functions.Notify('Please put a reason after the 911', "success")
+        Functions[Config.Core].Notify('Please put a reason after the 911', "success")
     end
 end)
 
 RegisterCommand('911a', function(source, args, rawCommand)
     local msg = rawCommand:sub(5)
     if string.len(msg) > 0 then
-        if not exports['qb-policejob']:IsHandcuffed() then
+        if not Functions[Config.Core].IsHandcuffed() then
             if HasPhone() then
                 PhoneCallAnim()
                 Wait(math.random(3,8) * 1000)
                 playAnim = false
-                local plyData = QBCore.Functions.GetPlayerData()
                 local currentPos = GetEntityCoords(PlayerPedId())
                 local locationInfo = getStreetandZone(currentPos)
                 local gender = GetPedGender()
@@ -134,13 +136,13 @@ RegisterCommand('911a', function(source, args, rawCommand)
                 DeletePhone()
                 StopEntityAnim(PlayerPedId(), 'cellphone_text_to_call', "cellphone@", 3)
             else
-                QBCore.Functions.Notify("You can't call without a Phone!", "error", 4500)
+                Functions[Config.Core].Notify("You can't call without a Phone!", "error", 4500)
             end
         else
-            QBCore.Functions.Notify("You can't call police while handcuffed!", "error", 4500)
+            Functions[Config.Core].Notify("You can't call police while handcuffed!", "error", 4500)
         end
     else
-        QBCore.Functions.Notify('Please put a reason after the 911', "success")
+        Functions[Config.Core].Notify('Please put a reason after the 911', "success")
     end
 end)
 
@@ -148,22 +150,26 @@ end)
 RegisterCommand('311', function(source, args, rawCommand)
     local msg = rawCommand:sub(5)
     if string.len(msg) > 0 then
-        if not exports['qb-policejob']:IsHandcuffed() then
+        if not Functions[Config.Core].IsHandcuffed() then
             if HasPhone() then
                 PhoneCallAnim()
                 Wait(math.random(3,8) * 1000)
                 playAnim = false
-                local plyData = QBCore.Functions.GetPlayerData()
+                local plyData = Functions[Config.Core].GetPlayerData()
+
                 local currentPos = GetEntityCoords(PlayerPedId())
                 local locationInfo = getStreetandZone(currentPos)
                 local gender = GetPedGender()
+
+                local firstname, lastname = Functions[Config.Core].GetName(plyData)
+
                 TriggerServerEvent("dispatch:server:notify",{
                     dispatchcodename = "311call", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
                     dispatchCode = "311",
                     firstStreet = locationInfo,
                     priority = 2, -- priority
-                    name = plyData.charinfo.firstname:sub(1,1):upper()..plyData.charinfo.firstname:sub(2).. " ".. plyData.charinfo.lastname:sub(1,1):upper()..plyData.charinfo.lastname:sub(2),
-                    number = plyData.charinfo.phone,
+                    name = firstname:sub(1,1):upper()..firstname:sub(2).. " ".. lastname:sub(1,1):upper()..lastname:sub(2),
+                    number = Functions[Config.Core].GetPhoneNumber(plyData),
                     origin = {
                         x = currentPos.x,
                         y = currentPos.y,
@@ -177,13 +183,13 @@ RegisterCommand('311', function(source, args, rawCommand)
                 DeletePhone()
                 StopEntityAnim(PlayerPedId(), 'cellphone_text_to_call', "cellphone@", 3)
             else
-                QBCore.Functions.Notify("You can't call without a Phone!", "error", 4500)
+                Functions[Config.Core].Notify("You can't call without a Phone!", "error", 4500)
             end
         else
-            QBCore.Functions.Notify("You can't call police while handcuffed!", "error", 4500)
+            Functions[Config.Core].Notify("You can't call police while handcuffed!", "error", 4500)
         end
     else
-        QBCore.Functions.Notify('Please put a reason after the 911', "success")
+        Functions[Config.Core].NotifyNotify('Please put a reason after the 911', "success")
     end
 end)
 
@@ -191,15 +197,15 @@ end)
 RegisterCommand('311a', function(source, args, rawCommand)
     local msg = rawCommand:sub(5)
     if string.len(msg) > 0 then
-        if not exports['qb-policejob']:IsHandcuffed() then
+        if not Functions[Config.Core].IsHandcuffed() then
             if HasPhone() then
                 PhoneCallAnim()
                 Wait(math.random(3,8) * 1000)
                 playAnim = false
-                local plyData = QBCore.Functions.GetPlayerData()
                 local currentPos = GetEntityCoords(PlayerPedId())
                 local locationInfo = getStreetandZone(currentPos)
                 local gender = GetPedGender()
+
                 TriggerServerEvent("dispatch:server:notify",{
                     dispatchcodename = "311call", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
                     dispatchCode = "311",
@@ -220,13 +226,13 @@ RegisterCommand('311a', function(source, args, rawCommand)
                 DeletePhone()
                 StopEntityAnim(PlayerPedId(), 'cellphone_text_to_call', "cellphone@", 3)
             else
-                QBCore.Functions.Notify("You can't call without a Phone!", "error", 4500)
+                Functions[Config.Core].Notify("You can't call without a Phone!", "error", 4500)
             end
         else
-            QBCore.Functions.Notify("You can't call police while handcuffed!", "error", 4500)
+            Functions[Config.Core].Notify("You can't call police while handcuffed!", "error", 4500)
         end
     else
-        QBCore.Functions.Notify('Please put a reason after the 911', "success")
+        Functions[Config.Core].Notify('Please put a reason after the 911', "success")
     end
 end)
 

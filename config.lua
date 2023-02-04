@@ -1,5 +1,7 @@
 Config = {}
 
+Config.Core = "ESX"
+
 Config.Enable = {}
 Config.Timer = {}
 
