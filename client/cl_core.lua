@@ -49,8 +49,12 @@ end
 Functions.ESX.Notify = function(...)
     Core.ShowNotification(...)
 end
+
+local esxFirstName = nil
+local esxLastName = nil
+
 Functions.ESX.GetName = function(playerData)
-    return playerData.firstName, playerData.lastName
+    return (playerData.firstName or esxFirstName or ""), (playerData.lastName or esxLastName or "")
 end
 Functions.ESX.HasPhone = function()
     return true
@@ -64,12 +68,22 @@ end
 Functions.ESX.IsHandcuffed = function()
     return false
 end
+Functions.ESX.LoadPlayerName = function()
+    Core.TriggerServerCallback('ps-dispatch:server:esx:getPlayerName', function(firstName, lastName)
+        esxFirstName = firstName
+        esxLastName = lastName
+    end)
+end
 
 AddEventHandler('onResourceStart', function(resourceName)
     if GetCurrentResourceName() == resourceName then
         isLoggedIn = true
         PlayerData = Functions[Config.Core].GetPlayerData()
         PlayerJob = PlayerData.job
+
+        if Config.Core == "ESX" then
+            Functions.ESX.LoadPlayerName()
+        end
     end
 end)
 
@@ -104,6 +118,8 @@ RegisterNetEvent('esx:playerLoaded', function(xPlayer)
     Core.PlayerLoaded = true
     isLoggedIn = true
     PlayerJob = xPlayer.job
+
+    Functions.ESX.LoadPlayerName()
 end)
 
 RegisterNetEvent('esx:onPlayerLogout', function()
