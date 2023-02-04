@@ -1,6 +1,6 @@
 Config = {}
 
-Config.Core = "ESX"
+Config.Core = "QBCore"
 
 Config.Enable = {}
 Config.Timer = {}
