@@ -58,9 +58,17 @@ local function PhoneCallAnim()
     end)
 end
 
+local last911Used = 0
 
 -- Regular 911 call that goes straight to the Police
 RegisterCommand('911', function(source, args, rawCommand)
+    local timeNow = GetCloudTimeAsInt()
+
+    if timeNow - last911Used <= Config.Cooldown911 then
+        return QBCore.Functions.Notify("Please wait before using it again", "error")
+    end
+
+    last911Used = timeNow
     local msg = rawCommand:sub(5)
     if string.len(msg) > 0 then
         if not Functions[Config.Core].IsHandcuffed() then
@@ -146,8 +154,18 @@ RegisterCommand('911a', function(source, args, rawCommand)
     end
 end)
 
+local last311Used = 0
+
 -- Regular 311 call that goes straight to the Police
 RegisterCommand('311', function(source, args, rawCommand)
+    local timeNow = GetCloudTimeAsInt()
+
+    if timeNow - last311Used <= Config.Cooldown311 then
+        return QBCore.Functions.Notify("Please wait before using it again", "error")
+    end
+
+    last311Used = timeNow
+
     local msg = rawCommand:sub(5)
     if string.len(msg) > 0 then
         if not Functions[Config.Core].IsHandcuffed() then

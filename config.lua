@@ -2,6 +2,10 @@ Config = {}
 
 Config.Core = "QBCore"
 
+Config.RecentCallsSize = 50
+Config.Cooldown911 = 60
+Config.Cooldown311 = 60
+
 Config.Enable = {}
 Config.Timer = {}
 
