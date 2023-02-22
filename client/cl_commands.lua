@@ -65,7 +65,7 @@ RegisterCommand('911', function(source, args, rawCommand)
     local timeNow = GetCloudTimeAsInt()
 
     if timeNow - last911Used <= Config.Cooldown911 then
-        return QBCore.Functions.Notify("Please wait before using it again", "error")
+        return Functions[Config.Core].Notify("Please wait before using it again", "error")
     end
 
     last911Used = timeNow
@@ -118,7 +118,7 @@ RegisterCommand('911a', function(source, args, rawCommand)
     local timeNow = GetCloudTimeAsInt()
 
     if timeNow - last911Used <= Config.Cooldown911 then
-        return QBCore.Functions.Notify("Please wait before using it again", "error")
+        return Functions[Config.Core].Notify("Please wait before using it again", "error")
     end
 
     last911Used = timeNow
@@ -170,7 +170,7 @@ RegisterCommand('311', function(source, args, rawCommand)
     local timeNow = GetCloudTimeAsInt()
 
     if timeNow - last311Used <= Config.Cooldown311 then
-        return QBCore.Functions.Notify("Please wait before using it again", "error")
+        return Functions[Config.Core].Notify("Please wait before using it again", "error")
     end
 
     last311Used = timeNow
@@ -225,7 +225,7 @@ RegisterCommand('311a', function(source, args, rawCommand)
     local timeNow = GetCloudTimeAsInt()
 
     if timeNow - last311Used <= Config.Cooldown311 then
-        return QBCore.Functions.Notify("Please wait before using it again", "error")
+        return Functions[Config.Core].Notify("Please wait before using it again", "error")
     end
 
     last311Used = timeNow
