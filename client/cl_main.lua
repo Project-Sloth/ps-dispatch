@@ -162,7 +162,8 @@ end
 
 local function CheckOnDuty()
 	if Config.OnDutyOnly then
-		return Functions[Config.Core].GetOnDuty(PlayerData)
+		local playerData = Functions[Config.Core].GetPlayerData()
+		return Functions[Config.Core].GetOnDuty(playerData)
 	end
 	return true
 end
