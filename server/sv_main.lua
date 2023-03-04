@@ -83,6 +83,13 @@ AddEventHandler("dispatch:sendCallResponse", function(player, callid, message, t
     end
 end)
 
+-- this is mdt remove call
+AddEventHandler('dispatch:removeCall', function(callid)
+    if calls[callid] then
+        calls[callid] = nil
+    end
+end)
+
 -- this is mdt call
 AddEventHandler("dispatch:removeUnit", function(callid, player, cb)
     if calls[callid] then
