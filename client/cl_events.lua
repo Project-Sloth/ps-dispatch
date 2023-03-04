@@ -640,6 +640,39 @@ end
 
 exports('SuspiciousActivity', SuspiciousActivity)
 
+local function Hunting()
+    local currentPos = GetEntityCoords(PlayerPedId())
+    local locationInfo = getStreetandZone(currentPos)
+    local gender = GetPedGender()
+    local PlayerPed = PlayerPedId()
+    local CurrentWeapon = GetSelectedPedWeapon(PlayerPed)
+    local speed = math.floor(GetEntitySpeed(vehicle) * 2.236936) .. " MPH" -- * 3.6 = KMH    /    * 2.236936 = MPH
+    local weapon = WeaponTable[CurrentWeapon] or "UNKNOWN"
+
+    TriggerServerEvent("dispatch:server:notify", {
+        dispatchcodename = "hunting", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+        dispatchCode = "10-13",
+        firstStreet = locationInfo,
+        gender = gender,
+        weapon = weapon,
+        model = nil,
+        plate = nil,
+        priority = 2,
+        firstColor = nil,
+        automaticGunfire = false,
+        origin = {
+            x = currentPos.x,
+            y = currentPos.y,
+            z = currentPos.z
+        },
+        dispatchMessage = _U('hunting'),
+        job = { "police" }
+    })
+
+end
+
+exports('Hunting', Hunting)
+
 local function CustomAlert(data)
 
     local coords = data.coords or vec3(0.0, 0.0, 0.0)
