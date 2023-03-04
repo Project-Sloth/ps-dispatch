@@ -1,4 +1,5 @@
 local vehicleWhitelist = {[0]=true,[1]=true,[2]=true,[3]=true,[4]=true,[5]=true,[6]=true,[7]=true,[8]=true,[9]=true,[10]=true,[11]=true,[12]=true,[17]=true,[19]=true,[20]=true}
+local inHuntingZone = false
 
 local function isPlayerAWitness(witnesses)
     for k, v in pairs(witnesses) do
@@ -8,6 +9,58 @@ local function isPlayerAWitness(witnesses)
     end
     return false
 end
+
+--hunting zones
+CreateThread(function()
+    for _, hunting in pairs(Config.Locations["hunting"]) do
+        if Config.Debug then
+            local huntingzone = CircleZone:Create(vector3(hunting.coords.x, hunting.coords.y, hunting.coords.z), hunting.radius, {
+                name = Config.Locations["hunting"].label,
+                useZ = true,
+                debugPoly = true
+            })
+
+            huntingzone:onPlayerInOut(function (isPointInside)
+                if isPointInside then
+                    QBCore.Functions.Notify("DEBUG: INSIDE HUNTING AREA: "..hunting.label, "success")
+                    print("inside")
+                else
+                    QBCore.Functions.Notify("DEBUG: OUTSIDE HUNTING AREA: "..hunting.label, "success")
+                    print("outside")
+                end
+
+                inHuntingZone = isPointInside
+            end)
+        else
+            local huntingzone = CircleZone:Create(vector3(hunting.coords.x, hunting.coords.y, hunting.coords.z), hunting.radius, {
+                name = Config.Locations["hunting"].label,
+                useZ = true,
+                debugPoly = false
+            })
+
+            huntingzone:onPlayerInOut(function (isPointInside)
+                inHuntingZone = isPointInside
+            end)
+        end
+    end
+end)
+
+CreateThread(function()
+    for _, hunting in pairs(Config.Locations["hunting"]) do
+        local blip = AddBlipForCoord(hunting.coords.x, hunting.coords.y, hunting.coords.z)
+        local huntingradius = AddBlipForRadius(hunting.coords.x, hunting.coords.y, hunting.coords.z, hunting.radius)
+        SetBlipSprite(blip, 442)
+        SetBlipAsShortRange(blip, true)
+        SetBlipScale(blip, 0.8)
+        SetBlipColour(blip, 0)
+        SetBlipColour(huntingradius, 0)
+        SetBlipAlpha(huntingradius, 40)
+        BeginTextCommandSetBlipName("STRING")
+        AddTextComponentString(hunting.label)
+        EndTextCommandSetBlipName(blip)
+    end
+end)
+---------------------------------------------------------------------------------------
 
 ---@param witnesses table  array of peds that witnessed the shots
 ---@param ped number  the ped that shot the gun
@@ -28,9 +81,14 @@ AddEventHandler("CEventGunShot", function(witnesses, ped)
             local driver = GetPedInVehicleSeat(vehicle, -1)
             if Config.Timer['Shooting'] == 0 and not BlacklistedWeapon(ped) and not IsPedCurrentWeaponSilenced(ped) and IsPedArmed(ped, 4) then
                 if IsPedShooting(ped) then
-                    local vehicle = vehicleData(vehicle)
-                    exports['ps-dispatch']:VehicleShooting(vehicle)
-                    Config.Timer['Shooting'] = Config.Shooting.Success
+                    if inHuntingZone then
+                        exports['ps-dispatch']:Hunting()
+                        Config.Timer['Shooting'] = Config.Shooting.Success
+                    else
+                        local vehicle = vehicleData(vehicle)
+                        exports['ps-dispatch']:VehicleShooting(vehicle)
+                        Config.Timer['Shooting'] = Config.Shooting.Success
+                    end
                 else
                     Config.Timer['Shooting'] = Config.Shooting.Fail
                 end
@@ -39,8 +97,13 @@ AddEventHandler("CEventGunShot", function(witnesses, ped)
     else
         if Config.Timer['Shooting'] == 0  and not IsPedCurrentWeaponSilenced(ped) and IsPedArmed(ped, 4) then
             if IsPedShooting(ped) and not BlacklistedWeapon(ped) then
-                exports['ps-dispatch']:Shooting()
-                Config.Timer['Shooting'] = Config.Shooting.Success
+                if inHuntingZone then
+                    exports['ps-dispatch']:Hunting()
+                    Config.Timer['Shooting'] = Config.Shooting.Success
+                else
+                    exports['ps-dispatch']:Shooting()
+                    Config.Timer['Shooting'] = Config.Shooting.Success
+                end
             else
                 Config.Timer['Shooting'] = Config.Shooting.Fail
             end
