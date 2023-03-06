@@ -102,7 +102,7 @@ function zoneChance(type, zoneMod, street)
 	end
 	zoneMod = zoneMod / (nearbyPeds / 3)
 	zoneMod = (math.ceil(zoneMod+0.5))
-	local sum = math.random(1, zoneMod)
+	local sum = RandomNum(1, zoneMod)
 	local chance = string.format('%.2f',(1 / zoneMod) * 100)..'%'
 
 	if sum > 1 then
@@ -161,6 +161,11 @@ function getCardinalDirectionFromHeading(entity)
     elseif heading >= 225 and heading < 315 then return "East Bound" end
 end
 
+function RandomNum(min, max)
+	math.randomseed(GetGameTimer())
+	return math.floor(math.random() * (max - min) + min)
+end
+
 local function IsValidJob(jobList)
 	for k, v in pairs(jobList) do
 		if v == PlayerJob.name then
@@ -172,7 +177,7 @@ end
 
 local function CheckOnDuty()
 	if Config.OnDutyOnly then
-		return QBCore.Functions.GetPlayerData().job.onduty
+		return PlayerJob.onduty
 	end
 	return true
 end
@@ -229,7 +234,7 @@ RegisterNetEvent("ps-dispatch:client:AddCallBlip", function(coords, data, blipId
 			local radius = nil
 			local radiusAlpha = 128
 			local sprite, colour, scale = 161, 84, 1.0
-			local randomoffset = math.random(1,100)
+			local randomoffset = RandomNum(1,100)
 			if data.blipSprite then sprite = data.blipSprite end
 			if data.blipColour then colour = data.blipColour end
 			if data.blipScale then scale = data.blipScale end
@@ -237,20 +242,20 @@ RegisterNetEvent("ps-dispatch:client:AddCallBlip", function(coords, data, blipId
 			
 			if data.offset == "true" then
 				if randomoffset <= 25 then
-					radius = AddBlipForRadius(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
-					blip = AddBlipForCoord(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z)
+					radius = AddBlipForRadius(coords.x + RandomNum(Config.MinOffset, Config.MaxOffset), coords.y + RandomNum(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
+					blip = AddBlipForCoord(coords.x + RandomNum(Config.MinOffset, Config.MaxOffset), coords.y + RandomNum(Config.MinOffset, Config.MaxOffset), coords.z)
 					blips[blipId] = blip
 				elseif randomoffset >= 26 and randomoffset <= 50 then
-					radius = AddBlipForRadius(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
-					blip = AddBlipForCoord(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z)
+					radius = AddBlipForRadius(coords.x - RandomNum(Config.MinOffset, Config.MaxOffset), coords.y + RandomNum(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
+					blip = AddBlipForCoord(coords.x - RandomNum(Config.MinOffset, Config.MaxOffset), coords.y + RandomNum(Config.MinOffset, Config.MaxOffset), coords.z)
 					blips[blipId] = blip
 				elseif randomoffset >= 51 and randomoffset <= 74 then
-					radius = AddBlipForRadius(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
-					blip = AddBlipForCoord(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z)
+					radius = AddBlipForRadius(coords.x - RandomNum(Config.MinOffset, Config.MaxOffset), coords.y - RandomNum(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
+					blip = AddBlipForCoord(coords.x - RandomNum(Config.MinOffset, Config.MaxOffset), coords.y - RandomNum(Config.MinOffset, Config.MaxOffset), coords.z)
 					blips[blipId] = blip
 				elseif randomoffset >= 75 and randomoffset <= 100 then
-					radius = AddBlipForRadius(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
-					blip = AddBlipForCoord(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z)
+					radius = AddBlipForRadius(coords.x + RandomNum(Config.MinOffset, Config.MaxOffset), coords.y - RandomNum(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
+					blip = AddBlipForCoord(coords.x + RandomNum(Config.MinOffset, Config.MaxOffset), coords.y - RandomNum(Config.MinOffset, Config.MaxOffset), coords.z)
 					blips[blipId] = blip
 				end
 			elseif data.offset == "false" then
@@ -292,7 +297,7 @@ end)
 RegisterNetEvent('dispatch:getCallResponse', function(message)
     SendNUIMessage({
         update = "newCall",
-        callID = math.random(1000, 9999),
+        callID = RandomNum(1000, 9999),
         data = {
             dispatchCode = 'RSP',
             priority = 1,
