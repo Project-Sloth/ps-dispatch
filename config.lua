@@ -35,6 +35,15 @@ Config.MinOffset = 1
 Config.MaxOffset = 120
 ---------------------------------------------------------------
 
+-- locations for the hunting zones ( Label: Name of Blip // Radius: Radius of the Alert and Blip)
+Config.Locations = {
+    ["hunting"] = {
+        [1] = {label = "Hunting Zone", radius = 250.0, coords = vector3(-1339.05, -3044.38, 13.94)},
+    },
+}
+
+---------------------------------------------------------------
+
 Citizen.CreateThread(function()
     -- if not GetPlayerPed(-1) then return end
     -- while not firstname do
