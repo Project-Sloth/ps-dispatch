@@ -39,7 +39,6 @@ Config.MaxOffset = 120
 Config.Locations = {
     ["hunting"] = {
         [1] = {label = "Hunting Zone", radius = 250.0, coords = vector3(-1339.05, -3044.38, 13.94)},
-        --[2] = {label = "EXAMPLE 2", radius = 120.0, coords = vector3(-1481.19, 3517.79, 254.68)},
     },
 }
 
