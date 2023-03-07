@@ -13,35 +13,15 @@ end
 --hunting zones
 CreateThread(function()
     for _, hunting in pairs(Config.Locations["hunting"]) do
-        if Config.Debug then
-            local huntingzone = CircleZone:Create(vector3(hunting.coords.x, hunting.coords.y, hunting.coords.z), hunting.radius, {
-                name = Config.Locations["hunting"].label,
-                useZ = true,
-                debugPoly = true
-            })
+        local huntingzone = CircleZone:Create(vector3(hunting.coords.x, hunting.coords.y, hunting.coords.z), hunting.radius, {
+            name = Config.Locations["hunting"].label,
+            useZ = true,
+            debugPoly = false
+        })
 
-            huntingzone:onPlayerInOut(function (isPointInside)
-                if isPointInside then
-                    QBCore.Functions.Notify("DEBUG: INSIDE HUNTING AREA: "..hunting.label, "success")
-                    print("inside")
-                else
-                    QBCore.Functions.Notify("DEBUG: OUTSIDE HUNTING AREA: "..hunting.label, "success")
-                    print("outside")
-                end
-
-                inHuntingZone = isPointInside
-            end)
-        else
-            local huntingzone = CircleZone:Create(vector3(hunting.coords.x, hunting.coords.y, hunting.coords.z), hunting.radius, {
-                name = Config.Locations["hunting"].label,
-                useZ = true,
-                debugPoly = false
-            })
-
-            huntingzone:onPlayerInOut(function (isPointInside)
-                inHuntingZone = isPointInside
-            end)
-        end
+        huntingzone:onPlayerInOut(function (isPointInside)
+            inHuntingZone = isPointInside
+        end)
     end
 end)
 
