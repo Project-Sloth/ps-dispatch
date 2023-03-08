@@ -54,6 +54,7 @@ Locales = {
         ['carboosting'] = "Car Boosting In Progress",
         ['yachtheist'] = "Yacht Heist In Progress",
         ['susactivity'] = "Suspicious Activity",
+        ['hunting'] = "Possible Hunting Violation",
     },
 
     ['fr'] = {
