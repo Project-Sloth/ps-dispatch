@@ -6,7 +6,8 @@ function _U(entry)
 end
 
 local function IsPoliceJob(job)
-    for k, v in pairs(Config.PoliceJob) do
+    local PoliceJobs = Config.AuthorizedJobs.LEO.Jobs
+    for k, v in pairs(PoliceJobs) do
         if job == v then
             return true
         end
@@ -15,7 +16,14 @@ local function IsPoliceJob(job)
 end
 
 local function IsDispatchJob(job)
-    for k, v in pairs(Config.PoliceAndAmbulance) do
+    local PoliceJobs = Config.AuthorizedJobs.LEO.Jobs
+    local AmbulanceJobs = Config.AuthorizedJobs.EMS.Jobs
+    for k, v in pairs(PoliceJobs) do
+        if job == v then
+            return true
+        end
+    end
+    for k, v in pairs(AmbulanceJobs) do
         if job == v then
             return true
         end
