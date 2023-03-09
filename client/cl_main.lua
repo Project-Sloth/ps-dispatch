@@ -1,6 +1,6 @@
 PlayerData = {}
 PlayerJob = {}
-isLoggedIn = true
+inHuntingZone = false
 QBCore = exports['qb-core']:GetCoreObject()
 local blips = {}
 
@@ -11,31 +11,62 @@ local blips = {}
 
 -- core related
 
-AddEventHandler('onResourceStart', function(resourceName)
-    if GetCurrentResourceName() == resourceName then
-		isLoggedIn = true
-        PlayerData = QBCore.Functions.GetPlayerData()
-        PlayerJob = QBCore.Functions.GetPlayerData().job
-    end
+-- Create Hunting Zone, Code Executes as a Chunk when Scipt is Loaded and Doesn't need to be an Asynchronous Thread --
+
+if Config.Locations['hunting'][1] then
+	for _, hunting in pairs(Config.Locations["hunting"]) do
+		local huntingzone = CircleZone:Create(vector3(hunting.coords.x, hunting.coords.y, hunting.coords.z), hunting.radius, {
+			name = Config.Locations["hunting"].label,
+			useZ = true,
+			debugPoly = false
+		})
+
+		huntingzone:onPlayerInOut(function(isPointInside)
+			inHuntingZone = isPointInside
+		end)
+	end
+end
+
+AddEventHandler('onResourceStart', function(resource)
+	if GetCurrentResourceName() ~= resource then return end
+	PlayerData = QBCore.Functions.GetPlayerData()
+	PlayerJob = QBCore.Functions.GetPlayerData().job
 end)
 
 RegisterNetEvent("QBCore:Client:OnPlayerLoaded", function()
-    isLoggedIn = true
-    PlayerData = QBCore.Functions.GetPlayerData()
-    PlayerJob = QBCore.Functions.GetPlayerData().job
+	PlayerData = QBCore.Functions.GetPlayerData()
+	PlayerJob = QBCore.Functions.GetPlayerData().job
+	
+	-- Create Hunting Zone Blips --
+	if not Config.Locations['hunting'][1] then return end
+	for _, hunting in pairs(Config.Locations["hunting"]) do
+		local blip = AddBlipForCoord(hunting.coords.x, hunting.coords.y, hunting.coords.z)
+		local huntingradius = AddBlipForRadius(hunting.coords.x, hunting.coords.y, hunting.coords.z, hunting.radius)
+		SetBlipSprite(blip, 442)
+		SetBlipAsShortRange(blip, true)
+		SetBlipScale(blip, 0.8)
+		SetBlipColour(blip, 0)
+		SetBlipColour(huntingradius, 0)
+		SetBlipAlpha(huntingradius, 40)
+		BeginTextCommandSetBlipName("STRING")
+		AddTextComponentString(hunting.label)
+		EndTextCommandSetBlipName(blip)
+	end
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
 	PlayerData = {}
-    isLoggedIn = false
-    currentCallSign = ""
-    -- currentVehicle, inVehicle, currentlyArmed, currentWeapon = nil, false, false, `WEAPON_UNARMED`
-    -- removeHuntingZones()
+	currentCallSign = ""
+	-- currentVehicle, inVehicle, currentlyArmed, currentWeapon = nil, false, false, `WEAPON_UNARMED`
+	-- removeHuntingZones()
+	if not Config.Locations['hunting'][1] then return end
+	local blip = GetFirstBlipInfoId(442)
+  repeat RemoveBlip(blip); blip = GetNextBlipInfoId(442) until not DoesBlipExist(blip)
 end)
 
 RegisterNetEvent("QBCore:Client:OnJobUpdate", function(JobInfo)
-    PlayerData = QBCore.Functions.GetPlayerData()
-    PlayerJob = JobInfo
+	PlayerData = QBCore.Functions.GetPlayerData()
+	PlayerJob = JobInfo
 end)
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -45,6 +76,16 @@ function _U(entry)
 end
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function RandomNum(min, max)
+  math.randomseed(GetGameTimer())
+  local num = math.random() * (max - min) + min
+  if num % 1 >= 0.5 and math.ceil(num) <= max then
+    return math.ceil(num)
+  else
+    return math.floor(num)
+  end
+end
 
 function getSpeed() return speedlimit end
 function getStreet() return currentStreetName end
@@ -114,7 +155,7 @@ function zoneChance(type, zoneMod, street)
 	end
 	zoneMod = zoneMod / (nearbyPeds / 3)
 	zoneMod = (math.ceil(zoneMod+0.5))
-	local sum = math.random(1, zoneMod)
+	local sum = RandomNum(1, zoneMod)
 	local chance = string.format('%.2f',(1 / zoneMod) * 100)..'%'
 
 	if sum > 1 then
@@ -171,15 +212,6 @@ function getCardinalDirectionFromHeading()
     elseif heading >= 225 and heading < 315 then return "East Bound" end
 end
 
-function IsPoliceJob(job)
-    for k, v in pairs(Config.PoliceJob) do
-        if job == v then
-            return true
-        end
-    end
-    return false
-end
-
 local function IsValidJob(jobList)
 	for k, v in pairs(jobList) do
 		if v == PlayerJob.name then
@@ -221,7 +253,7 @@ RegisterNetEvent('dispatch:manageNotifs', function(sentSetting)
 end)
 
 RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationId, sender)
-    if sNotificationData ~= nil and isLoggedIn then
+    if sNotificationData ~= nil and LocalPlayer.state.isLoggedIn then
 		if IsValidJob(sNotificationData['job']) and CheckOnDuty() then
             if not disableNotis then
 				if sNotificationData.origin ~= nil then
@@ -230,7 +262,7 @@ RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationI
 						callID = sNotificationId,
 						data = sNotificationData,
 						timer = 5000,
-						isPolice = IsPoliceJob(PlayerJob.name)
+						isPolice = Config.AuthorizedJobs.LEO.Check()
 					})
 				end
 			end
@@ -248,7 +280,7 @@ RegisterNetEvent("ps-dispatch:client:AddCallBlip", function(coords, data, blipId
 			local radius = nil
 			local radiusAlpha = 128
 			local sprite, colour, scale = 161, 84, 1.0
-			local randomoffset = math.random(1,100)
+			local randomoffset = RandomNum(1,100)
 			if data.blipSprite then sprite = data.blipSprite end
 			if data.blipColour then colour = data.blipColour end
 			if data.blipScale then scale = data.blipScale end
@@ -256,20 +288,20 @@ RegisterNetEvent("ps-dispatch:client:AddCallBlip", function(coords, data, blipId
 			
 			if data.offset == "true" then
 				if randomoffset <= 25 then
-					radius = AddBlipForRadius(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
-					blip = AddBlipForCoord(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z)
+					radius = AddBlipForRadius(coords.x + RandomNum(Config.MinOffset, Config.MaxOffset), coords.y + RandomNum(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
+					blip = AddBlipForCoord(coords.x + RandomNum(Config.MinOffset, Config.MaxOffset), coords.y + RandomNum(Config.MinOffset, Config.MaxOffset), coords.z)
 					blips[blipId] = blip
 				elseif randomoffset >= 26 and randomoffset <= 50 then
-					radius = AddBlipForRadius(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
-					blip = AddBlipForCoord(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z)
+					radius = AddBlipForRadius(coords.x - RandomNum(Config.MinOffset, Config.MaxOffset), coords.y + RandomNum(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
+					blip = AddBlipForCoord(coords.x - RandomNum(Config.MinOffset, Config.MaxOffset), coords.y + RandomNum(Config.MinOffset, Config.MaxOffset), coords.z)
 					blips[blipId] = blip
 				elseif randomoffset >= 51 and randomoffset <= 74 then
-					radius = AddBlipForRadius(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
-					blip = AddBlipForCoord(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z)
+					radius = AddBlipForRadius(coords.x - RandomNum(Config.MinOffset, Config.MaxOffset), coords.y - RandomNum(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
+					blip = AddBlipForCoord(coords.x - RandomNum(Config.MinOffset, Config.MaxOffset), coords.y - RandomNum(Config.MinOffset, Config.MaxOffset), coords.z)
 					blips[blipId] = blip
 				elseif randomoffset >= 75 and randomoffset <= 100 then
-					radius = AddBlipForRadius(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
-					blip = AddBlipForCoord(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z)
+					radius = AddBlipForRadius(coords.x + RandomNum(Config.MinOffset, Config.MaxOffset), coords.y - RandomNum(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
+					blip = AddBlipForCoord(coords.x + RandomNum(Config.MinOffset, Config.MaxOffset), coords.y - RandomNum(Config.MinOffset, Config.MaxOffset), coords.z)
 					blips[blipId] = blip
 				end
 			elseif data.offset == "false" then
@@ -311,7 +343,7 @@ end)
 RegisterNetEvent('dispatch:getCallResponse', function(message)
     SendNUIMessage({
         update = "newCall",
-        callID = math.random(1000, 9999),
+        callID = RandomNum(1000, 9999),
         data = {
             dispatchCode = 'RSP',
             priority = 1,
