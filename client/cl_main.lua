@@ -3,6 +3,7 @@ PlayerJob = {}
 isLoggedIn = true
 QBCore = exports['qb-core']:GetCoreObject()
 local blips = {}
+local radius2 = {}
 
 -- Debugging and testing dispatch alerts - Uncomment to use. 
 --RegisterCommand('testdispatch',function ()
@@ -259,23 +260,28 @@ RegisterNetEvent("ps-dispatch:client:AddCallBlip", function(coords, data, blipId
 					radius = AddBlipForRadius(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
 					blip = AddBlipForCoord(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z)
 					blips[blipId] = blip
+					radius2[blipId] = radius
 				elseif randomoffset >= 26 and randomoffset <= 50 then
 					radius = AddBlipForRadius(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
 					blip = AddBlipForCoord(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y + math.random(Config.MinOffset, Config.MaxOffset), coords.z)
 					blips[blipId] = blip
+					radius2[blipId] = radius
 				elseif randomoffset >= 51 and randomoffset <= 74 then
 					radius = AddBlipForRadius(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
 					blip = AddBlipForCoord(coords.x - math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z)
 					blips[blipId] = blip
+					radius2[blipId] = radius
 				elseif randomoffset >= 75 and randomoffset <= 100 then
 					radius = AddBlipForRadius(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z, data.radius)
 					blip = AddBlipForCoord(coords.x + math.random(Config.MinOffset, Config.MaxOffset), coords.y - math.random(Config.MinOffset, Config.MaxOffset), coords.z)
 					blips[blipId] = blip
+					radius2[blipId] = radius
 				end
 			elseif data.offset == "false" then
 				radius = AddBlipForRadius(coords.x, coords.y, coords.z, data.radius)
 				blip = AddBlipForCoord(coords.x, coords.y, coords.z)
 				blips[blipId] = blip
+				radius2[blipId] = radius
 			end
 			if data.blipflash == "true" then 
 				SetBlipFlashes(blip, true) 
@@ -329,10 +335,14 @@ end)
 
 RegisterNetEvent("ps-dispatch:client:removeCallBlip", function(blipId)
 	RemoveBlip(blips[blipId])
+	RemoveBlip(radius2[blipId])
 end)
 
 RegisterNetEvent("ps-dispatch:client:clearAllBlips", function()
 	for k, v in pairs(blips) do
+		RemoveBlip(v)
+	end
+	for k, v in pairs(radius2) do
 		RemoveBlip(v)
 	end
 	QBCore.Functions.Notify('All dispatch blips cleared', "success")
