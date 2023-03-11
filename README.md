@@ -1,10 +1,9 @@
 # QBCore Dispatch
 
-Integrated with https://github.com/Project-Sloth/ps-mdt
+Integrated with [ps-mdt](https://github.com/Project-Sloth/ps-mdt)
 
-For all support questions, ask in our Discord support chat. Do not create issues if you need help. Issues are for bug reporting and new features only.
-
-https://www.discord.gg/projectsloth
+For all support questions, ask in our [Discord](https://www.discord.gg/projectsloth) support chat. 
+Do not create issues on GitHub if you need help. Issues are for bug reporting and new features only.
 
 # Installation
 * Download ZIP
@@ -118,6 +117,9 @@ sound2 -- GTA sound to play
 
 - exports['ps-dispatch']:SignRobbery()
 ```
+
+# Sample Preview
+![image](https://user-images.githubusercontent.com/82112471/224476364-a362b703-f673-4c34-bd4a-f2b15aa15cb1.png)
 
 # Steps to Create New Alert
 
