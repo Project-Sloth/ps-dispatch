@@ -66,7 +66,7 @@ RegisterCommand('911', function(source, args, rawCommand)
         if not exports['qb-policejob']:IsHandcuffed() then
             if HasPhone() then
                 PhoneCallAnim()
-                Wait(math.random(3,8) * 1000)
+                Wait(RandomNum(3,8) * 1000)
                 playAnim = false
                 local plyData = QBCore.Functions.GetPlayerData()
                 local currentPos = GetEntityCoords(PlayerPedId())
@@ -108,7 +108,7 @@ RegisterCommand('911a', function(source, args, rawCommand)
         if not exports['qb-policejob']:IsHandcuffed() then
             if HasPhone() then
                 PhoneCallAnim()
-                Wait(math.random(3,8) * 1000)
+                Wait(RandomNum(3,8) * 1000)
                 playAnim = false
                 local plyData = QBCore.Functions.GetPlayerData()
                 local currentPos = GetEntityCoords(PlayerPedId())
@@ -151,7 +151,7 @@ RegisterCommand('311', function(source, args, rawCommand)
         if not exports['qb-policejob']:IsHandcuffed() then
             if HasPhone() then
                 PhoneCallAnim()
-                Wait(math.random(3,8) * 1000)
+                Wait(RandomNum(3,8) * 1000)
                 playAnim = false
                 local plyData = QBCore.Functions.GetPlayerData()
                 local currentPos = GetEntityCoords(PlayerPedId())
@@ -194,7 +194,7 @@ RegisterCommand('311a', function(source, args, rawCommand)
         if not exports['qb-policejob']:IsHandcuffed() then
             if HasPhone() then
                 PhoneCallAnim()
-                Wait(math.random(3,8) * 1000)
+                Wait(RandomNum(3,8) * 1000)
                 playAnim = false
                 local plyData = QBCore.Functions.GetPlayerData()
                 local currentPos = GetEntityCoords(PlayerPedId())
