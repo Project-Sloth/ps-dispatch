@@ -196,8 +196,3 @@ exports('SpeedingVehicle', SpeedingVehicle)
 ```
 
 Rest steps will be similar as mentioned above in Steps to create alerts.
-
-# Work to be done
-
-* Hunting Zones
-* Locales for alerts
