@@ -108,9 +108,7 @@ end)
 
 RegisterCommand('togglealerts', function(source, args, user)
 	local source = source
-    local Player = QBCore.Functions.GetPlayer(source)
-	local job = Player.PlayerData.job
-	if IsPoliceJob(job.name) or job.name == 'ambulance' then
+	if IsDispatchJob then
 		TriggerClientEvent('dispatch:manageNotifs', source, args[1])
 	end
 end)
