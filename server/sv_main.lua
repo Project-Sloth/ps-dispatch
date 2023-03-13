@@ -5,32 +5,6 @@ function _U(entry)
 	return Locales[Config.Locale][entry] 
 end
 
-local function IsPoliceJob(job)
-    local PoliceJobs = Config.AuthorizedJobs.LEO.Jobs
-    for k, v in pairs(PoliceJobs) do
-        if job == v then
-            return true
-        end
-    end
-    return false
-end
-
-local function IsDispatchJob(job)
-    local PoliceJobs = Config.AuthorizedJobs.LEO.Jobs
-    local AmbulanceJobs = Config.AuthorizedJobs.EMS.Jobs
-    for k, v in pairs(PoliceJobs) do
-        if job == v then
-            return true
-        end
-    end
-    for k, v in pairs(AmbulanceJobs) do
-        if job == v then
-            return true
-        end
-    end
-    return false
-end
-
 RegisterServerEvent("dispatch:server:notify", function(data)
 	local newId = #calls + 1
 	calls[newId] = data
@@ -63,9 +37,9 @@ AddEventHandler("dispatch:addUnit", function(callid, player, cb)
             end
         end
 
-        if IsPoliceJob(player.job.name) then
+        if Config.AuthorizedJobs.LEO.Check() then
             calls[callid]['units'][#calls[callid]['units']+1] = { cid = player.cid, fullname = player.fullname, job = 'Police', callsign = player.callsign }
-        elseif player.job.name == 'ambulance' then
+        elseif Config.AuthorizedJobs.EMS.Check() then
             calls[callid]['units'][#calls[callid]['units']+1] = { cid = player.cid, fullname = player.fullname, job = 'EMS', callsign = player.callsign }
         end
         cb(#calls[callid]['units'])
@@ -133,7 +107,7 @@ QBCore.Commands.Add("cleardispatchblips", "Clear all dispatch blips", {}, false,
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 	local job = Player.PlayerData.job.name
-    if IsDispatchJob(job) then
+    if Config.AuthorizedJobs.FirstResponder.Check() then
         TriggerClientEvent('ps-dispatch:client:clearAllBlips', src)
     end
 end)

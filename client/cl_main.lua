@@ -12,22 +12,6 @@ local radius2 = {}
 
 -- core related
 
--- Create Hunting Zone, Code Executes as a Chunk when Scipt is Loaded and Doesn't need to be an Asynchronous Thread --
-
-if Config.Locations['hunting'][1] then
-	for _, hunting in pairs(Config.Locations["hunting"]) do
-		local huntingzone = CircleZone:Create(vector3(hunting.coords.x, hunting.coords.y, hunting.coords.z), hunting.radius, {
-			name = Config.Locations["hunting"].label,
-			useZ = true,
-			debugPoly = false
-		})
-
-		huntingzone:onPlayerInOut(function(isPointInside)
-			inHuntingZone = isPointInside
-		end)
-	end
-end
-
 AddEventHandler('onResourceStart', function(resource)
 	if GetCurrentResourceName() ~= resource then return end
 	PlayerData = QBCore.Functions.GetPlayerData()
@@ -58,8 +42,6 @@ end)
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
 	PlayerData = {}
 	currentCallSign = ""
-	-- currentVehicle, inVehicle, currentlyArmed, currentWeapon = nil, false, false, `WEAPON_UNARMED`
-	-- removeHuntingZones()
 	if not Config.Locations['hunting'][1] then return end
 	local blip = GetFirstBlipInfoId(442)
   repeat RemoveBlip(blip); blip = GetNextBlipInfoId(442) until not DoesBlipExist(blip)
@@ -69,6 +51,22 @@ RegisterNetEvent("QBCore:Client:OnJobUpdate", function(JobInfo)
 	PlayerData = QBCore.Functions.GetPlayerData()
 	PlayerJob = JobInfo
 end)
+
+-- Create Hunting Zone, Code Executes as a Chunk when Scipt is Loaded and Doesn't need to be an Asynchronous Thread --
+
+if Config.Locations['hunting'][1] then
+	for _, hunting in pairs(Config.Locations["hunting"]) do
+		local huntingzone = CircleZone:Create(vector3(hunting.coords.x, hunting.coords.y, hunting.coords.z), hunting.radius, {
+			name = Config.Locations["hunting"].label,
+			useZ = true,
+			debugPoly = false
+		})
+
+		huntingzone:onPlayerInOut(function(isPointInside)
+			inHuntingZone = isPointInside
+		end)
+	end
+end
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -83,9 +81,8 @@ function RandomNum(min, max)
   local num = math.random() * (max - min) + min
   if num % 1 >= 0.5 and math.ceil(num) <= max then
     return math.ceil(num)
-  else
-    return math.floor(num)
   end
+	return math.floor(num)
 end
 
 function getSpeed() return speedlimit end
@@ -102,11 +99,7 @@ function refreshPlayerWhitelisted()
 	if not PlayerData then return false end
 	if not PlayerData.job then return false end
 	if Config.Debug then return true end
-	for k,v in ipairs({'police'}) do
-		if v == PlayerData.job.name then
-			return true
-		end
-	end
+	if Config.AuthorizedJobs.FirstResponder.Check() then return true end
 	return false
 end
 
@@ -200,17 +193,17 @@ function vehicleData(vehicle)
 end
 
 function GetPedGender()
-    local gender = "Male"
-    if QBCore.Functions.GetPlayerData().charinfo.gender == 1 then gender = "Female" end
-    return gender
+	local gender = "Male"
+	if QBCore.Functions.GetPlayerData().charinfo.gender == 1 then gender = "Female" end
+	return gender
 end
 
 function getCardinalDirectionFromHeading()
-    local heading = GetEntityHeading(PlayerPedId())
-    if heading >= 315 or heading < 45 then return "North Bound"
-    elseif heading >= 45 and heading < 135 then return "West Bound"
-    elseif heading >=135 and heading < 225 then return "South Bound"
-    elseif heading >= 225 and heading < 315 then return "East Bound" end
+	local heading = GetEntityHeading(PlayerPedId())
+	if heading >= 315 or heading < 45 then return "North Bound"
+	elseif heading >= 45 and heading < 135 then return "West Bound"
+	elseif heading >=135 and heading < 225 then return "South Bound"
+	elseif heading >= 225 and heading < 315 then return "East Bound" end
 end
 
 local function IsValidJob(jobList)
@@ -234,29 +227,28 @@ end
 local disableNotis, disableNotifSounds = false, false
 
 RegisterNetEvent('dispatch:manageNotifs', function(sentSetting)
-    local wantedSetting = tostring(sentSetting)
-    if wantedSetting == "on" then
-        disableNotis = false
-        disableNotifSounds = false
-        QBCore.Functions.Notify("Dispatch enabled", "success")
-    elseif wantedSetting == "off" then
-        disableNotis = true
-        disableNotifSounds = true
-        QBCore.Functions.Notify("Dispatch disabled", "success")
-    elseif wantedSetting == "mute" then
-        disableNotis = false
-        disableNotifSounds = true
-        QBCore.Functions.Notify("Dispatch muted", "success")
-    else
-        QBCore.Functions.Notify('Please choose to have dispatch as "on", "off" or "mute".', "success")
-
-    end
+	local wantedSetting = tostring(sentSetting)
+	if wantedSetting == "on" then
+		disableNotis = false
+		disableNotifSounds = false
+		QBCore.Functions.Notify("Dispatch enabled", "success")
+	elseif wantedSetting == "off" then
+		disableNotis = true
+		disableNotifSounds = true
+		QBCore.Functions.Notify("Dispatch disabled", "success")
+	elseif wantedSetting == "mute" then
+		disableNotis = false
+		disableNotifSounds = true
+		QBCore.Functions.Notify("Dispatch muted", "success")
+	else
+		QBCore.Functions.Notify('Please choose to have dispatch as "on", "off" or "mute".', "success")
+	end
 end)
 
 RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationId, sender)
-    if sNotificationData ~= nil and LocalPlayer.state.isLoggedIn then
-		if IsValidJob(sNotificationData['job']) and CheckOnDuty() then
-            if not disableNotis then
+	if sNotificationData ~= nil and LocalPlayer.state.isLoggedIn then
+	if IsValidJob(sNotificationData['job']) and CheckOnDuty() then
+			if not disableNotis then
 				if sNotificationData.origin ~= nil then
 					SendNUIMessage({
 						update = "newCall",
@@ -267,8 +259,8 @@ RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationI
 					})
 				end
 			end
-        end
-    end
+		end
+	end
 end)
 
 RegisterNetEvent("ps-dispatch:client:AddCallBlip", function(coords, data, blipId)
@@ -349,18 +341,18 @@ RegisterNetEvent("ps-dispatch:client:AddCallBlip", function(coords, data, blipId
 end)
 
 RegisterNetEvent('dispatch:getCallResponse', function(message)
-    SendNUIMessage({
-        update = "newCall",
-        callID = RandomNum(1000, 9999),
-        data = {
-            dispatchCode = 'RSP',
-            priority = 1,
-            dispatchMessage = "Call Response",
-            information = message
-        },
-        timer = 10000,
-        isPolice = true
-    })
+	SendNUIMessage({
+		update = "newCall",
+		callID = RandomNum(1000, 9999),
+		data = {
+			dispatchCode = 'RSP',
+			priority = 1,
+			dispatchMessage = "Call Response",
+			information = message
+		},
+		timer = 10000,
+		isPolice = true
+	})
 end)
 
 RegisterNetEvent("ps-dispatch:client:Explosion", function(data)
