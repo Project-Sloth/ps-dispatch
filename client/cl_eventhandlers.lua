@@ -200,4 +200,5 @@ AddEventHandler('gameEventTriggered', function(name, args)
     if Config.AuthorizedJobs.LEO.Check() then exports['ps-dispatch']:OfficerDown() end
     if Config.AuthorizedJobs.EMS.Check() then exports['ps-dispatch']:EmsDown() end
     Config.Timer['PlayerDowned'] = Config.PlayerDowned.Success
+    if deathData and deathData.count == 2 then deathData = {} end
 end)
