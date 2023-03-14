@@ -207,8 +207,8 @@ function getCardinalDirectionFromHeading()
 end
 
 local function IsValidJob(jobList)
-	for k, v in pairs(jobList) do
-		if v == PlayerJob.name then
+	for i = 1, #jobList do
+		if Config.AuthorizedJobs[jobList[i]] and Config.AuthorizedJobs[jobList[i]].Check() or PlayerJob.name == jobList[i] then
 			return true
 		end
 	end
