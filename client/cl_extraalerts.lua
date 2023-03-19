@@ -22,7 +22,7 @@ local function ArtGalleryRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('artgalleryrobbery'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('ArtGalleryRobbery', ArtGalleryRobbery)
 
@@ -46,7 +46,7 @@ local function HumaneRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('humanerobbery'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('HumaneRobbery', HumaneRobbery)
 
@@ -70,7 +70,7 @@ local function TrainRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('trainrobbery'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('TrainRobbery', TrainRobbery)
 
@@ -94,7 +94,7 @@ local function VanRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('vanrobbery'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('VanRobbery', VanRobbery)
 
@@ -118,7 +118,7 @@ local function UndergroundRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('underground'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('UndergroundRobbery', UndergroundRobbery)
 
@@ -142,7 +142,7 @@ local function DrugBoatRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('drugboatrobbery'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('DrugBoatRobbery', DrugBoatRobbery)
 
@@ -166,7 +166,7 @@ local function UnionRobbery()
             z = currentPos.z
         },
         dispatchMessage = _U('unionrobbery'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('UnionRobbery', UnionRobbery)
 
@@ -191,7 +191,7 @@ local function CarBoosting(vehicle)
             z = currentPos.z
         },
         dispatchMessage = _U('carboosting'), -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('CarBoosting', CarBoosting)
 
@@ -219,6 +219,6 @@ local function SignRobbery()
             z = currentPos.z
         },
         dispatchMessage = 'Sign Robbery Committed', -- message
-        job = {"police"} -- jobs that will get the alerts
+        job = {"LEO", "police"} -- type or jobs that will get the alerts
     })
 end exports('SignRobbery', SignRobbery)

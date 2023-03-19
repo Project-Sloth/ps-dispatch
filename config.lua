@@ -73,7 +73,7 @@ Config.Locations = {
 
 for k, v in pairs(Config.Enable) do
     print(k, v, json.encode(v))
-    if Config.Enable[k] ~= false then
+    if Config.Enable[k] then
         Config[k] = {}
         Config.Timer[k] = 0 -- Default to 0 seconds
         Config[k].Success = 30 -- Default to 30 seconds
@@ -83,6 +83,11 @@ end
 -- If you want to set specific timers, do it here
 if Config.Shooting then
     Config.Shooting.Success = 10 -- 10 seconds
+    Config.Shooting.Fail = 0 -- 0 seconds
+end
+
+if Config.PlayerDowned then
+    Config.PlayerDowned.Success = 5 -- 5 seconds 
     Config.Shooting.Fail = 0 -- 0 seconds
 end
 

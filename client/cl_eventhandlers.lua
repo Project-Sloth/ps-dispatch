@@ -30,6 +30,8 @@ end
 ---@param ped number | The Ped ID of the shooter
 ---@param coords table | The Coords of the shooter
 AddEventHandler('CEventShockingGunshotFired', function(witnesses, ped, coords)
+    -- If AutoAlerts are disabled, don't trigger
+    if not Config.Enable['Shooting'] then return end
     local coords = vector3(coords[1][1], coords[1][2], coords[1][3])
     -- Use the timer to prevent the event from being triggered multiple times.
     if Config.Timer['Shooting'] ~= 0 then return end
@@ -51,11 +53,11 @@ AddEventHandler('CEventShockingGunshotFired', function(witnesses, ped, coords)
     if inHuntingZone then exports['ps-dispatch']:Hunting(); Config.Timer['Shooting'] = Config.Shooting.Success return end
     local vehicle = GetVehiclePedIsUsing(ped, true)
     if vehicle ~= 0 then
-        if vehicleWhitelist[GetVehicleClass(vehicle)] then
-            vehicle = vehicleData(vehicle)
-            exports['ps-dispatch']:VehicleShooting(vehicle, ped, coords)
-            Config.Timer['Shooting'] = Config.Shooting.Success
-        end
+        -- If the vehicle isn't whitelisted, don't trigger the event
+        if not vehicleWhitelist[GetVehicleClass(vehicle)] then Config.Timer['Shooting'] = Config.Shooting.Fail return end
+        vehicle = vehicleData(vehicle)
+        exports['ps-dispatch']:VehicleShooting(vehicle, ped, coords)
+        Config.Timer['Shooting'] = Config.Shooting.Success
     else
         exports['ps-dispatch']:Shooting(ped, coords)
         Config.Timer['Shooting'] = Config.Shooting.Success
@@ -68,6 +70,8 @@ end)
 for i = 1, #SpeedingEvents do
     local event = SpeedingEvents[i]
     AddEventHandler(event, function(witnesses, ped, coords)
+        -- If AutoAlerts are disabled, don't trigger
+        if not Config.Enable['Speeding'] then return end
         local coords = vector3(coords[1][1], coords[1][2], coords[1][3])
         -- Use the timer to prevent the event from being triggered multiple times.
         if Config.Timer['Speeding'] ~= 0 then return end
@@ -79,20 +83,20 @@ for i = 1, #SpeedingEvents do
         -- Check if this event or any other have been triggered in the last 5 seconds.
         -- If so, then we don't want to trigger the event.
         local vehicle = GetVehiclePedIsUsing(ped, true)
-        if vehicleWhitelist[GetVehicleClass(vehicle)] then
-            local driver = GetPedInVehicleSeat(vehicle, -1)
-            if ped == driver then
-                if (GetEntitySpeed(vehicle) * 3.6) >= (120 + RandomNum(0, 20)) then
-                    Wait(400)
-                    if ((GetEntitySpeed(vehicle) * 3.6) >= 90) then
-                        vehicle = vehicleData(vehicle)
-                        exports['ps-dispatch']:SpeedingVehicle(vehicle, ped, coords)
-                        Config.Timer['Speeding'] = Config.Speeding.Success
-                    end
-                else
-                    Config.Timer['Speeding'] = Config.Speeding.Fail
-                end
+        -- If the vehicle isn't whitelisted, don't trigger the event
+        if not vehicleWhitelist[GetVehicleClass(vehicle)] then return end 
+        local driver = GetPedInVehicleSeat(vehicle, -1)
+        -- If the ped isn't the driver, we don't wanna trigger the event
+        if ped ~= driver then return end
+        if (GetEntitySpeed(vehicle) * 3.6) >= (120 + RandomNum(0, 20)) then
+            Wait(400)
+            if ((GetEntitySpeed(vehicle) * 3.6) >= 90) then
+                vehicle = vehicleData(vehicle)
+                exports['ps-dispatch']:SpeedingVehicle(vehicle, ped, coords)
+                Config.Timer['Speeding'] = Config.Speeding.Success
             end
+        else
+            Config.Timer['Speeding'] = Config.Speeding.Fail
         end
     end)
 end
@@ -101,6 +105,8 @@ end
 ---@param attacker number | The Ped ID of the attacker
 ---@param coords table | The Coords of the attacker
 AddEventHandler('CEventShockingSeenMeleeAction', function(witnesses, attacker, coords)
+    -- If AutoAlerts are disabled, don't trigger
+    if not Config.Enable['Melee'] then return end
     local coords = vector3(coords[1][1], coords[1][2], coords[1][3])
     -- Use the timer to prevent the event from being triggered multiple times.
     if Config.Timer['Melee'] ~= 0 then return end
@@ -121,6 +127,8 @@ end)
 ---@param witnesses table | Array of Ped IDs that witnessed the event
 ---@param jacker number | The Ped ID of the jacker
 AddEventHandler('CEventPedJackingMyVehicle', function(witnesses, jacker)
+    -- If AutoAlerts are disabled, don't trigger
+    if not Config.Enable['Autotheft'] then return end
     -- Use the timer to prevent the event from being triggered multiple times.
     if Config.Timer['Autotheft'] ~= 0 then return end
     -- The ped that melee attacked must be the player.
@@ -131,16 +139,18 @@ AddEventHandler('CEventPedJackingMyVehicle', function(witnesses, jacker)
     -- If the only witnesses is the victim, then we don't want to trigger the event.
     --  if #witnesses == 1 and witnesses[1] ~= GetMeleeTargetForPed(ped) then return end
     local vehicle = GetVehiclePedIsUsing(jacker, true)
-    if vehicleWhitelist[GetVehicleClass(vehicle)] then
-        exports['ps-dispatch']:CarJacking(vehicle, jacker)
-        Config.Timer['Autotheft'] = Config.Autotheft.Success
-    end
+    -- If the vehicle isn't whitelisted, don't trigger the event
+    if not vehicleWhitelist[GetVehicleClass(vehicle)] then return end 
+    exports['ps-dispatch']:CarJacking(vehicle, jacker)
+    Config.Timer['Autotheft'] = Config.Autotheft.Success
 end)
 
 ---@param witnesses table | Array of Ped IDs that witnessed the event
 ---@param thief number | The Ped ID of the thief
 ---@param coords table | The Coords of the thief
 AddEventHandler('CEventShockingCarAlarm', function(witnesses, thief, coords)
+    -- If AutoAlerts are disabled, don't trigger
+    if not Config.Enable['Autotheft'] then return end
     local coords = vector3(coords[1][1], coords[1][2], coords[1][3])
     -- Use the timer to prevent the event from being triggered multiple times.
     if Config.Timer['Autotheft'] ~= 0 then return end
@@ -152,8 +162,43 @@ AddEventHandler('CEventShockingCarAlarm', function(witnesses, thief, coords)
     -- If the only witnesses is the victim, then we don't want to trigger the event.
     --  if #witnesses == 1 and witnesses[1] ~= GetMeleeTargetForPed(ped) then return end
     local vehicle = GetVehiclePedIsUsing(thief, true)
-    if vehicleWhitelist[GetVehicleClass(vehicle)] then
-        exports['ps-dispatch']:VehicleTheft(vehicle, thief, coords)
-        Config.Timer['Autotheft'] = Config.Autotheft.Success
-    end
+    -- If the vehicle isn't whitelisted, don't trigger the event
+    if not vehicleWhitelist[GetVehicleClass(vehicle)] then return end 
+    exports['ps-dispatch']:VehicleTheft(vehicle, thief, coords)
+    Config.Timer['Autotheft'] = Config.Autotheft.Success
+end)
+
+local deathData = {
+    count = 0,
+    coords = {}
+}
+
+---@param name string | Name of Network Event Triggered
+---@param args table | Array of arguments passed from Event Triggered
+AddEventHandler('gameEventTriggered', function(name, args)
+    -- If AutoAlerts are disabled, don't trigger
+    if not Config.Enable['PlayerDowned'] then return end
+    -- Use the timer to prevent the event from being triggered multiple times.
+    if Config.Timer['PlayerDowned'] ~= 0 then return end
+    -- If the Event isn't the damage event, we don't want to trigger the event
+    if name ~= 'CEventNetworkEntityDamage' then return end
+    local victim = args[1]
+    local attacker = args[2]
+    local isDead = args[6] == 1
+    local weapon = args[7]
+    local isMelee = args[12]
+    local flags = args[13]
+    -- If the victim isn't the Player, we don't want to trigger the event
+    if not victim or victim ~= PlayerPedId() then return end
+    -- If the victim isn't dead, don't trigger the event as well
+    if not isDead then Config.Timer['PlayerDowned'] = Config.PlayerDowned.Fail return end
+    deathData.count = deathData.count + 1
+    deathData.coords[#deathData.coords + 1] = GetEntityCoords(victim)
+    if deathData.count == 2 and #deathData.coords == 2 and #(deathData.coords[1] - deathData.coords[2]) <= 5.0 then exports['ps-dispatch']:DeceasedPerson(); deathData = {} return end
+    -- Check if the player is and EMS, trigger the correct down alerts
+    if not Config.AuthorizedJobs.FirstResponder.Check() then exports['ps-dispatch']:InjuriedPerson() end
+    if Config.AuthorizedJobs.LEO.Check() then exports['ps-dispatch']:OfficerDown() end
+    if Config.AuthorizedJobs.EMS.Check() then exports['ps-dispatch']:EmsDown() end
+    Config.Timer['PlayerDowned'] = Config.PlayerDowned.Success
+    if deathData and deathData.count == 2 then deathData = {} end
 end)
