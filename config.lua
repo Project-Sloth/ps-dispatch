@@ -55,7 +55,7 @@ Config.Enable.PlayerDowned = true
 Config.Locale = 'en'
 
 -- enable alerts when cops break the law and print to console
-Config.Debug = true
+Config.Debug = false
 
 -- changes the min and max offset for the radius
 Config.MinOffset = 1
