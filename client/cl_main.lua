@@ -208,7 +208,7 @@ end
 
 local function IsValidJob(jobList)
 	for i = 1, #jobList do
-		if Config.AuthorizedJobs[jobList[i]] and Config.AuthorizedJobs[jobList[i]].Check() or PlayerJob.name == jobList[i] then
+		if Config.AuthorizedJobs[jobList[i]] and Config.AuthorizedJobs[jobList[i]].Check() or PlayerJob.name == jobList[i] then 
 			return true
 		end
 	end

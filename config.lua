@@ -11,6 +11,7 @@ Config.AuthorizedJobs = {
         Types = {['police'] = true, ['leo'] = true},
         Check = function(PlyData)
             PlyData = PlyData or QBCore.Functions.GetPlayerData()
+            if not PlyData or (PlyData and (not PlyData.job or not PlyData.job.type))  then return false end
             local job, jobtype = PlyData.job.name, PlyData.job.type
             if Config.AuthorizedJobs.LEO.Jobs[job] or Config.AuthorizedJobs.LEO.Types[jobtype] then return true end
         end
@@ -20,6 +21,7 @@ Config.AuthorizedJobs = {
         Types = {['ambulance'] = true, ['fire'] = true, ['ems'] = true},
         Check = function(PlyData)
             PlyData = PlyData or QBCore.Functions.GetPlayerData()
+            if not PlyData or (PlyData and (not PlyData.job or not PlyData.job.type))  then return false end
             local job, jobtype = PlyData.job.name, PlyData.job.type
             if Config.AuthorizedJobs.EMS.Jobs[job] or Config.AuthorizedJobs.EMS.Types[jobtype] then return true end
         end
@@ -27,8 +29,9 @@ Config.AuthorizedJobs = {
     FirstResponder = { -- do not touch, this is a combined job checking function for emergency services (police and ems)
         Check = function(PlyData)
             PlyData = PlyData or QBCore.Functions.GetPlayerData()
+            if not PlyData or (PlyData and (not PlyData.job or not PlyData.job.type))  then return false end
             local job, jobtype = PlyData.job.name, PlyData.job.type
-            if Config.AuthorizedJobs.LEO.Check(jobtype, job) or Config.AuthorizedJobs.EMS.Check(jobtype, job) then return true end            
+            if Config.AuthorizedJobs.LEO.Check(PlyData, jobtype, job) or Config.AuthorizedJobs.EMS.Check(PlyData, jobtype, job) then return true end            
         end
     }
 }

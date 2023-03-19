@@ -168,11 +168,6 @@ AddEventHandler('CEventShockingCarAlarm', function(witnesses, thief, coords)
     Config.Timer['Autotheft'] = Config.Autotheft.Success
 end)
 
-local deathData = {
-    count = 0,
-    coords = {}
-}
-
 ---@param name string | Name of Network Event Triggered
 ---@param args table | Array of arguments passed from Event Triggered
 AddEventHandler('gameEventTriggered', function(name, args)
@@ -192,13 +187,9 @@ AddEventHandler('gameEventTriggered', function(name, args)
     if not victim or victim ~= PlayerPedId() then return end
     -- If the victim isn't dead, don't trigger the event as well
     if not isDead then Config.Timer['PlayerDowned'] = Config.PlayerDowned.Fail return end
-    deathData.count = deathData.count + 1
-    deathData.coords[#deathData.coords + 1] = GetEntityCoords(victim)
-    if deathData.count == 2 and #deathData.coords == 2 and #(deathData.coords[1] - deathData.coords[2]) <= 5.0 then exports['ps-dispatch']:DeceasedPerson(); deathData = {} return end
     -- Check if the player is and EMS, trigger the correct down alerts
     if not Config.AuthorizedJobs.FirstResponder.Check() then exports['ps-dispatch']:InjuriedPerson() end
     if Config.AuthorizedJobs.LEO.Check() then exports['ps-dispatch']:OfficerDown() end
     if Config.AuthorizedJobs.EMS.Check() then exports['ps-dispatch']:EmsDown() end
     Config.Timer['PlayerDowned'] = Config.PlayerDowned.Success
-    if deathData and deathData.count == 2 then deathData = {} end
 end)
