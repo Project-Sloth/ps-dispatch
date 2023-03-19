@@ -37,9 +37,15 @@ AddEventHandler("dispatch:addUnit", function(callid, player, cb)
             end
         end
 
-        if Config.AuthorizedJobs.LEO.Check() then
+        local Player = QBCore.Functions.GetPlayerByCitizenId(player.cid) 
+        if not Player then
+            cb(#calls[callid]['units'])
+            return
+        end
+
+        if Config.AuthorizedJobs.LEO.Check(Player.PlayerData) then
             calls[callid]['units'][#calls[callid]['units']+1] = { cid = player.cid, fullname = player.fullname, job = 'Police', callsign = player.callsign }
-        elseif Config.AuthorizedJobs.EMS.Check() then
+        elseif Config.AuthorizedJobs.EMS.Check(Player.PlayerData) then
             calls[callid]['units'][#calls[callid]['units']+1] = { cid = player.cid, fullname = player.fullname, job = 'EMS', callsign = player.callsign }
         end
         cb(#calls[callid]['units'])
