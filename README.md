@@ -264,3 +264,6 @@ sound -- GTA sound to play
 sound2 -- GTA sound to play
 
 ```
+
+# Credits
+Thanks to Castar#5040 for the waypoint snippet
