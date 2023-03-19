@@ -4,6 +4,7 @@ Config = {}
 
 Config.Enable = {}
 Config.Timer = {}
+Config.RespondsKey = "E"
 
 Config.AuthorizedJobs = {
     LEO = { -- this is for job checks which should only return true for police officers

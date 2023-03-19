@@ -4,6 +4,7 @@ inHuntingZone = false
 QBCore = exports['qb-core']:GetCoreObject()
 local blips = {}
 local radius2 = {}
+Waypoint = nil
 
 -- Debugging and testing dispatch alerts - Uncomment to use. 
 --RegisterCommand('testdispatch',function ()
@@ -257,11 +258,21 @@ RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationI
 						timer = 5000,
 						isPolice = Config.AuthorizedJobs.LEO.Check()
 					})
+					QBCore.Functions.Notify('Press [E] to response', "success")
+					Waypoint = vector2(sNotificationData.origin.x, sNotificationData.origin.y)
+					Wait(5000)
+					Waypoint = nil
 				end
 			end
 		end
 	end
 end)
+RegisterCommand('setdispatchgps', function()
+	if Waypoint then SetWaypointOff() SetNewWaypoint(Waypoint.x, Waypoint.y) end
+end, false)
+
+RegisterKeyMapping('setdispatchgps', 'Set Waypoint', 'keyboard', Config.RespondsKey)
+
 
 RegisterNetEvent("ps-dispatch:client:AddCallBlip", function(coords, data, blipId)
 	if IsValidJob(data.recipientList) and CheckOnDuty() then
