@@ -4,7 +4,43 @@ Config = {}
 
 Config.Enable = {}
 Config.Timer = {}
+Config.Locale = 'en'
+
+-- Sets waypoint on map to most recent call on key press
 Config.RespondsKey = "E"
+
+-- Enable if you only want to send alerts to onDuty officers
+Config.OnDutyOnly = false
+
+Config.PhoneModel = 'prop_npc_phone_02'
+
+-- sets report chance to 100%
+Config.DebugChance = true
+
+-- Explosion Alert Types (Gas Pumps by default)
+-- Ex.  Config.ExplosionTypes = {1, 2, 3, 4, 5}
+Config.ExplosionTypes = {9}
+
+-- Enable default alerts
+Config.Enable.Speeding = true
+Config.Enable.Shooting = true
+Config.Enable.Autotheft = true
+Config.Enable.Melee = true
+Config.Enable.PlayerDowned = true
+
+-- Enable alerts when cops break the law, also prints to console.
+Config.Debug = false
+
+-- Changes the min and max offset for the radius
+Config.MinOffset = 1
+Config.MaxOffset = 120
+
+-- Locations for the hunting zones ( Label: Name of Blip // Radius: Radius of the Alert and Blip)
+Config.Locations = {
+    ["hunting"] = {
+        [1] = {label = "Hunting Zone", radius = 250.0, coords = vector3(-1339.05, -3044.38, 13.94)},
+    },
+}
 
 Config.AuthorizedJobs = {
     LEO = { -- this is for job checks which should only return true for police officers
@@ -37,44 +73,6 @@ Config.AuthorizedJobs = {
     }
 }
 
--- Enable if you only want to send alerts to onDuty officers
-Config.OnDutyOnly = false
-
-Config.PhoneModel = 'prop_npc_phone_02'
-
--- sets report chance to 100%
-Config.DebugChance = true
-
--- Explosion Alert Types (Gas Pumps by default)
--- Ex.  Config.ExplosionTypes = {1, 2, 3, 4, 5}
-Config.ExplosionTypes = {9}
-
--- enable default alerts
-Config.Enable.Speeding = true
-Config.Enable.Shooting = true
-Config.Enable.Autotheft = true
-Config.Enable.Melee = true
-Config.Enable.PlayerDowned = true
----------------------------------------------------------------
-Config.Locale = 'en'
-
--- enable alerts when cops break the law and print to console
-Config.Debug = false
-
--- changes the min and max offset for the radius
-Config.MinOffset = 1
-Config.MaxOffset = 120
----------------------------------------------------------------
-
--- locations for the hunting zones ( Label: Name of Blip // Radius: Radius of the Alert and Blip)
-Config.Locations = {
-    ["hunting"] = {
-        [1] = {label = "Hunting Zone", radius = 250.0, coords = vector3(-1339.05, -3044.38, 13.94)},
-    },
-}
-
----------------------------------------------------------------
-
 for k, v in pairs(Config.Enable) do
     print(k, v, json.encode(v))
     if Config.Enable[k] then
@@ -84,6 +82,7 @@ for k, v in pairs(Config.Enable) do
         Config[k].Fail = 2 -- Default to 2 seconds
     end
 end
+
 -- If you want to set specific timers, do it here
 if Config.Shooting then
     Config.Shooting.Success = 10 -- 10 seconds
