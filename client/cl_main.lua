@@ -271,7 +271,7 @@ RegisterCommand('setdispatchgps', function()
 	if Waypoint then SetWaypointOff() SetNewWaypoint(Waypoint.x, Waypoint.y) end
 end, false)
 
-RegisterKeyMapping('setdispatchgps', 'Set Waypoint', 'keyboard', "E")
+RegisterKeyMapping('setdispatchgps', 'Set Waypoint', 'keyboard', Config.RespondsKey)
 
 
 RegisterNetEvent("ps-dispatch:client:AddCallBlip", function(coords, data, blipId)
