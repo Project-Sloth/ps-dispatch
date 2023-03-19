@@ -75,6 +75,78 @@ Do not create issues on GitHub if you need help. Issues are for bug reporting an
 # Sample Preview
 ![image](https://user-images.githubusercontent.com/82112471/224476364-a362b703-f673-4c34-bd4a-f2b15aa15cb1.png)
 
+# Configuring Departments
+
+1. Open config.lua and add all the jobs you want to use for the alerts
+
+```lua
+Config.AuthorizedJobs = {
+    LEO = { -- this is for job checks which should only return true for police officers
+        Jobs = {['police'] = true, ['fib'] = true, ['sheriff'] = true},
+        Types = {['police'] = true, ['leo'] = true},
+        ...
+    },
+    EMS = { -- this if for job checks which should only return true for ems workers
+        Jobs = {['ambulance'] = true, ['fire'] = true},
+        Types = {['ambulance'] = true, ['fire'] = true, ['ems'] = true},
+        ...
+    },
+    ...
+}
+```
+
+- `Jobs` is the list of jobs that will be checked for the department
+- `Types` is the list of job types that will be checked for the department
+- The `Check` and `FirstResponder` tables should **not** be edited
+
+## Department Specific Alerts
+
+1. Open sv_dispatchcodes.lua and add the department you want to add to the list for the alert you want them to receive
+
+```lua
+    -- All jobs with the LEO type will receive this alert
+    ["shooting"] =  {displayCode = '10-13', description ="Shots Fired", radius = 0, recipientList = {'LEO', 'police'}, blipSprite = 110, blipColour = 1, blipScale = 1.5, blipLength = 2, sound = "Lose_1st", sound2 = "GTAO_FM_Events_Soundset", offset = "false", blipflash = "false"},
+    
+    -- Police and FIB will receive this alert, but not other LEO jobs
+    ["shooting"] =  {displayCode = '10-13', description ="Shots Fired", radius = 0, recipientList = {'police', 'fib'}, blipSprite = 110, blipColour = 1, blipScale = 1.5, blipLength = 2, sound = "Lose_1st", sound2 = "GTAO_FM_Events_Soundset", offset = "false", blipflash = "false"},
+```
+
+- `recipientList` is the list of departments that will receive the alert
+
+2. Open cl_events.lua and add the department to the corresponding alert to the one you edited above
+
+```lua
+local function Shooting()
+    local currentPos = GetEntityCoords(PlayerPedId())
+    local locationInfo = getStreetandZone(currentPos)
+    local gender = GetPedGender()
+    local PlayerPed = PlayerPedId()
+    local CurrentWeapon = GetSelectedPedWeapon(PlayerPed)
+    local weapon = WeaponTable[CurrentWeapon] or "UNKNOWN"
+    TriggerServerEvent("dispatch:server:notify", {
+        dispatchcodename = "shooting", -- has to match the codes in sv_dispatchcodes.lua so that it generates the right blip
+        dispatchCode = "10-11",
+        firstStreet = locationInfo,
+        gender = gender,
+        weapon = weapon,
+        model = nil,
+        plate = nil,
+        priority = 2,
+        firstColor = nil,
+        automaticGunfire = false,
+        origin = {
+            x = currentPos.x,
+            y = currentPos.y,
+            z = currentPos.z
+        },
+        dispatchMessage = _U('shooting'),
+        job = {"police", "fib"} -- has to match the recipientList in sv_dispatchcodes.lua
+    })
+end
+```
+
+- `job` is the list of departments that will receive the alert
+
 # Creating New Alerts
 
 1. Create a client event that will be triggered from whatever script you want
