@@ -140,7 +140,7 @@ local function Shooting()
             z = currentPos.z
         },
         dispatchMessage = _U('shooting'),
-        job = {"LEO", "police"} -- has to match the recipientList in sv_dispatchcodes.lua
+        job = {"police", "fib"} -- has to match the recipientList in sv_dispatchcodes.lua
     })
 end
 ```
