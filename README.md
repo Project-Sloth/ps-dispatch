@@ -266,4 +266,4 @@ sound2 -- GTA sound to play
 ```
 
 # Credits
-Thanks to Castar#5040 for the waypoint snippet
+* Castar#5040 for the waypoint snippet.
