@@ -6,7 +6,7 @@ Config.Enable = {}
 Config.Timer = {}
 Config.Locale = 'en'
 
--- Sets waypoint on map to most recent call on key press
+-- Sets waypoint on map to most recent call and attachs you to the call. 
 Config.RespondsKey = "E"
 
 -- Enable if you only want to send alerts to onDuty officers
