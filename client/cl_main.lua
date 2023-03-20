@@ -273,6 +273,7 @@ RegisterCommand('setdispatchgps', function()
 	if Waypoint then 
 		SetWaypointOff() 
 		SetNewWaypoint(Waypoint.x, Waypoint.y)
+		TriggerServerEvent('mdt:server:callAttach', notifyID)
 		QBCore.Functions.Notify('Attached to call  [#'..notifyID .. '] ' ..dispatchMessage..'.', "success")
 	end
 end, false)
