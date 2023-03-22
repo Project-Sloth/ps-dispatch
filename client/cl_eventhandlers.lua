@@ -55,8 +55,7 @@ AddEventHandler('CEventShockingGunshotFired', function(witnesses, ped, coords)
     if vehicle ~= 0 then
         -- If the vehicle isn't whitelisted, don't trigger the event
         if not vehicleWhitelist[GetVehicleClass(vehicle)] then Config.Timer['Shooting'] = Config.Shooting.Fail return end
-        vehicle = vehicleData(vehicle)
-        exports['ps-dispatch']:VehicleShooting(vehicle, ped, coords)
+        exports['ps-dispatch']:VehicleShooting(vehicleData(vehicle), ped, coords)
         Config.Timer['Shooting'] = Config.Shooting.Success
     else
         exports['ps-dispatch']:Shooting(ped, coords)
@@ -91,8 +90,7 @@ for i = 1, #SpeedingEvents do
         if (GetEntitySpeed(vehicle) * 3.6) >= (120 + RandomNum(0, 20)) then
             Wait(400)
             if ((GetEntitySpeed(vehicle) * 3.6) >= 90) then
-                vehicle = vehicleData(vehicle)
-                exports['ps-dispatch']:SpeedingVehicle(vehicle, ped, coords)
+                exports['ps-dispatch']:SpeedingVehicle(vehicleData(vehicle), ped, coords)
                 Config.Timer['Speeding'] = Config.Speeding.Success
             end
         else
@@ -141,7 +139,7 @@ AddEventHandler('CEventPedJackingMyVehicle', function(witnesses, jacker)
     local vehicle = GetVehiclePedIsUsing(jacker, true)
     -- If the vehicle isn't whitelisted, don't trigger the event
     if not vehicleWhitelist[GetVehicleClass(vehicle)] then return end 
-    exports['ps-dispatch']:CarJacking(vehicle, jacker)
+    exports['ps-dispatch']:CarJacking(vehicleData(vehicle), jacker)
     Config.Timer['Autotheft'] = Config.Autotheft.Success
 end)
 
@@ -164,7 +162,7 @@ AddEventHandler('CEventShockingCarAlarm', function(witnesses, thief, coords)
     local vehicle = GetVehiclePedIsUsing(thief, true)
     -- If the vehicle isn't whitelisted, don't trigger the event
     if not vehicleWhitelist[GetVehicleClass(vehicle)] then return end 
-    exports['ps-dispatch']:VehicleTheft(vehicle, thief, coords)
+    exports['ps-dispatch']:VehicleTheft(vehicleData(vehicle), thief, coords)
     Config.Timer['Autotheft'] = Config.Autotheft.Success
 end)
 
@@ -173,10 +171,10 @@ end)
 AddEventHandler('gameEventTriggered', function(name, args)
     -- If AutoAlerts are disabled, don't trigger
     if not Config.Enable['PlayerDowned'] then return end
-    -- Use the timer to prevent the event from being triggered multiple times.
-    if Config.Timer['PlayerDowned'] ~= 0 then return end
     -- If the Event isn't the damage event, we don't want to trigger the event
     if name ~= 'CEventNetworkEntityDamage' then return end
+    -- Use the timer to prevent the event from being triggered multiple times.
+    if Config.Timer['PlayerDowned'] ~= 0 then return end
     local victim = args[1]
     local attacker = args[2]
     local isDead = args[6] == 1
@@ -188,8 +186,8 @@ AddEventHandler('gameEventTriggered', function(name, args)
     -- If the victim isn't dead, don't trigger the event as well
     if not isDead then Config.Timer['PlayerDowned'] = Config.PlayerDowned.Fail return end
     -- Check if the player is and EMS, trigger the correct down alerts
-    if not Config.AuthorizedJobs.FirstResponder.Check() then exports['ps-dispatch']:InjuriedPerson() end
-    if Config.AuthorizedJobs.LEO.Check() then exports['ps-dispatch']:OfficerDown() end
-    if Config.AuthorizedJobs.EMS.Check() then exports['ps-dispatch']:EmsDown() end
+    if not Config.AuthorizedJobs.FirstResponder.Check() then exports['ps-dispatch']:InjuriedPerson(victim) end
+    if Config.AuthorizedJobs.LEO.Check() then exports['ps-dispatch']:OfficerDown(victim) end
+    if Config.AuthorizedJobs.EMS.Check() then exports['ps-dispatch']:EmsDown(victim) end
     Config.Timer['PlayerDowned'] = Config.PlayerDowned.Success
 end)

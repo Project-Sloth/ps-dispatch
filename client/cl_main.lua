@@ -207,6 +207,20 @@ function getCardinalDirectionFromHeading()
 	elseif heading >= 225 and heading < 315 then return "East Bound" end
 end
 
+function GetEntity(entity)
+	entity = tonumber(entity)
+	if entity == PlayerPedId() then
+		return entity
+	elseif DoesEntityExist(entity) then
+		return entity
+	elseif NetworkDoesEntityExistWithNetworkId(entity) then
+		return NetworkGetEntityFromNetworkId(entity)
+	elseif GetPlayerFromServerId(entity) ~= -1 then
+		return GetPlayerPed(GetPlayerFromServerId(entity))
+	end
+	return nil
+end
+
 local function IsValidJob(jobList)
 	for i = 1, #jobList do
 		if Config.AuthorizedJobs[jobList[i]] and Config.AuthorizedJobs[jobList[i]].Check() or PlayerJob.name == jobList[i] then 

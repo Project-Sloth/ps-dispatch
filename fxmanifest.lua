@@ -9,7 +9,7 @@ shared_scripts {
     'locales/locales.lua',
 }
 
-client_scripts{
+client_scripts {
     '@PolyZone/client.lua',
     '@PolyZone/CircleZone.lua',
     'client/cl_main.lua',
@@ -19,8 +19,10 @@ client_scripts{
     'client/cl_commands.lua',
     'client/cl_loops.lua',
 } 
+
 server_script {
     'server/sv_dispatchcodes.lua',
+    'server/sv_exporthooks.lua',
     'server/sv_main.lua'
 }
 
