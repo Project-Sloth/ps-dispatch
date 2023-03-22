@@ -272,7 +272,8 @@ RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationI
 						timer = 5000,
 						isPolice = Config.AuthorizedJobs.LEO.Check()
 					})
-					QBCore.Functions.Notify('Press [E] to response', "success")
+					notifyID = sNotificationId
+					dispatchMessage = sNotificationData.dispatchMessage
 					Waypoint = vector2(sNotificationData.origin.x, sNotificationData.origin.y)
 					Wait(5000)
 					Waypoint = nil
@@ -281,8 +282,14 @@ RegisterNetEvent('dispatch:clNotify', function(sNotificationData, sNotificationI
 		end
 	end
 end)
+
 RegisterCommand('setdispatchgps', function()
-	if Waypoint then SetWaypointOff() SetNewWaypoint(Waypoint.x, Waypoint.y) end
+	if Waypoint then 
+		SetWaypointOff() 
+		SetNewWaypoint(Waypoint.x, Waypoint.y)
+		TriggerServerEvent('mdt:server:callAttach', notifyID)
+		QBCore.Functions.Notify('Attached to call  [#'..notifyID .. '] ' ..dispatchMessage..'.', "success")
+	end
 end, false)
 
 RegisterKeyMapping('setdispatchgps', 'Set Waypoint', 'keyboard', Config.RespondsKey)
