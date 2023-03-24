@@ -74,10 +74,12 @@ end
 
 if Config.Locations['NoDispatch'][1] then
 	for _, nodispatch in pairs(Config.Locations["NoDispatch"]) do
-		local nodispatchzone = CircleZone:Create(vector3(nodispatch.coords.x, nodispatch.coords.y, nodispatch.coords.z), nodispatch.radius, {
+		local nodispatchzone = BoxZone:Create(vector3(nodispatch.coords.x, nodispatch.coords.y, nodispatch.coords.z), nodispatch.length, nodispatch.width, {
 			name = Config.Locations["NoDispatch"].label,
-			useZ = true,
-			debugPoly = false
+			heading = nodispatch.heading,
+			minZ = nodispatch.minZ,
+			maxZ = nodispatch.maxZ,
+			debugPoly = true
 		})
 
 		nodispatchzone:onPlayerInOut(function(isPointInside)
@@ -85,6 +87,7 @@ if Config.Locations['NoDispatch'][1] then
 		end)
 	end
 end
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function _U(entry)
