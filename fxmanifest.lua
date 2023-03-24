@@ -12,6 +12,7 @@ shared_scripts {
 client_scripts{
     '@PolyZone/client.lua',
     '@PolyZone/CircleZone.lua',
+    '@PolyZone/BoxZone.lua',
     'client/cl_main.lua',
     'client/cl_events.lua',
     'client/cl_eventhandlers.lua',

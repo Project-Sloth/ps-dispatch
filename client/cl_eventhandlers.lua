@@ -49,6 +49,8 @@ AddEventHandler('CEventShockingGunshotFired', function(witnesses, ped, coords)
     if IsPedCurrentWeaponSilenced(ped) then return end 
     -- If the weapon is blacklisted then we set the timer to the fail time and return.
     if BlacklistedWeapon(ped) then Config.Timer['Shooting'] = Config.Shooting.Fail return end
+    -- Check if the Player is inside a No Dispatch Zone , if so dont make a alert
+    if inNoDispatchZone then return end
     -- Check if the Player is in a Hunting Zone and Give that Alert Instead
     if inHuntingZone then exports['ps-dispatch']:Hunting(); Config.Timer['Shooting'] = Config.Shooting.Success return end
     local vehicle = GetVehiclePedIsUsing(ped, true)

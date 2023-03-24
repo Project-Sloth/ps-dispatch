@@ -1,6 +1,7 @@
 PlayerData = {}
 PlayerJob = {}
 inHuntingZone = false
+inNoDispatchZone = false
 QBCore = exports['qb-core']:GetCoreObject()
 local blips = {}
 local radius2 = {}
@@ -65,6 +66,24 @@ if Config.Locations['hunting'][1] then
 
 		huntingzone:onPlayerInOut(function(isPointInside)
 			inHuntingZone = isPointInside
+		end)
+	end
+end
+
+-- Create No Dispatch Zone --
+
+if Config.Locations['NoDispatch'][1] then
+	for _, nodispatch in pairs(Config.Locations["NoDispatch"]) do
+		local nodispatchzone = BoxZone:Create(vector3(nodispatch.coords.x, nodispatch.coords.y, nodispatch.coords.z), nodispatch.length, nodispatch.width, {
+			name = Config.Locations["NoDispatch"].label,
+			heading = nodispatch.heading,
+			minZ = nodispatch.minZ,
+			maxZ = nodispatch.maxZ,
+			debugPoly = false
+		})
+
+		nodispatchzone:onPlayerInOut(function(isPointInside)
+			inNoDispatchZone = isPointInside
 		end)
 	end
 end
