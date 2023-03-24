@@ -35,10 +35,14 @@ Config.Debug = false
 Config.MinOffset = 1
 Config.MaxOffset = 120
 
--- Locations for the hunting zones ( Label: Name of Blip // Radius: Radius of the Alert and Blip)
+-- Locations for the Hunting Zones and No Dispatch Zones( Label: Name of Blip // Radius: Radius of the Alert and Blip)
 Config.Locations = {
     ["hunting"] = {
         [1] = {label = "Hunting Zone", radius = 250.0, coords = vector3(-1339.05, -3044.38, 13.94)},
+    },
+    ["NoDispatch"] = {
+        [1] = {label = "Ammunation 1", radius = 17.0, coords = vector3(13.6, -1098.53, 29.8)},
+        [2] = {label = "Ammunation 2", radius = 17.0, coords = vector3(821.39, -2162.31, 29.62)},
     },
 }
 
