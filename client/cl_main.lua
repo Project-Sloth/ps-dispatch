@@ -79,7 +79,7 @@ if Config.Locations['NoDispatch'][1] then
 			heading = nodispatch.heading,
 			minZ = nodispatch.minZ,
 			maxZ = nodispatch.maxZ,
-			debugPoly = true
+			debugPoly = false
 		})
 
 		nodispatchzone:onPlayerInOut(function(isPointInside)
