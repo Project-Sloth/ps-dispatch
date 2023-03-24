@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-version '1.4'
+version '1.4.1'
 description 'https://github.com/Project-Sloth/ps-dispatch'
 
 shared_scripts {
