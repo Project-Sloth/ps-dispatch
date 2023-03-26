@@ -546,7 +546,7 @@ local function OfficerDown()
             z = currentPos.z
         },
         dispatchMessage = _U('officerdown'), -- message
-        job = {"FirstResponder"} -- type or jobs that will get the alerts
+        job = {"FirstResponder", "ambulance"} -- type or jobs that will get the alerts
     })
 end
 
@@ -578,7 +578,7 @@ local function EmsDown()
             z = currentPos.z
         },
         dispatchMessage = _U('emsdown'), -- message
-        job = {"FirstResponder"} -- type or jobs that will get the alerts
+        job = {"FirstResponder", "ambulance"} -- type or jobs that will get the alerts
     })
 end
 
