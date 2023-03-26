@@ -112,8 +112,7 @@ end)
 QBCore.Commands.Add("cleardispatchblips", "Clear all dispatch blips", {}, false, function(source, args)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
-	local job = Player.PlayerData.job.name
-    if Config.AuthorizedJobs.FirstResponder.Check() then
+    if Config.AuthorizedJobs.FirstResponder.Check(Player.PlayerData) then
         TriggerClientEvent('ps-dispatch:client:clearAllBlips', src)
     end
 end)
