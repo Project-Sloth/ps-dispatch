@@ -22,7 +22,8 @@ client_scripts{
 } 
 server_script {
     'server/sv_dispatchcodes.lua',
-    'server/sv_main.lua'
+    'server/sv_main.lua',
+    'server/versioncheck.lua'
 }
 
 ui_page 'ui/index.html'
