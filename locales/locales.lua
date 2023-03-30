@@ -123,7 +123,7 @@ Locales = {
         ['persondown'] = "Personen er såret",
     },
 
-        ['es'] = {
+    ['es'] = {
         ['unknown_caller'] = "Llamante desconocido",
         ['caller_unknown'] = "Desconocido",
         ['caller_local'] = "Local",
