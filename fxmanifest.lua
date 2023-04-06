@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-version '1.4.3'
+version '1.4.4'
 description 'https://github.com/Project-Sloth/ps-dispatch'
 
 shared_scripts {
@@ -23,7 +23,7 @@ client_scripts{
 server_script {
     'server/sv_dispatchcodes.lua',
     'server/sv_main.lua',
-    'server/versioncheck.lua'
+    'server/sv_versioncheck.lua'
 }
 
 ui_page 'ui/index.html'
