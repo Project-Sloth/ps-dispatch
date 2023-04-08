@@ -85,6 +85,12 @@ AddEventHandler("dispatch:removeUnit", function(callid, player, cb)
     end    
 end)
 
+-- this is mdt remove call
+AddEventHandler('dispatch:removeCall', function(callid)
+    if calls[callid] then
+        calls[callid] = nil
+    end
+end)
 
 RegisterCommand('togglealerts', function(source, args, user)
 	local source = source
