@@ -264,6 +264,31 @@ sound -- GTA sound to play
 sound2 -- GTA sound to play
 
 ```
+# quasar smartphone support
+Go to ps-dispatch/client/cl_commands.lua and replace
+```
+local function HasPhone()
+    return QBCore.Functions.HasItem("phone")
+end
+```
+with
+```
+local function HasPhone()
+    return QBCore.Functions.HasItem("classic_phone")
+    or QBCore.Functions.HasItem("white_phone") 
+    or QBCore.Functions.HasItem("white_phone") 
+    or QBCore.Functions.HasItem("red_phone")
+    or QBCore.Functions.HasItem("pink_phone")
+    or QBCore.Functions.HasItem("greenlight_phone")
+    or QBCore.Functions.HasItem("green_phone")
+    or QBCore.Functions.HasItem("purple_phone")
+    or QBCore.Functions.HasItem("blue_phone")
+    or QBCore.Functions.HasItem("black_phone")
+    or QBCore.Functions.HasItem("classic_phone")
+    or QBCore.Functions.HasItem("gold_phone")
+    or QBCore.Functions.HasItem("phone")
+end
+```
 
 # Credits
 * Castar#5040 for the waypoint snippet.
