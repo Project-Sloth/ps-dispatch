@@ -174,6 +174,38 @@ body {
     background-color: #ce7808;
 }
 
+.priority-RED {
+    font-variant: small-caps;
+    margin: auto;
+    margin-top: 0vh;
+    margin-right: 1vh;
+    margin-bottom: .5vh;
+    background-color: rgba(56, 21, 21, 0.8);
+    border-right: .75vh solid rgba(57, 59, 57, 0.80);
+    width: 37.5vh;
+    height: fit-content;
+    border-bottom-left-radius: 1vh;
+    border-top-left-radius: 1vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.priority-HUNTING {
+    font-variant: small-caps;
+    margin: auto;
+    margin-top: 0vh;
+    margin-right: 1vh;
+    margin-bottom: .5vh;
+    background-color: rgba(10, 80, 31, 0.8);
+    border-right: .75vh solid rgba(57, 59, 57, 0.80);
+    width: 37.5vh;
+    height: fit-content;
+    border-bottom-left-radius: 1vh;
+    border-top-left-radius: 1vh;
+    display: flex;
+    flex-direction: column;
+}
+
 @keyframes gradient {
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}

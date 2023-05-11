@@ -84,6 +84,10 @@ function addNewCall(callID, timer, info, isPolice) {
 	let DispatchItem;
 	if (info['isDead']) {
 		DispatchItem = `<div class="dispatch-item ${callID} dispatch-item-${info['isDead']} animate__animated"><div class="top-info-holder"><div class="call-id">#${callID}</div><div class="call-code priority-${prio}">${info.dispatchCode}</div><div class="call-name">${info.dispatchMessage}</div></div><div class="bottom-info-holder">`;
+	} else if (prio == "RED") {
+		DispatchItem = `<div class="priority-RED ${callID} dispatch-item-${isPolice} animate__animated"><div class="top-info-holder"><div class="call-id">#${callID}</div><div class="call-code priority-1">${info.dispatchCode}</div><div class="call-name">${info.dispatchMessage}</div></div><div class="bottom-info-holder">`;
+	} else if (prio == "HUNTING") {
+		DispatchItem = `<div class="priority-HUNTING ${callID} dispatch-item-${isPolice} animate__animated"><div class="top-info-holder"><div class="call-id">#${callID}</div><div class="call-code priority-2">${info.dispatchCode}</div><div class="call-name">${info.dispatchMessage}</div></div><div class="bottom-info-holder">`;
 	} else {
 		DispatchItem = `<div class="dispatch-item ${callID} dispatch-item-${isPolice} animate__animated"><div class="top-info-holder"><div class="call-id">#${callID}</div><div class="call-code priority-${prio}">${info.dispatchCode}</div><div class="call-name">${info.dispatchMessage}</div></div><div class="bottom-info-holder">`;
 	}
@@ -160,6 +164,10 @@ function addNewCall(callID, timer, info, isPolice) {
 	if (prio == 1) {
 		timer = 12000;
 	} else if (prio == 2) {
+		timer = 9000;
+	} else if (prio == "RED") {
+		timer = 15000;
+	} else if (prio == "HUNTING") {
 		timer = 9000;
 	}
 
