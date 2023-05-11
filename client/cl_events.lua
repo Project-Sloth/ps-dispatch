@@ -44,6 +44,15 @@ local WeaponTable = {
     [-1312131151] = "CLASS 5: RPG",
     [125959754]   = "CLASS 5: Compactlauncher"
 }
+
+----------------------------------
+--Priorities
+-- 1 = Advanced
+-- 2 = Standard
+-- RED = Important Call
+-- HUNTING = Hunting Call
+----------------------------------
+
 local function VehicleTheft(vehicle)
     local vehdata = vehicleData(vehicle)
     local currentPos = GetEntityCoords(PlayerPedId())
