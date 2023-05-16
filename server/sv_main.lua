@@ -87,9 +87,10 @@ end)
 
 
 RegisterCommand('togglealerts', function(source, args, user)
-	local source = source
-	if IsDispatchJob then
-		TriggerClientEvent('dispatch:manageNotifs', source, args[1])
+	local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+	if Config.AuthorizedJobs.FirstResponder.Check(Player.PlayerData) then
+		TriggerClientEvent('dispatch:manageNotifs', src, args[1])
 	end
 end)
 
