@@ -25,7 +25,7 @@ Do not create issues on GitHub if you need help. Issues are for bug reporting an
 
 - exports['ps-dispatch']:Fight()
 
-- exports['ps-dispatch']:InjuriedPerson()
+- exports['ps-dispatch']:InjuredPerson()
 
 - exports['ps-dispatch']:DeceasedPerson()
 

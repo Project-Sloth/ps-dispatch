@@ -190,7 +190,7 @@ AddEventHandler('gameEventTriggered', function(name, args)
     -- If the victim isn't dead, don't trigger the event as well
     if not isDead then Config.Timer['PlayerDowned'] = Config.PlayerDowned.Fail return end
     -- Check if the player is and EMS, trigger the correct down alerts
-    if not Config.AuthorizedJobs.FirstResponder.Check() then exports['ps-dispatch']:InjuriedPerson() end
+    if not Config.AuthorizedJobs.FirstResponder.Check() then exports['ps-dispatch']:InjuredPerson() end
     if Config.AuthorizedJobs.LEO.Check() then exports['ps-dispatch']:OfficerDown() end
     if Config.AuthorizedJobs.EMS.Check() then exports['ps-dispatch']:EmsDown() end
     Config.Timer['PlayerDowned'] = Config.PlayerDowned.Success

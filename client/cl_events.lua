@@ -199,7 +199,7 @@ end
 
 exports('Fight', Fight)
 
-local function InjuriedPerson()
+local function InjuredPerson()
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local gender = GetPedGender()
@@ -223,7 +223,7 @@ local function InjuriedPerson()
     })
 end
 
-exports('InjuriedPerson', InjuriedPerson)
+exports('InjuredPerson', InjuredPerson)
 
 local function DeceasedPerson()
     local currentPos = GetEntityCoords(PlayerPedId())
