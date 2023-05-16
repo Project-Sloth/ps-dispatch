@@ -43,9 +43,7 @@ AddEventHandler("dispatch:addUnit", function(callid, player, cb)
             return
         end
 
-        if Config.AuthorizedJobs.LEO.Check(Player.PlayerData) then
-            calls[callid]['units'][#calls[callid]['units']+1] = { cid = player.cid, fullname = player.fullname, job = player.job.name, callsign = player.callsign, channel = player.radio}
-        elseif Config.AuthorizedJobs.EMS.Check(Player.PlayerData) then
+        if Config.AuthorizedJobs.FirstResponder.Check(Player.PlayerData) then
             calls[callid]['units'][#calls[callid]['units']+1] = { cid = player.cid, fullname = player.fullname, job = player.job.name, callsign = player.callsign, channel = player.radio}
         end
         cb(#calls[callid]['units'])
