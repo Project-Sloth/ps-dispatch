@@ -75,7 +75,7 @@ end)
 AddEventHandler("dispatch:removeUnit", function(callid, player, cb)
     if calls[callid] then
         if #calls[callid]['units'] > 0 then
-            for i=1, #calls[callid]['units'] do
+            for i = 1, #calls[callid]['units'] do
                 if calls[callid]['units'][i]['cid'] == player.cid then
                     calls[callid]['units'][i] = nil
                 end
