@@ -87,11 +87,11 @@ end)
 
 
 RegisterCommand('togglealerts', function(source, args, user)
-	local src = source
+    local src = source
     local Player = QBCore.Functions.GetPlayer(src)
-	if Config.AuthorizedJobs.FirstResponder.Check(Player.PlayerData) then
-		TriggerClientEvent('dispatch:manageNotifs', src, args[1])
-	end
+    if Config.AuthorizedJobs.FirstResponder.Check(Player.PlayerData) then
+        TriggerClientEvent('dispatch:manageNotifs', src, args[1])
+    end
 end)
 
 -- Explosion Handler
