@@ -69,21 +69,23 @@ end)
 ---@param witnesses table | Array of Ped IDs that witnessed the event
 ---@param ped number | The Ped ID of the ped who triggered the event
 ---@param coords table | The Coords of the ped who triggered the event
+local SpeedTrigger = 0
+
 for i = 1, #SpeedingEvents do
     local event = SpeedingEvents[i]
     AddEventHandler(event, function(witnesses, ped, coords)
         -- If AutoAlerts are disabled, don't trigger
         if not Config.Enable['Speeding'] then return end
         local coords = vector3(coords[1][1], coords[1][2], coords[1][3])
-        -- Use the timer to prevent the event from being triggered multiple times.
-        if Config.Timer['Speeding'] ~= 0 then return end
+        local currentTime = GetGameTimer()
+        if currentTime - SpeedTrigger < 10000 then -- 10 seconds
+            return
+        end
         -- The ped that triggered the event must be the player.
         if PlayerPedId() ~= ped then return end
         -- If the player is a whitelisted job, then we don't want to trigger the event.
         -- However, if the player is not whitelisted or Debug mode is true, then we want to trigger the event.
         if Config.AuthorizedJobs.LEO.Check() and not Config.Debug then return end
-        -- Check if this event or any other have been triggered in the last 5 seconds.
-        -- If so, then we don't want to trigger the event.
         local vehicle = GetVehiclePedIsUsing(ped, true)
         -- If the vehicle isn't whitelisted, don't trigger the event
         if not vehicleWhitelist[GetVehicleClass(vehicle)] then return end 
@@ -91,14 +93,11 @@ for i = 1, #SpeedingEvents do
         -- If the ped isn't the driver, we don't wanna trigger the event
         if ped ~= driver then return end
         if (GetEntitySpeed(vehicle) * 3.6) >= (120 + RandomNum(0, 20)) then
-            Wait(400)
             if ((GetEntitySpeed(vehicle) * 3.6) >= 90) then
                 vehicle = vehicleData(vehicle)
                 exports['ps-dispatch']:SpeedingVehicle(vehicle, ped, coords)
-                Config.Timer['Speeding'] = Config.Speeding.Success
+                SpeedTrigger = GetGameTimer()
             end
-        else
-            Config.Timer['Speeding'] = Config.Speeding.Fail
         end
     end)
 end

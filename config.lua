@@ -10,7 +10,7 @@ Config.Locale = 'en'
 Config.RespondsKey = "E"
 
 -- Enable if you only want to send alerts to onDuty officers
-Config.OnDutyOnly = false
+Config.OnDutyOnly = true
 
 Config.PhoneModel = 'prop_npc_phone_02'
 
@@ -29,7 +29,7 @@ Config.Enable.Melee = true
 Config.Enable.PlayerDowned = true
 
 -- Enable alerts when cops break the law, also prints to console.
-Config.Debug = false
+Config.Debug = true
 
 -- Changes the min and max offset for the radius
 Config.MinOffset = 1
