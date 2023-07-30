@@ -147,7 +147,8 @@ end
 
 exports('Shooting', Shooting)
 
-local function SpeedingVehicle(vehdata)
+local function SpeedingVehicle(vehicle)
+    local vehdata = vehicleData(vehicle)
     local currentPos = GetEntityCoords(PlayerPedId())
     local locationInfo = getStreetandZone(currentPos)
     local heading = getCardinalDirectionFromHeading()

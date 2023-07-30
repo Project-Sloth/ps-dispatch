@@ -47,7 +47,7 @@ Do not create issues on GitHub if you need help. Issues are for bug reporting an
 
 - exports['ps-dispatch']:ArtGalleryRobbery()
 
-- exports['ps-dispatch']:HumaneRobery()
+- exports['ps-dispatch']:HumaneRobbery()
 
 - exports['ps-dispatch']:TrainRobbery()
 
