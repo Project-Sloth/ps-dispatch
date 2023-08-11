@@ -43,6 +43,7 @@ Config.Locations = {
     ["NoDispatch"] = {
         [1] = {label = "Ammunation 1", coords = vector3(13.53, -1097.92, 29.8), length = 14.0, width = 5.0, heading = 70, minZ = 28.8, maxZ = 32.8},
         [2] = {label = "Ammunation 2", coords = vector3(821.96, -2163.09, 29.62), length = 14.0, width = 5.0, heading = 270, minZ = 28.62, maxZ = 32.62},
+        --[3] = {label = "GABZ Missions Row PD", coords = vector3(486.05, -1009.3, 30.69), length = 13.0, width = 5.0, heading = 0, minZ = 29.49, maxZ = 32.69},
     },
 }
 
