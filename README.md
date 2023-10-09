@@ -5,6 +5,11 @@ Integrated with [ps-mdt](https://github.com/Project-Sloth/ps-mdt)
 For all support questions, ask in our [Discord](https://www.discord.gg/projectsloth) support chat. 
 Do not create issues on GitHub if you need help. Issues are for bug reporting and new features only.
 
+# Depedency
+1. [qb-core](https://github.com/qbcore-framework/qb-core)
+2. [ps-mdt](https://github.com/Project-Sloth/ps-mdt)
+3. [ox_lib](https://github.com/overextended/ox_lib) 
+
 # Installation
 * Download ZIP
 * Drag and drop resource into your server files
