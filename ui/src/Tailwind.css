@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*:focus {
+    outline: none;
+}
+
+:root {
+    font-size: 62.5%;
+    font-smooth: auto;
+    color: #d8d8d8;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+    font-size: 1.6rem;
+    overflow: hidden;
+}
+
+::-webkit-scrollbar {
+    height: 0px;
+    width: 4px;
+    background-color: #7979795e;
+    border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #cecece;
+    border-radius: 50px;
+}
+

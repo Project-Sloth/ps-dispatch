@@ -1,35 +1,32 @@
 fx_version 'cerulean'
-game 'gta5'
 
-version '1.4.3'
-description 'https://github.com/Project-Sloth/ps-dispatch'
+game "gta5"
 
-shared_scripts {
-    'config.lua',
-    'locales/locales.lua',
+author "Project Sloth & OK1ez"
+version '2.0.0'
+
+lua54 'yes'
+
+ui_page 'html/index.html'
+-- ui_page 'http://localhost:5173/' --for dev
+
+client_script {
+  '@PolyZone/client.lua',
+  '@PolyZone/CircleZone.lua',
+  '@PolyZone/BoxZone.lua',
+  'client/**',
 }
-
-client_scripts{
-    '@PolyZone/client.lua',
-    '@PolyZone/CircleZone.lua',
-    '@PolyZone/BoxZone.lua',
-    'client/cl_main.lua',
-    'client/cl_events.lua',
-    'client/cl_eventhandlers.lua',
-    'client/cl_extraalerts.lua',
-    'client/cl_commands.lua',
-    'client/cl_loops.lua',
-} 
 server_script {
-    'server/sv_dispatchcodes.lua',
-    'server/sv_main.lua',
-    'server/versioncheck.lua'
+  "server/**",
 }
-
-ui_page 'ui/index.html'
+shared_script {
+  "shared/**",
+  '@ox_lib/init.lua',
+}
 
 files {
-    'ui/index.html',
-    'ui/app.js',
-    'ui/style.css',
+  'html/**',
+  'locales/*.json',
 }
+
+ox_lib 'locale' -- v3.8.0 or above
