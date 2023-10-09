@@ -7,8 +7,8 @@ Do not create issues on GitHub if you need help. Issues are for bug reporting an
 
 # Depedency
 1. [qb-core](https://github.com/qbcore-framework/qb-core)
-2. [ps-mdt](https://github.com/Project-Sloth/ps-mdt)
-3. [ox_lib](https://github.com/overextended/ox_lib) 
+2. [ox_lib](https://github.com/overextended/ox_lib)
+3. [ps-mdt](https://github.com/Project-Sloth/ps-mdt) - Optional but highly recommended.
 
 # Installation
 * Download ZIP
