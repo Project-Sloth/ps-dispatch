@@ -12,6 +12,12 @@ Do not create issues on GitHub if you need help. Issues are for bug reporting an
 * Drag and drop sounds folder into interact-sound\client\html\sounds
 * Restart your server.
 
+# Preview
+<img src="https://github.com/Project-Sloth/ps-dispatch/assets/82112471/4a3d44b9-1629-457b-ba0e-a77c617aa993" width="600">
+<img src="https://github.com/Project-Sloth/ps-dispatch/assets/82112471/7f4a7c76-f92d-4067-9fcb-7c78ee1b067c" width="600">
+<img src="https://github.com/Project-Sloth/ps-dispatch/assets/82112471/01569df8-d5f6-417b-bcd4-422551eaa840" width="600">
+<img src="https://github.com/Project-Sloth/ps-dispatch/assets/82112471/f2b111b2-60c3-428e-b12a-1bfed617f09e" width="800">
+
 # Preset Alert Exports.
 
 ```lua
@@ -71,9 +77,6 @@ Do not create issues on GitHub if you need help. Issues are for bug reporting an
 
 - exports['ps-dispatch']:SignRobbery()
 ```
-
-# Sample Preview
-![image](https://user-images.githubusercontent.com/82112471/224476364-a362b703-f673-4c34-bd4a-f2b15aa15cb1.png)
 
 # Configuring Departments
 
