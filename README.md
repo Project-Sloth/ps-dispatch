@@ -269,4 +269,7 @@ sound2 -- GTA sound to play
 ```
 
 # Credits
-* Castar#5040 for the waypoint snippet.
+* [OK1ez](https://github.com/OK1ez)
+* [Lenzh](https://github.com/Lenzh)
+* [LeSiiN](https://github.com/LeSiiN)
+* Project Sloth Team
