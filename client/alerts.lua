@@ -176,8 +176,8 @@ local function FleecaBankRobbery(camId)
     local coords = GetEntityCoords(cache.ped)
 
     local dispatchData = {
-        message = locale('storerobbery'),
-        codeName = 'storerobbery',
+        message = locale('fleecabank'),
+        codeName = 'bankrobbery',
         code = '10-90',
         icon = 'fas fa-vault',
         priority = 2,
