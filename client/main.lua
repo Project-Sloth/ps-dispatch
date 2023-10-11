@@ -188,7 +188,7 @@ end
 RegisterNetEvent('ps-dispatch:client:notify', function(data, source)
     if alertsDisabled then return end
     if not isJobValid(data.jobs) then return end
-
+    if not IsOnDuty() then return end
     SendNUIMessage({
         action = 'newCall',
         data = {
