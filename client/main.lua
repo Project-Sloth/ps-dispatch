@@ -64,11 +64,11 @@ local function randomOffset(baseX, baseY, offset)
     return randomX, randomY
 end
 
-local function createBlipData(coords, radius, sprite, color, scale)
+local function createBlipData(coords, radius, sprite, color, scale, flashes)
     local blip = AddBlipForCoord(coords.x, coords.y, coords.z)
     local radiusBlip = AddBlipForRadius(coords.x, coords.y, coords.z, radius)
 
-    SetBlipFlashes(blip, true)
+    SetBlipFlashes(blip, flashes)
     SetBlipSprite(blip, sprite or 161)
     SetBlipHighDetail(blip, true)
     SetBlipScale(blip, scale or 1.0)
@@ -89,14 +89,15 @@ local function createBlip(data, blipData)
     local scale = blipData.scale or blipData.alert.scale or 1.0
     local alpha = 255
     local radiusAlpha = 128
+    local blipWaitTime = ((blipData.length or blipData.alert.length) * 60000) / radiusAlpha
 
     if blipData.offset then
         local offsetX, offsetY = randomOffset(data.coords.x, data.coords.y, Config.MaxOffset)
-        blip, radius = createBlipData({ x = offsetX, y = offsetY, z = data.coords.z }, blipData.radius, sprite, color, scale)
+        blip, radius = createBlipData({ x = offsetX, y = offsetY, z = data.coords.z }, blipData.radius, sprite, color, scale, flashes)
         blips[data.id] = blip
         radius2[data.id] = radius
     else
-        blip, radius = createBlipData(data.coords, blipData.radius, sprite, color, scale)
+        blip, radius = createBlipData(data.coords, blipData.radius, sprite, color, scale, flashes)
         blips[data.id] = blip
         radius2[data.id] = radius
     end
@@ -106,8 +107,8 @@ local function createBlip(data, blipData)
     EndTextCommandSetBlipName(blip)
 
     while radiusAlpha > 0 do
-        Wait(blipData.length or blipData.alert.length * 1000)
-        radiusAlpha = radiusAlpha - 1
+        Wait(blipWaitTime)
+        radiusAlpha = math.max(0, radiusAlpha - 1)
         SetBlipAlpha(radius, radiusAlpha)
     end
 
@@ -120,8 +121,11 @@ local function addBlip(data, blipData)
         createBlip(data, blipData)
     end)
     if not alertsMuted then
-        PlaySound(-1, blipData.sound, blipData.sound2, 0, 0, 1)
-        TriggerServerEvent("InteractSound_SV:PlayOnSource", blipData.sound or blipData.alert.sound, 0.25)
+        if blipData.sound == "Lose_1st" then
+            PlaySound(-1, blipData.sound, blipData.sound2, 0, 0, 1)
+        else
+            TriggerServerEvent("InteractSound_SV:PlayOnSource", blipData.sound or blipData.alert.sound, 0.25)
+        end
     end
 end
 
