@@ -34,8 +34,12 @@ AddEventHandler('CEventGunShot', function(witnesses, ped)
     WaitTimer('Shooting', function()
         if cache.ped ~= ped then return end
 
-        if PlayerData.job.type == 'leo' and Config.Debug then return end
-                
+        if PlayerData.job.type == 'leo' then 
+            if not Config.Debug then
+                return
+            end
+        end
+        
         if inHuntingZone then
             exports['ps-dispatch']:Hunting()
             return
