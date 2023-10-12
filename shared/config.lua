@@ -1,6 +1,6 @@
 Config = Config or {}
 
-Config.Debug = false -- Shows Zone's , Alert when Police Break the law & Prints Information
+Config.Debug = false -- Enables debug and send alerts when leo break the law.
 
 Config.RespondKeybind = 'E'
 Config.AlertTime = 5     -- How many seconds you want the alert to stay on screen
