@@ -85,6 +85,7 @@ Do not create issues on GitHub if you need help. Issues are for bug reporting an
 
 # Credits
 * [OK1ez](https://github.com/OK1ez)
+* [Candrex](https://github.com/CandrexDev)
 * [Lenzh](https://github.com/Lenzh)
 * [LeSiiN](https://github.com/LeSiiN)
 * Project Sloth Team
