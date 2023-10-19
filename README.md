@@ -25,8 +25,15 @@ Do not create issues on GitHub if you need help. Issues are for bug reporting an
 
 # Change Language.
 
-- Place this `setr ox:locale en` inside your `server.cfg`.
-- Change the `en` to your desired language! `en = English, de = German`
+- Place this `setr ox:locale en` inside your `server.cfg`
+- Change the `en` to your desired language!
+  
+**Supported Languages:**
+| **Alias**     | **Language Names** |
+|--------------|---------------|
+|en      |English    |
+|de      |German     |
+|nl      |Dutch      |
 
 # Preset Alert Exports.
 
