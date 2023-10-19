@@ -14,10 +14,12 @@
     "no_calls": "Nebyly nalezeny žádné zprávy",
     "alerts": "Alerty ",
     "blips_cleared": "Blipy Vyčištěny",
+    "alerts_refreshed": "Obnovená upozornění",
     "enabled": "Zapnuto",
     "disabled": "Vypnuto",
     "muted": "Ztlumení",
     "unmuted": "Zrušit ztlumení",
+    "waypoint_set": "Nastavit Wayipont.",
   
     "caller_local": "Místní",
     "call_from": "Zpráva od ",
