@@ -7,6 +7,7 @@ local blips = {}
 local radius2 = {}
 local alertsMuted = false
 local alertsDisabled = false
+local waypointCooldown = false
 
 -- Functions
 ---@param bool boolean Toggles visibilty of the menu
@@ -46,6 +47,18 @@ local function isJobValid(data)
     return false
 end
 
+local function openMenu()
+    if not isJobValid(PlayerData.job.type) then return end
+
+    local data = lib.callback.await('ps-dispatch:callback:getCalls', false)
+    if #data == 0 then
+        lib.notify({ description = locale('no_calls'), position = 'top', type = 'error' })
+    else
+        toggleUI(true)
+        SendNUIMessage({ action = 'setDispatchs', data = data, })
+    end
+end
+
 local function setWaypoint()
     if not isJobValid(PlayerData.job.type) then return end
 
@@ -53,8 +66,15 @@ local function setWaypoint()
 
     if not data then return end
 
-    SetNewWaypoint(data.coords.x, data.coords.y)
-    TriggerServerEvent('ps-dispatch:server:attach', data.id, PlayerData)
+    if not waypointCooldown then
+        SetNewWaypoint(data.coords.x, data.coords.y)
+        TriggerServerEvent('ps-dispatch:server:attach', data.id, PlayerData)
+        lib.notify({ description = locale('waypoint_set'), position = 'top', type = 'success' })
+        waypointCooldown = true
+        SetTimeout(Config.AlertTime * 1000, function()
+            waypointCooldown = false
+        end)
+    end
 end
 
 local function randomOffset(baseX, baseY, offset)
@@ -208,7 +228,7 @@ RegisterNetEvent('ps-dispatch:client:openMenu', function(data)
     if not isJobValid(PlayerData.job.type) then return end
 
     if #data == 0 then
-        lib.notify({ description = locale('no_calls'), type = 'error' })
+        lib.notify({ description = locale('no_calls'), position = 'top', type = 'error' })
     else
         toggleUI(true)
         SendNUIMessage({ action = 'setDispatchs', data = data, })
@@ -271,7 +291,7 @@ RegisterNUICallback("clearBlips", function(data, cb)
 end)
 
 RegisterNUICallback("refreshAlerts", function(data, cb)
-    lib.notify({ description = "Alerts Refreshed", position = 'top', type = 'success' })
+    lib.notify({ description = locale('alerts_refreshed'), position = 'top', type = 'success' })
     local data = lib.callback.await('ps-dispatch:callback:getCalls', false)
     SendNUIMessage({ action = 'setDispatchs', data = data, })
 end)
@@ -282,4 +302,11 @@ lib.addKeybind({
     description = 'Set waypoint to last call location',
     defaultKey = Config.RespondKeybind,
     onPressed = setWaypoint,
+})
+
+lib.addKeybind({
+    name = 'OpenDispatchMenu',
+    description = 'Open Dispatch Menu',
+    defaultKey = Config.OpenDispatchMenu,
+    onPressed = openMenu,
 })
