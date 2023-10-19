@@ -14,10 +14,12 @@
     "no_calls": "Geen Oproepen Gevonden.",
     "alerts": "Meldingen",
     "blips_cleared": "Blips Gewist",
+    "alerts_refreshed": "Meldingen herladen",
     "enabled": "Ingeschakeld",
     "disabled": "Uitgeschakeld",
     "muted": "Gedempt",
     "unmuted": "Niet Gedempt",
+    "waypoint_set": "Gps ingesteld",
     
     "caller_local": "Burger",
     "call_from": "Oproep van ",
