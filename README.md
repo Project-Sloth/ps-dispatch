@@ -23,6 +23,18 @@ Do not create issues on GitHub if you need help. Issues are for bug reporting an
 <img src="https://github.com/Project-Sloth/ps-dispatch/assets/82112471/01569df8-d5f6-417b-bcd4-422551eaa840" width="600">
 <img src="https://github.com/Project-Sloth/ps-dispatch/assets/82112471/f2b111b2-60c3-428e-b12a-1bfed617f09e" width="800">
 
+# Change Language.
+
+- Place this `setr ox:locale en` inside your `server.cfg`
+- Change the `en` to your desired language!
+  
+**Supported Languages:**
+| **Alias**     | **Language Names** |
+|--------------|---------------|
+|en      |English    |
+|de      |German     |
+|nl      |Dutch      |
+
 # Preset Alert Exports.
 
 ```lua
