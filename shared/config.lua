@@ -23,6 +23,11 @@ Config.DefaultAlerts = {
 Config.MinOffset = 1
 Config.MaxOffset = 120
 
+Config.PhoneRequired = false -- Set true if only can use 911/311 command when got a phone on inventory.
+Config.PhoneItems = { -- Add the entire list of your phone items.
+    "phone",
+}
+
 -- Locations for the Hunting Zones and No Dispatch Zones( Label: Name of Blip // Radius: Radius of the Alert and Blip)
 Config.EnableHuntingBlip = true
 
