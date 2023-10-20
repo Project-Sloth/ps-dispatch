@@ -26,11 +26,12 @@ end)
 
 RegisterServerEvent('ps-dispatch:server:detach', function(id, player)
     if not calls[id] then return end
-    if not #calls[id]['units'] then return end
-
-    for i=1, #calls[id]['units'] do
-        if calls[id]['units'][i]['citizenid'] == player.citizenid then
-            calls[id]['units'][i] = nil
+    if not calls[id]['units'] then return end
+    if (#calls[id]['units'] or 0) > 0 then
+        for i = #calls[id]['units'], 1, -1 do
+            if calls[id]['units'][i]['citizenid'] == player.citizenid then
+                table.remove(calls[id]['units'], i)
+            end
         end
     end
 end)
