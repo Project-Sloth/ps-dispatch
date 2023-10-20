@@ -14,10 +14,12 @@
   "no_calls": "No Calls Found.",
   "alerts": "Alerts ",
   "blips_cleared": "Blips Cleared",
+  "alerts_refreshed": "Alerts Refreshed",
   "enabled": "Enabled",
   "disabled": "Disabled",
   "muted": "Muted",
   "unmuted": "Unmuted",
+  "waypoint_set": "Waypoint set.",
 
   "caller_local": "Local",
   "call_from": "Call from ",

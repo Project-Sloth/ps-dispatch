@@ -3,6 +3,7 @@ Config = Config or {}
 Config.Debug = false -- Enables debug and send alerts when leo break the law.
 
 Config.RespondKeybind = 'E'
+Config.OpenDispatchMenu = 'O'
 Config.AlertTime = 5     -- How many seconds you want the alert to stay on screen
 
 Config.OnDutyOnly = true -- Set true if only on duty players can see the alert
