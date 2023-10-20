@@ -34,6 +34,7 @@ Do not create issues on GitHub if you need help. Issues are for bug reporting an
 |en      |English    |
 |de      |German     |
 |nl      |Dutch      |
+|cs      |Czech      |
 
 # Preset Alert Exports.
 
