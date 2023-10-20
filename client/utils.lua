@@ -32,6 +32,16 @@ function IsOnDuty()
     return true
 end
 
+---@return boolean
+local function HasPhone()
+    for _, item in ipairs(Config.PhoneItems) do
+        if QBCore.Functions.HasItem(item) then
+            return true
+        end
+    end
+    return false
+end
+
 ---@param coords table
 ---@return string
 function GetStreetAndZone(coords)
@@ -133,7 +143,7 @@ function IsCallAllowed(message)
 
     if msgLength == 0 then return false end
     if GetIsHandcuffed() then return false end
-    if not QBCore.Functions.HasItem("phone") then return false end
+    if Config.PhoneRequired and not HasPhone() then return false end
 
     return true
 end
