@@ -15,6 +15,7 @@ Do not create issues on GitHub if you need help. Issues are for bug reporting an
 * Drag and drop resource into your server files
 * Start resource through server.cfg
 * Drag and drop sounds folder into interact-sound\client\html\sounds
+* Configure your [language](https://github.com/Project-Sloth/ps-dispatch#change-language)
 * Restart your server.
 
 # Preview
