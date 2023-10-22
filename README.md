@@ -99,8 +99,8 @@ Do not create issues on GitHub if you need help. Issues are for bug reporting an
 ```
 # FAQ
 * There are no calls showing on dispatch or mdt list.
-  - On shared/config.lua make sure Config.Debug = true
   - Make sure that you're using the correct job type as leo and make sure your [qb-core](https://github.com/qbcore-framework/qb-core) is fully updated to the latest version.
+  - On shared/config.lua make set Config.Debug = true to test calls as police officer.(ONLY to be used as testing, make sure to disable on live production)
 
 # Credits
 * [OK1ez](https://github.com/OK1ez)
