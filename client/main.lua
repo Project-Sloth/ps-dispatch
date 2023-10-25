@@ -66,7 +66,7 @@ local function setWaypoint()
 
     if not data then return end
 
-    if not waypointCooldown then
+    if not waypointCooldown and lib.table.contains(data.jobs, PlayerData.job.type) then
         SetNewWaypoint(data.coords.x, data.coords.y)
         TriggerServerEvent('ps-dispatch:server:attach', data.id, PlayerData)
         lib.notify({ description = locale('waypoint_set'), position = 'top', type = 'success' })
