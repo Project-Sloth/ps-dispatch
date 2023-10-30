@@ -72,7 +72,31 @@
   <!-- CONTROLS -->
   <div class="w-[3.2vh] h-[85%] mr-[1vh] flex flex-col gap-[1vh]">
     <!-- REFRESH ALERTS -->
-    <button class="w-full h-[3vh] flex items-center justify-center bg-primary hover:bg-secondary"
+    <button class="w-full h-[3vh] flex items-center justify-center bg-primary hover:bg-secondary
+      relative
+      before:content-[attr(data-tip)]
+      before:absolute
+      before:-right-3 before:top-1/2
+      before:w-max before:max-w-xs
+      before:-translate-x-full before:-translate-y-1/2
+      before:bg-tertiary before:text-white
+      before:rounded-md before:opacity-0
+      before:translate-all
+
+      after:absolute
+      after:-right-3 after:top-1/2
+      after:-translate-x-0 after:-translate-y-1/2
+      after:h-0 after:w-0
+      after:border-t-transparent
+      after:border-l-transparent
+      after:border-b-transparent
+      after:border-r-tertiary
+      after:opacity-0
+      after:transition-all
+
+      hover:before:opacity-100 hover:after:opacity-100
+      "
+      data-tip='Refresh Alerts'
       on:click={() => {
         SendNUI("refreshAlerts");
       }}
@@ -80,19 +104,91 @@
       <i class="fas fa-arrows-rotate text-[1.5vh]"></i>
     </button>
     <!-- TOGGLE MUTE -->
-    <button class="w-full h-[3vh] flex items-center justify-center bg-primary hover:bg-secondary"
+    <button class="w-full h-[3vh] flex items-center justify-center bg-primary hover:bg-secondary
+      relative
+      before:content-[attr(data-tip)]
+      before:absolute
+      before:-right-3 before:top-1/2
+      before:w-max before:max-w-xs
+      before:-translate-x-full before:-translate-y-1/2
+      before:bg-tertiary before:text-white
+      before:rounded-md before:opacity-0
+      before:translate-all
+
+      after:absolute
+      after:-right-3 after:top-1/2
+      after:-translate-x-0 after:-translate-y-1/2
+      after:h-0 after:w-0
+      after:border-t-transparent
+      after:border-l-transparent
+      after:border-b-transparent
+      after:border-r-tertiary
+      after:opacity-0
+      after:transition-all
+
+      hover:before:opacity-100 hover:after:opacity-100
+      "
+      data-tip='Toggle Mute'
       on:click={toggleMute}
     >
       <i class="fas fa-volume-{$DISPATCH_MUTED ? "xmark" : "high"} text-[1.5vh]"></i>
     </button>
     <!-- TOGGLE ALERTS -->
-    <button class="w-full h-[3vh] flex items-center justify-center bg-primary hover:bg-secondary"
+    <button class="w-full h-[3vh] flex items-center justify-center bg-primary hover:bg-secondary
+      relative
+      before:content-[attr(data-tip)]
+      before:absolute
+      before:-right-3 before:top-1/2
+      before:w-max before:max-w-xs
+      before:-translate-x-full before:-translate-y-1/2
+      before:bg-tertiary before:text-white
+      before:rounded-md before:opacity-0
+      before:translate-all
+
+      after:absolute
+      after:-right-3 after:top-1/2
+      after:-translate-x-0 after:-translate-y-1/2
+      after:h-0 after:w-0
+      after:border-t-transparent
+      after:border-l-transparent
+      after:border-b-transparent
+      after:border-r-tertiary
+      after:opacity-0
+      after:transition-all
+
+      hover:before:opacity-100 hover:after:opacity-100
+      "
+      data-tip='Toggle Alerts'
       on:click={toggleAlerts}
     >
       <i class="fas fa-{$DISPATCH_DISABLED ? "bell-slash" : "bell"} text-[1.5vh]"></i>
     </button>
     <!-- CLEAR BLIPS -->
-    <button class="w-full h-[3vh] flex items-center justify-center bg-primary hover:bg-secondary"
+    <button class="w-full h-[3vh] flex items-center justify-center bg-primary hover:bg-secondary
+      relative
+      before:content-[attr(data-tip)]
+      before:absolute
+      before:-right-3 before:top-1/2
+      before:w-max before:max-w-xs
+      before:-translate-x-full before:-translate-y-1/2
+      before:bg-tertiary before:text-white
+      before:rounded-md before:opacity-0
+      before:translate-all
+
+      after:absolute
+      after:-right-3 after:top-1/2
+      after:-translate-x-0 after:-translate-y-1/2
+      after:h-0 after:w-0
+      after:border-t-transparent
+      after:border-l-transparent
+      after:border-b-transparent
+      after:border-r-tertiary
+      after:opacity-0
+      after:transition-all
+
+      hover:before:opacity-100 hover:after:opacity-100
+      "
+      data-tip='Clear Blips'
       on:click={() => {
         SendNUI("clearBlips");
       }}

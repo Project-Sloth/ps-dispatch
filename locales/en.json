@@ -88,5 +88,10 @@
   "justnow": "just now",
   "minute": "minutes ago",
   "hour": "hours ago",
-  "day": "days ago"
+  "day": "days ago",
+
+  "clearblips": "Clear Blips",
+  "togglemute": "Toggle Mute",
+  "togglealerts": "Toggle Alerts",
+  "refresh": "Refresh Alerts"
 }
