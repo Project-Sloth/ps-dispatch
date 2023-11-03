@@ -245,15 +245,15 @@ RegisterNetEvent('ps-dispatch:client:notify', function(data, source)
 
     RespondToDispatch:disable(false)
 
-    local startTime = GetGameTimer()  -- Zeitstempel, wenn die Nachricht gesendet wurde
+    local startTime = GetGameTimer()
     while timerCheck do
-        Citizen.Wait(1000)  -- Gibt anderen Threads eine Chance, ausgeführt zu werden
+        Citizen.Wait(1000)
 
         local currentTime = GetGameTimer()
         local elapsed = currentTime - startTime
 
         if elapsed >= timer then
-            break  -- Timer abgelaufen, die Schleife verlassen
+            break
         end
     end
 
