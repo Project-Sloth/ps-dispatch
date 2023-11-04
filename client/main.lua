@@ -31,6 +31,12 @@ local function setupDispatch()
             player = PlayerData,
         }
     })
+    
+    -- Respond Keybind
+    SendNUIMessage({
+        type = 'updateRespondKeybind',
+        keybind = Config.RespondKeybind
+    })
 end
 
 ---@param data string | table -- The player job or an array of jobs to check against
