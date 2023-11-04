@@ -29,13 +29,8 @@ local function setupDispatch()
         data = {
             locales = locales,
             player = PlayerData,
+            keybind = Config.RespondKeybind,
         }
-    })
-    
-    -- Respond Keybind
-    SendNUIMessage({
-        type = 'updateRespondKeybind',
-        keybind = Config.RespondKeybind
     })
 end
 
