@@ -1,10 +1,9 @@
 <script>
   import { onMount, afterUpdate } from 'svelte';
-  import { DISPATCH, removeDispatch } from '@store/stores';
+  import { DISPATCH, removeDispatch, RESPOND_KEYBIND } from '@store/stores';
   import { fly } from 'svelte/transition';
   import { timeAgo } from '@utils/timeAgo';
 
-  let RespondKeybind = null;
   let notifications = [];
 
   DISPATCH.subscribe(value => {
@@ -31,12 +30,6 @@
         removeNotification(data.id);
       }, timer);
     });
-  });
-
-  window.addEventListener('message', (event) => {
-    if (event.data.action === 'setupUI') {
-      RespondKeybind = event.data.keybind;
-    }
   });
 
   function getDispatchData(dispatch) {
@@ -93,7 +86,7 @@
           <div class="w-[30%] flex items-end justify-center mb-[1vh]">
             {#if index === 0}
               <p class="px-[1.5vh] py-[0.4vh] rounded-full bg-primary text-[1.3vh]">
-                [{RespondKeybind}] Respond
+                [{$RESPOND_KEYBIND}] Respond
               </p>
             {/if}
           </div>
