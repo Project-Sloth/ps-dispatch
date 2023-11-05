@@ -216,7 +216,7 @@ local RespondToDispatch = lib.addKeybind({
     onPressed = setWaypoint,
 })
 
-lib.addKeybind({
+local OpenDispatchMenu = lib.addKeybind({
     name = 'OpenDispatchMenu',
     description = 'Open Dispatch Menu',
     defaultKey = Config.OpenDispatchMenu,
@@ -243,6 +243,7 @@ RegisterNetEvent('ps-dispatch:client:notify', function(data, source)
     addBlip(data, Config.Blips[data.codeName] or data)
 
     RespondToDispatch:disable(false)
+    OpenDispatchMenu:disable(true)
 
     local startTime = GetGameTimer()
     while timerCheck do
@@ -256,8 +257,9 @@ RegisterNetEvent('ps-dispatch:client:notify', function(data, source)
         end
     end
 
-    RespondToDispatch:disable(true)
     timerCheck = false
+    OpenDispatchMenu:disable(false)
+    RespondToDispatch:disable(true)
 end)
 
 RegisterNetEvent('ps-dispatch:client:openMenu', function(data)
