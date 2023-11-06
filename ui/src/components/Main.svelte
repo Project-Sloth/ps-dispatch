@@ -1,6 +1,6 @@
 <script>
   import { onMount, afterUpdate } from 'svelte';
-  import { DISPATCH, removeDispatch } from '@store/stores';
+  import { DISPATCH, removeDispatch, RESPOND_KEYBIND } from '@store/stores';
   import { fly } from 'svelte/transition';
   import { timeAgo } from '@utils/timeAgo';
 
@@ -40,7 +40,6 @@
       { icon: 'fas fa-comment', label: 'Information', value: dispatch.data.information },
       { icon: 'fas fa-map-location-dot', label: 'Street', value: dispatch.data.street },
       { icon: 'fas fa-user', label: 'Gender', value: dispatch.data.gender },
-      { icon: 'fas fa-user-group', label: 'Units', value: dispatch.data.units },
       { icon: 'fas fa-gun', label: 'Automatic Gun Fire', value: dispatch.data.automaticGunFire },
       { icon: 'fas fa-gun', label: 'Weapon', value: dispatch.data.weapon },
       { icon: 'fas fa-car', label: 'Vehicle', value: dispatch.data.vehicle },
@@ -86,7 +85,7 @@
           <div class="w-[30%] flex items-end justify-center mb-[1vh]">
             {#if index === 0}
               <p class="px-[1.5vh] py-[0.4vh] rounded-full bg-primary text-[1.3vh]">
-                [E] Respond
+                [{$RESPOND_KEYBIND}] Respond
               </p>
             {/if}
           </div>

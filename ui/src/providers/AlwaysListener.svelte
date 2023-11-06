@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ReceiveNUI } from '@utils/ReceiveNUI'
 	import { debugData } from '@utils/debugData'
-	import { VISIBILITY, BROWSER_MODE, DISPATCH_MENU, DISPATCH_MENUS, DISPATCH, PLAYER, Locale } from '@store/stores'
+	import { VISIBILITY, BROWSER_MODE, DISPATCH_MENU, DISPATCH_MENUS, DISPATCH, PLAYER, Locale, RESPOND_KEYBIND } from '@store/stores'
 
 	debugData([
 		{
@@ -48,6 +48,7 @@
 	ReceiveNUI('setupUI', (data: any) => {
 		PLAYER.set(data.player)
 		Locale.set(data.locales)
+		RESPOND_KEYBIND.set(data.keybind)
 	});
 
 </script>

@@ -29,6 +29,7 @@ local function setupDispatch()
         data = {
             locales = locales,
             player = PlayerData,
+            keybind = Config.RespondKeybind,
         }
     })
 end
