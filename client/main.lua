@@ -209,20 +209,58 @@ local function removeZones()
     nodispatchzone:remove()
 end
 
+-- Keybind
+local RespondToDispatch = lib.addKeybind({
+    name = 'RespondToDispatch',
+    description = 'Set waypoint to last call location',
+    defaultKey = Config.RespondKeybind,
+    onPressed = setWaypoint,
+})
+
+local OpenDispatchMenu = lib.addKeybind({
+    name = 'OpenDispatchMenu',
+    description = 'Open Dispatch Menu',
+    defaultKey = Config.OpenDispatchMenu,
+    onPressed = openMenu,
+})
+
 -- Events
 RegisterNetEvent('ps-dispatch:client:notify', function(data, source)
+    local timer = Config.AlertTime * 1000
     if alertsDisabled then return end
     if not isJobValid(data.jobs) then return end
     if not IsOnDuty() then return end
+
+    timerCheck = true
+
     SendNUIMessage({
         action = 'newCall',
         data = {
             data = data,
-            timer = Config.AlertTime * 1000,
+            timer = timer,
         }
     })
 
     addBlip(data, Config.Blips[data.codeName] or data)
+
+    RespondToDispatch:disable(false)
+    OpenDispatchMenu:disable(true)
+
+    local startTime = GetGameTimer()
+    while timerCheck do
+        Wait(1000)
+
+        local currentTime = GetGameTimer()
+        local elapsed = currentTime - startTime
+
+        if elapsed >= timer then
+            break
+        end
+    end
+
+    timerCheck = false
+    OpenDispatchMenu:disable(false)
+    RespondToDispatch:disable(true)
 end)
 
 RegisterNetEvent('ps-dispatch:client:openMenu', function(data)
@@ -296,18 +334,3 @@ RegisterNUICallback("refreshAlerts", function(data, cb)
     local data = lib.callback.await('ps-dispatch:callback:getCalls', false)
     SendNUIMessage({ action = 'setDispatchs', data = data, })
 end)
-
--- Keybind
-lib.addKeybind({
-    name = 'RespondToDispatch',
-    description = 'Set waypoint to last call location',
-    defaultKey = Config.RespondKeybind,
-    onPressed = setWaypoint,
-})
-
-lib.addKeybind({
-    name = 'OpenDispatchMenu',
-    description = 'Open Dispatch Menu',
-    defaultKey = Config.OpenDispatchMenu,
-    onPressed = openMenu,
-})
