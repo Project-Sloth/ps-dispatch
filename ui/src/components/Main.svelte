@@ -84,7 +84,7 @@
           </div>
           <div class="w-[30%] flex items-end justify-center mb-[1vh]">
             {#if index === 0}
-              <p class="px-[1.5vh] py-[0.4vh] rounded-full bg-primary text-[1.3vh]">
+              <p class="px-[1.5vh] py-[0.4vh] rounded-full text-[1.3vh] {dispatch.data.priority == 1 ? " bg-priority_primary" : " bg-primary"}">
                 [{$RESPOND_KEYBIND}] Respond
               </p>
             {/if}
