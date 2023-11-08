@@ -13,10 +13,6 @@ RegisterServerEvent('ps-dispatch:server:notify', function(data)
     data.responses = {}
     calls[#calls + 1] = data
 
-    if #calls > Config.MaxCallList then
-        table.remove(calls, 1) -- Remove the first (oldest) element
-    end
-
     TriggerClientEvent('ps-dispatch:client:notify', -1, data)
 end)
 
