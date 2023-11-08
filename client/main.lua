@@ -30,6 +30,7 @@ local function setupDispatch()
             locales = locales,
             player = PlayerData,
             keybind = Config.RespondKeybind,
+            maxCallList = Config.MaxCallList,
         }
     })
 end
