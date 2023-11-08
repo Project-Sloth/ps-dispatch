@@ -12,7 +12,7 @@ Do not create issues on GitHub if you need help. Issues are for bug reporting an
 
 # Installation
 * Download ZIP
-* Make sure your [qb-core}(https://github.com/qbcore-framework/qb-core) is fully updated to the latest version.
+* Make sure your [qb-core](https://github.com/qbcore-framework/qb-core) is fully updated to the latest version.
 * Drag and drop resource into your server files
 * Start resource through server.cfg
 * Drag and drop sounds folder into interact-sound\client\html\sounds
@@ -107,6 +107,9 @@ Do not create issues on GitHub if you need help. Issues are for bug reporting an
 
   - Make sure that you're using the correct job type as leo and make sure your [qb-core](https://github.com/qbcore-framework/qb-core) is fully updated to the latest version.
   - On shared/config.lua make set Config.Debug = true to test calls as police officer.(ONLY to be used as testing, make sure to disable on live production)
+
+* How to change colors of the calls? 
+  - Priority 1 is red and priority 2 is normal on the config. 
 
 # Credits
 * [OK1ez](https://github.com/OK1ez)
