@@ -44,61 +44,34 @@ Do not create issues on GitHub if you need help. Issues are for bug reporting an
 # Preset Alert Exports.
 
 ```lua
-- exports['ps-dispatch']:VehicleShooting(vehicle)
-
-- exports['ps-dispatch']:Shooting()
-
-- exports['ps-dispatch']:OfficerDown()
-
-- exports['ps-dispatch']:SpeedingVehicle(vehicle)
-
-- exports['ps-dispatch']:Fight()
-
-- exports['ps-dispatch']:InjuriedPerson()
-
-- exports['ps-dispatch']:DeceasedPerson()
-
-- exports['ps-dispatch']:StoreRobbery(camId)
-
-- exports['ps-dispatch']:FleecaBankRobbery(camId)
-
-- exports['ps-dispatch']:PaletoBankRobbery(camId)
-
-- exports['ps-dispatch']:PacificBankRobbery(camId)
-
-- exports['ps-dispatch']:PrisonBreak()
-
-- exports['ps-dispatch']:VangelicoRobbery(camId)
-
-- exports['ps-dispatch']:HouseRobbery()
-
-- exports['ps-dispatch']:DrugSale()
-
 - exports['ps-dispatch']:ArtGalleryRobbery()
-
-- exports['ps-dispatch']:HumaneRobery()
-
-- exports['ps-dispatch']:TrainRobbery()
-
-- exports['ps-dispatch']:VanRobbery()
-
-- exports['ps-dispatch']:UndergroundRobbery()
-
-- exports['ps-dispatch']:DrugBoatRobbery()
-
-- exports['ps-dispatch']:UnionRobbery()
-
-- exports['ps-dispatch']:YachtHeist()
-
 - exports['ps-dispatch']:CarBoosting(vehicle)
-
 - exports['ps-dispatch']:CarJacking(vehicle)
-
-- exports['ps-dispatch']:VehicleTheft(vehicle)
-
-- exports['ps-dispatch']:SuspiciousActivity()
-
+- exports['ps-dispatch']:DeceasedPerson()
+- exports['ps-dispatch']:DrugBoatRobbery()
+- exports['ps-dispatch']:DrugSale()
+- exports['ps-dispatch']:Fight()
+- exports['ps-dispatch']:FleecaBankRobbery(camId)
+- exports['ps-dispatch']:HouseRobbery()
+- exports['ps-dispatch']:HumaneRobery()
+- exports['ps-dispatch']:InjuriedPerson()
+- exports['ps-dispatch']:OfficerDown()
+- exports['ps-dispatch']:PacificBankRobbery(camId)
+- exports['ps-dispatch']:PaletoBankRobbery(camId)
+- exports['ps-dispatch']:PrisonBreak()
+- exports['ps-dispatch']:Shooting()
 - exports['ps-dispatch']:SignRobbery()
+- exports['ps-dispatch']:SpeedingVehicle(vehicle)
+- exports['ps-dispatch']:StoreRobbery(camId)
+- exports['ps-dispatch']:SuspiciousActivity()
+- exports['ps-dispatch']:TrainRobbery()
+- exports['ps-dispatch']:UndergroundRobbery()
+- exports['ps-dispatch']:UnionRobbery()
+- exports['ps-dispatch']:VangelicoRobbery(camId)
+- exports['ps-dispatch']:VanRobbery()
+- exports['ps-dispatch']:VehicleShooting(vehicle)
+- exports['ps-dispatch']:VehicleTheft(vehicle)
+- exports['ps-dispatch']:YachtHeist()
 ```
 # FAQ
 * There are no calls showing on dispatch or mdt list.
