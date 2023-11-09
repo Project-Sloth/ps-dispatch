@@ -140,6 +140,16 @@ Config.Blips = {
         offset = false,
         flash = true
     },
+    ['officerbackup'] = {
+        radius = 15.0,
+        sprite = 526,
+        color = 1,
+        scale = 1.5,
+        length = 2,
+        sound = 'panicbutton',
+        offset = false,
+        flash = true
+    },
     ['officerdistress'] = {
         radius = 15.0,
         sprite = 526,
