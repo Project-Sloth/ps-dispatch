@@ -1,13 +1,12 @@
 <script>
   import { onMount } from 'svelte';
-  import { PLAYER, Locale, DISPATCH_MENU, DISPATCH_MENUS, DISPATCH_MUTED, DISPATCH_DISABLED } from '@store/stores';
+  import { PLAYER, Locale, DISPATCH_MENU, DISPATCH_MENUS, DISPATCH_MUTED, DISPATCH_DISABLED, MAX_CALL_LIST} from '@store/stores';
   import { fly, slide } from 'svelte/transition';
 	import { timeAgo } from '@utils/timeAgo'
 	import { SendNUI } from '@utils/SendNUI'
-
+  
   let activeCallId = null;
   let additionalUnitsVisible = {};
-
   function toggleDispatch(id) {
     if (activeCallId === id) {
       activeCallId = null;
@@ -54,7 +53,6 @@
       { icon: 'fas fa-comment', label: 'Information', value: dispatch.information },
       { icon: 'fas fa-map-location-dot', label: 'Street', value: dispatch.street },
       { icon: 'fas fa-user', label: 'Gender', value: dispatch.gender },
-      { icon: 'fas fa-user-group', label: 'Units', value: dispatch.units.length },
       { icon: 'fas fa-gun', label: 'Automatic Gun Fire', value: dispatch.automaticGunFire },
       { icon: 'fas fa-gun', label: 'Weapon', value: dispatch.weapon },
       { icon: 'fas fa-car', label: 'Vehicle', value: dispatch.vehicle },
@@ -63,6 +61,7 @@
       { icon: 'fas fa-car', label: 'Class', value: dispatch.class },
       { icon: 'fas fa-door-open', label: 'Doors', value: dispatch.doors },
       { icon: 'fas fa-compass', label: 'Heading', value: dispatch.heading },
+      { icon: 'fas fa-user-group', label: 'Units', value: dispatch.units.length },
     ];
   }
 
@@ -97,13 +96,14 @@
         SendNUI("clearBlips");
       }}
     >
-      <i class="fas fa-ban text-[1.5vh]"></i>
+    <i class="fas fa-ban text-[1.5vh]"></i>
+
     </button>
   </div>
   <!-- MENU -->
   <div class="w-[25%] h-[90%] mr-[4vh] overflow-auto pr-[0.5vh]">
     {#if $DISPATCH_MENU}
-    {#each $DISPATCH_MENU.filter(dispatch => dispatch.message && dispatch.jobs.includes($PLAYER.job.type)).slice().reverse() as dispatch}
+    {#each $DISPATCH_MENU.slice(-$MAX_CALL_LIST).filter(dispatch => dispatch.message && dispatch.jobs.includes($PLAYER.job.type)).slice().reverse() as dispatch}
     <button class="w-full h-fit mb-[1vh] font-medium {dispatch.priority == 1 ? 'bg-priority_secondary' : 'bg-secondary'}" on:click={() => toggleDispatch(dispatch.id)}>
         <div class="flex items-center gap-[1vh] p-[1vh] text-[1.5vh] {dispatch.priority == 1 ? " bg-priority_primary" : " bg-primary"}">
             <p class="px-[2vh] py-[0.2vh] rounded-full bg-accent_green">
