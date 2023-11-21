@@ -293,31 +293,35 @@ AddEventHandler('onResourceStop', function(resourceName)
 end)
 
 -- NUICallbacks
-RegisterNUICallback("hideUI", function()
+RegisterNUICallback("hideUI", function(_, cb)
     toggleUI(false)
+    cb("ok")
 end)
 
 RegisterNUICallback("attachUnit", function(data, cb)
     TriggerServerEvent('ps-dispatch:server:attach', data.id, PlayerData)
     SetNewWaypoint(data.coords.x, data.coords.y)
-
+    cb("ok")
 end)
 
 RegisterNUICallback("detachUnit", function(data, cb)
     TriggerServerEvent('ps-dispatch:server:detach', data.id, PlayerData)
     DeleteWaypoint()
+    cb("ok")
 end)
 
 RegisterNUICallback("toggleMute", function(data, cb)
     local muteStatus = data.boolean and locale('muted') or locale('unmuted')
     lib.notify({ description = locale('alerts') .. muteStatus, position = 'top', type = 'warning' })
     alertsMuted = data.boolean
+    cb("ok")
 end)
 
 RegisterNUICallback("toggleAlerts", function(data, cb)
     local muteStatus = data.boolean and locale('disabled') or locale('enabled')
     lib.notify({ description = locale('alerts') .. muteStatus, position = 'top', type = 'warning' })
     alertsDisabled = data.boolean
+    cb("ok")
 end)
 
 RegisterNUICallback("clearBlips", function(data, cb)
@@ -328,10 +332,12 @@ RegisterNUICallback("clearBlips", function(data, cb)
     for k, v in pairs(radius2) do
         RemoveBlip(v)
     end
+    cb("ok")
 end)
 
 RegisterNUICallback("refreshAlerts", function(data, cb)
     lib.notify({ description = locale('alerts_refreshed'), position = 'top', type = 'success' })
     local data = lib.callback.await('ps-dispatch:callback:getCalls', false)
     SendNUIMessage({ action = 'setDispatchs', data = data, })
+    cb("ok")
 end)
