@@ -4,13 +4,13 @@
     "unit": "Unidade",
     "units": "Unidades",
     "additionals": "Unidades adicionais",
-  
+
     "open_dispatch": "Abra o menu de Dispatch",
     "911_help": "Envie uma mensagem para a polícia.",
     "911a_help": "Envie uma mensagem anônima para a polícia.",
     "311_help": "Envie uma mensagem para o EMS.",
     "311a_help": "Envie uma mensagem anônima para o EMS.",
-  
+
     "no_calls": "Nenhuma chamada encontrada.",
     "alerts": "Alertas ",
     "blips_cleared": "Blips Limpos",
@@ -18,7 +18,7 @@
     "disabled": "Desabilitada",
     "muted": "Silenciada",
     "unmuted": "Desmutado",
-  
+
     "caller_local": "Local",
     "call_from": "Chamado de ",
     "two_door": "Duas Portas ",
@@ -44,7 +44,7 @@
     "east": "Sentido Leste",
     "south": "Sentido Sul",
     "west": "Sentido Oeste",
-  
+
     "anon_call": "Chamada Anônima Recebida",
     "anon": "Anônima",
     "hidden_number": "Número oculto",
@@ -68,7 +68,8 @@
     "carjacking": "Arrombamento de Veículo",
     "vehicletheft": "Roubo de veículo",
     "officerdown": "Oficial Caído",
-    "officerdistress": "Officer em angústia",
+    "officerdistress": "Oficial em angústia",
+    "officerbackup": "Oficial precisa de reforços",
     "emsdown": "EMS Caído",
     "artgalleryrobbery": "Roubo da galeria de arte",
     "humanerobbery": "Roubo de laboratórios Humane",
@@ -83,7 +84,7 @@
     "hunting": "Possível violação de caça",
     "explosion": "Explosão relatada",
     "carheist": "Roubo a Aeronave",
-  
+
     "justnow": "agora mesmo",
     "minute": "minutos atrás",
     "hour": "horas atrás",

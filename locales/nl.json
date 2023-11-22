@@ -4,13 +4,13 @@
     "unit": "Eenheid",
     "units": "Eenheden",
     "additionals": "Extra Eenheden",
-        
+
     "open_dispatch": "Open Dispatch Menu",
     "911_help": "Stuur een bericht naar de politie.",
     "911a_help": "Stuur een anoniem bericht naar de politie.",
     "311_help": "Stuur een bericht naar de ambulance.",
     "311a_help": "Stuur een anoniem bericht naar de ambulance.",
-    
+
     "no_calls": "Geen Oproepen Gevonden.",
     "alerts": "Meldingen",
     "blips_cleared": "Blips Gewist",
@@ -20,7 +20,7 @@
     "muted": "Gedempt",
     "unmuted": "Niet Gedempt",
     "waypoint_set": "Gps ingesteld",
-    
+
     "caller_local": "Burger",
     "call_from": "Oproep van ",
     "two_door": "Tweedeurs ",
@@ -46,7 +46,7 @@
     "east": "Oostwaarts",
     "south": "Zuidwaarts",
     "west": "Westwaarts",
-    
+
     "anon_call": "Inkomende Anonieme Oproep",
     "anon": "Anoniem",
     "hidden_number": "Verborgen Nummer",
@@ -71,6 +71,7 @@
     "vehicletheft": "Voertuigdiefstal",
     "officerdown": "Agent neer",
     "officerdistress": "Agent in nood",
+    "officerbackup": "Agent heeft hulp nodig",
     "emsdown": "Ambulancepersoneel neer",
     "artgalleryrobbery": "Kunstgalerijoverval",
     "humanerobbery": "Humane Labs Overval",
@@ -84,7 +85,7 @@
     "susactivity": "Verdachte Activiteit",
     "hunting": "Mogelijke Jacht Overtreding",
     "explosion": "Explosie Gemeld",
-    
+
     "justnow": "zojuist",
     "minute": "minuten geleden",
     "hour": "uren geleden",

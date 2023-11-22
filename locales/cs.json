@@ -4,13 +4,13 @@
     "unit": "Jednotka",
     "units": "Jednotky",
     "additionals": "Dodatečné jednotky",
-  
+
     "open_dispatch": "Otevřít Dispatch",
     "911_help": "Pošle zprávu policistům.",
     "911a_help": "Pošle anonymní zprávu policistům.",
     "311_help": "Pošle zprávu doktorům.",
     "311a_help": "Pošle anonymní zprávu doktorům.",
-  
+
     "no_calls": "Nebyly nalezeny žádné zprávy",
     "alerts": "Alerty ",
     "blips_cleared": "Blipy Vyčištěny",
@@ -20,7 +20,7 @@
     "muted": "Ztlumení",
     "unmuted": "Zrušit ztlumení",
     "waypoint_set": "Nastavit Wayipont.",
-  
+
     "caller_local": "Místní",
     "call_from": "Zpráva od ",
     "two_door": "Dvoudveřové ",
@@ -46,7 +46,7 @@
     "east": "East Bound",
     "south": "South Bound",
     "west": "West Bound",
-  
+
     "anon_call": "Příchozí Anonnymní Zpráva",
     "anon": "Anononym",
     "hidden_number": "Skryté Číslo",
@@ -71,6 +71,7 @@
     "vehicletheft": "Krádež vozidla",
     "officerdown": "Policista postřelen",
     "officerdistress": "Policista v nouzi",
+    "officerbackup": "Policista potřebuje zálohu",
     "emsdown": "EMS Down",
     "artgalleryrobbery": "Loupež v umělecké galerie",
     "humanerobbery": "Loupež v laboratořích Humane Labs",
@@ -84,7 +85,7 @@
     "susactivity": "Podezřelá aktivita",
     "hunting": "Možné porušení lovu",
     "explosion": "Hlášena exploze",
-  
+
     "justnow": "práve teď",
     "minute": "před minutamy",
     "hour": "hodiny zpátky",
