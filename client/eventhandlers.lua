@@ -1,4 +1,3 @@
-
 local timer = {}
 
 ---@param name string -- The name of the timer
@@ -34,12 +33,12 @@ AddEventHandler('CEventGunShot', function(witnesses, ped)
     WaitTimer('Shooting', function()
         if cache.ped ~= ped then return end
 
-        if PlayerData.job.type == 'leo' then 
+        if PlayerData.job.type == 'leo' then
             if not Config.Debug then
                 return
             end
         end
-        
+
         if inHuntingZone then
             exports['ps-dispatch']:Hunting()
             return
@@ -59,6 +58,7 @@ AddEventHandler('CEventShockingSeenMeleeAction', function(witnesses, ped)
     WaitTimer('Melee', function()
         if cache.ped ~= ped then return end
         if witnesses and not isPedAWitness(witnesses, ped) then return end
+        if not IsPedInMeleeCombat(ped) then return end
 
         exports['ps-dispatch']:Fight()
     end)
