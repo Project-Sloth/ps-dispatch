@@ -86,11 +86,11 @@ local function randomOffset(baseX, baseY, offset)
     return randomX, randomY
 end
 
-local function createBlipData(coords, radius, sprite, color, scale, flashes)
+local function createBlipData(coords, radius, sprite, color, scale, flash)
     local blip = AddBlipForCoord(coords.x, coords.y, coords.z)
     local radiusBlip = AddBlipForRadius(coords.x, coords.y, coords.z, radius)
 
-    SetBlipFlashes(blip, flashes)
+    SetBlipFlashes(blip, flash)
     SetBlipSprite(blip, sprite or 161)
     SetBlipHighDetail(blip, true)
     SetBlipScale(blip, scale or 1.0)
@@ -109,17 +109,18 @@ local function createBlip(data, blipData)
     local sprite = blipData.sprite or blipData.alert.sprite or 161
     local color = blipData.color or blipData.alert.color or 84
     local scale = blipData.scale or blipData.alert.scale or 1.0
+    local flash = blipData.flash or false
     local alpha = 255
     local radiusAlpha = 128
     local blipWaitTime = ((blipData.length or blipData.alert.length) * 60000) / radiusAlpha
 
     if blipData.offset then
         local offsetX, offsetY = randomOffset(data.coords.x, data.coords.y, Config.MaxOffset)
-        blip, radius = createBlipData({ x = offsetX, y = offsetY, z = data.coords.z }, blipData.radius, sprite, color, scale, flashes)
+        blip, radius = createBlipData({ x = offsetX, y = offsetY, z = data.coords.z }, blipData.radius, sprite, color, scale, flash)
         blips[data.id] = blip
         radius2[data.id] = radius
     else
-        blip, radius = createBlipData(data.coords, blipData.radius, sprite, color, scale, flashes)
+        blip, radius = createBlipData(data.coords, blipData.radius, sprite, color, scale, flash)
         blips[data.id] = blip
         radius2[data.id] = radius
     end
