@@ -7,6 +7,8 @@
   
   let activeCallId = null;
   let additionalUnitsVisible = {};
+  let isRightMargin = true; // Set your condition here
+
   function toggleDispatch(id) {
     if (activeCallId === id) {
       activeCallId = null;
@@ -26,6 +28,10 @@
 
   function toggleAdditionalUnits(callId) {
     additionalUnitsVisible[callId] = !additionalUnitsVisible[callId];
+  }
+
+  function toggleMargin() {
+    isRightMargin = !isRightMargin;
   }
 
   function getAdditionalUnitsCount(dispatch) {
@@ -67,9 +73,9 @@
 
 </script>
 
-<div class="w-screen h-screen flex flex-row items-center justify-end" transition:fly={{ x: 400 }}>
+<div class="w-screen h-screen {isRightMargin ? 'mr-[5%]' : 'ml-[-70%]'} flex flex-row items-center justify-end" transition:fly={{ x: 400 }}>
   <!-- CONTROLS -->
-  <div class="w-[3.2vh] h-[85%] mr-[1vh] flex flex-col gap-[1vh]">
+  <div class="w-[3.2vh] h-[85%] {isRightMargin ? 'mr-[1vh]' : 'mr-[-27.4%]'} flex flex-col gap-[1vh]">
     <!-- REFRESH ALERTS -->
     <button class="w-full h-[3vh] flex items-center justify-center bg-primary hover:bg-secondary"
       on:click={() => {
@@ -97,6 +103,13 @@
       }}
     >
     <i class="fas fa-ban text-[1.5vh]"></i>
+
+    </button>
+    <!-- Toggle Margin -->
+    <button class="w-full h-[3vh] flex items-center justify-center bg-primary hover:bg-secondary"
+    on:click={toggleMargin}
+    >
+    <i class="fas fa-{isRightMargin ? "hand-point-right" : "hand-point-left"} text-[1.5vh]"></i>
 
     </button>
   </div>
