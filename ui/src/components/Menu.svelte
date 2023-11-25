@@ -7,7 +7,7 @@
   
   let activeCallId = null;
   let additionalUnitsVisible = {};
-  let isRightMargin = true; // Set your condition here
+  let isRightMargin = true;
 
   function toggleDispatch(id) {
     if (activeCallId === id) {
