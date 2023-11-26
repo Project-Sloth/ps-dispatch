@@ -170,6 +170,17 @@ Config.Blips = {
         offset = false,
         flash = false
     },
+    ['hunting'] = {
+        radius = 0,
+        sprite = 141,
+        color = 2,
+        scale = 1.5,
+        length = 2,
+        sound = 'Lose_1st',
+        sound2 = 'GTAO_FM_Events_Soundset',
+        offset = false,
+        flash = false
+    },
     ['storerobbery'] = {
         radius = 0,
         sprite = 52,
