@@ -1,6 +1,6 @@
 <script>
   import { onMount, afterUpdate } from 'svelte';
-  import { DISPATCH, removeDispatch, RESPOND_KEYBIND } from '@store/stores';
+  import { DISPATCH, removeDispatch, RESPOND_KEYBIND, IS_RIGHT_MARGIN } from '@store/stores';
   import { fly } from 'svelte/transition';
   import { timeAgo } from '@utils/timeAgo';
 
@@ -53,10 +53,13 @@
 </script>
 
 
-<div class="w-screen h-screen flex flex-col-reverse items-end justify-center">
-  <div class="w-[25%] h-[90%] mr-[4vh]">
+<div class="w-screen h-screen flex justify-end { $IS_RIGHT_MARGIN ? 'flex-row' : 'flex-row-reverse' } items-end">
+  <div class="w-[25%] h-[97%]"
+       class:ml-[2vh]={!$IS_RIGHT_MARGIN}
+       class:mr-[2vh]={$IS_RIGHT_MARGIN}
+      >
     {#each notifications.slice().reverse() as dispatch, index (dispatch.data.id)}
-      <div class="w-full h-fit my-[0.5vh] font-medium {dispatch.data.priority == 1 ? " bg-priority_secondary" : " bg-secondary"}" transition:fly={{ x: 400}}>
+      <div class="w-full h-fit my-[0.5vh] font-medium {dispatch.data.priority == 1 ? " bg-priority_secondary" : " bg-secondary"}" transition:fly="{{ x: $IS_RIGHT_MARGIN ? 400 : -400 }}">
         <div class="flex items-center gap-[1vh] p-[1vh] text-[1.5vh] {dispatch.data.priority == 1 ? " bg-priority_primary" : " bg-primary"}">
           <p class="px-[2vh] py-[0.2vh] rounded-full bg-accent_green">
             #{dispatch.data.id}
