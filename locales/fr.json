@@ -71,6 +71,7 @@
   "vehicletheft": "Vol de véhicule",
   "officerdown": "Officier blessé",
   "officerdistress": "Officier en détresse",
+  "officerbackup": "Officier a besoin de renforts",
   "emsdown": "EMS blessé",
   "artgalleryrobbery": "Braquage de galerie d'art",
   "humanerobbery": "Braquage des laboratoires Humane",
@@ -89,4 +90,4 @@
   "minute": "minute(s) auparavant",
   "hour": "heure(s) auparavant",
   "day": "jour(s) auparavant"
-}  
+}
