@@ -1,6 +1,5 @@
 <script>
-  import { onMount } from 'svelte';
-  import { PLAYER, Locale, DISPATCH_MENU, DISPATCH_MENUS, DISPATCH_MUTED, DISPATCH_DISABLED, MAX_CALL_LIST, IS_RIGHT_MARGIN } from '@store/stores';
+  import { PLAYER, Locale, DISPATCH_MENU, DISPATCH_MUTED, DISPATCH_DISABLED, IS_RIGHT_MARGIN, processedDispatchMenu } from '@store/stores';
   import { fly, slide } from 'svelte/transition';
 	import { timeAgo } from '@utils/timeAgo'
 	import { SendNUI } from '@utils/SendNUI'
@@ -116,7 +115,7 @@
   <!-- MENU -->
   <div class="w-[25%] h-[97%] overflow-auto pr-[0.5vh]" class:ml-[2vh]={!$IS_RIGHT_MARGIN} class:mr-[2vh]={$IS_RIGHT_MARGIN}>
     {#if $DISPATCH_MENU}
-    {#each $DISPATCH_MENU.slice(-$MAX_CALL_LIST).filter(dispatch => dispatch.message && dispatch.jobs.includes($PLAYER.job.type)).slice().reverse() as dispatch}
+    {#each $processedDispatchMenu as dispatch}
     <button class="w-full h-fit mb-[1vh] font-medium {dispatch.priority == 1 ? 'bg-priority_secondary' : 'bg-secondary'}" on:click={() => toggleDispatch(dispatch.id)}>
         <div class="flex items-center gap-[1vh] p-[1vh] text-[1.5vh] {dispatch.priority == 1 ? " bg-priority_primary" : " bg-primary"}">
             <p class="px-[2vh] py-[0.2vh] rounded-full bg-accent_green">
