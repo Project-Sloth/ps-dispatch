@@ -1,4 +1,4 @@
-import { writable } from "svelte/store";
+import { writable, derived } from "svelte/store";
 
 export const VISIBILITY = writable<boolean>(false);
 export const BROWSER_MODE = writable<boolean>(false);
@@ -45,7 +45,7 @@ interface DISPATCHMENU_DATA {
   heading: string,
   jobs: any[],
 }
-  
+
 export const DISPATCH_MENU = writable<DISPATCHMENU_DATA[]>(null);
 export const DISPATCH_MENUS = writable<DISPATCHMENU_DATA>(null);
 
@@ -57,5 +57,22 @@ interface LOCALE_DATA {
   units: string,
   additionals: string,
 }
-  
+
 export const Locale = writable<LOCALE_DATA>(null);
+
+export const processedDispatchMenu = derived(
+  [DISPATCH_MENU, MAX_CALL_LIST, PLAYER],
+  ([$DISPATCH_MENU, $MAX_CALL_LIST, $PLAYER]) => {
+    if (!$DISPATCH_MENU || $MAX_CALL_LIST === null || !$PLAYER) {
+      // Handling null or undefined values
+      return [];
+    }
+
+    return $DISPATCH_MENU
+      .slice(-$MAX_CALL_LIST)
+      .filter(dispatch =>
+        dispatch.message && dispatch.jobs.includes($PLAYER.job.type)
+      )
+      .reverse();
+  }
+);
