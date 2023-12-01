@@ -63,7 +63,8 @@ end
 
 local function setWaypoint()
     if not isJobValid(PlayerData.job.type) then return end
-
+    if not IsOnDuty() then return end
+    
     local data = lib.callback.await('ps-dispatch:callback:getLatestDispatch', false)
 
     if not data then return end
