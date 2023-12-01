@@ -35,6 +35,18 @@ local function setupDispatch()
     })
 end
 
+function IsOnDuty()
+    PlayerData = QBCore.Functions.GetPlayerData()
+    if Config.OnDutyOnly then
+        if PlayerData.job.onduty then
+            return true
+        else
+            return false
+        end
+    end
+    return true
+end
+
 ---@param data string | table -- The player job or an array of jobs to check against
 ---@return boolean -- Returns true if the job is valid
 local function isJobValid(data)
@@ -51,7 +63,8 @@ end
 
 local function openMenu()
     if not isJobValid(PlayerData.job.type) then return end
-
+    if not IsOnDuty() then return end
+    
     local data = lib.callback.await('ps-dispatch:callback:getCalls', false)
     if #data == 0 then
         lib.notify({ description = locale('no_calls'), position = 'top', type = 'error' })
@@ -63,7 +76,8 @@ end
 
 local function setWaypoint()
     if not isJobValid(PlayerData.job.type) then return end
-
+    if not IsOnDuty() then return end
+    
     local data = lib.callback.await('ps-dispatch:callback:getLatestDispatch', false)
 
     if not data then return end
@@ -267,7 +281,8 @@ end)
 
 RegisterNetEvent('ps-dispatch:client:openMenu', function(data)
     if not isJobValid(PlayerData.job.type) then return end
-
+    if not IsOnDuty() then return end
+        
     if #data == 0 then
         lib.notify({ description = locale('no_calls'), position = 'top', type = 'error' })
     else
