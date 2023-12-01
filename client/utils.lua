@@ -20,18 +20,6 @@ function GetIsHandcuffed()
     return QBCore.Functions.GetPlayerData()?.metadata?.ishandcuffed
 end
 
-function IsOnDuty()
-    PlayerData = QBCore.Functions.GetPlayerData()
-    if Config.OnDutyOnly then
-        if PlayerData.job.onduty then
-            return true
-        else
-            return false
-        end
-    end
-    return true
-end
-
 ---@return boolean
 local function HasPhone()
     for _, item in ipairs(Config.PhoneItems) do
