@@ -26,10 +26,23 @@ local function isPedAWitness(witnesses, ped)
     return false
 end
 
+---@param ped number | Ped ID to check
+---@return boolean | Returns true if the ped is in the witnesses table
+local function BlacklistedWeapon(ped)
+	for i = 1, #Config.WeaponWhitelist do
+		local weaponHash = GetHashKey(Config.WeaponWhitelist[i])
+		if GetSelectedPedWeapon(ped) == weaponHash then
+			return true -- Is a whitelisted weapon
+		end
+	end
+	return false -- Is not a whitelisted weapon
+end
+
 AddEventHandler('CEventGunShot', function(witnesses, ped)
     if IsPedCurrentWeaponSilenced(cache.ped) then return end
     if inNoDispatchZone then return end
-
+    if BlacklistedWeapon(cache.ped) then return end
+        
     WaitTimer('Shooting', function()
         if cache.ped ~= ped then return end
 
