@@ -27,7 +27,7 @@ local function isPedAWitness(witnesses, ped)
 end
 
 ---@param ped number | Ped ID to check
----@return boolean | Returns true if the ped is in the witnesses table
+---@return boolean | Returns true if the ped is holding a whitelisted gun
 local function BlacklistedWeapon(ped)
 	for i = 1, #Config.WeaponWhitelist do
 		local weaponHash = GetHashKey(Config.WeaponWhitelist[i])
