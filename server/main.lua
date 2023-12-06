@@ -1,4 +1,5 @@
 local calls = {}
+local callCount = 0
 
 -- Functions
 exports('GetDispatchCalls', function()
@@ -7,10 +8,16 @@ end)
 
 -- Events
 RegisterServerEvent('ps-dispatch:server:notify', function(data)
-    data.id = #calls + 1
+    callCount = callCount + 1
+    data.id = callCount
     data.time = os.time() * 1000
     data.units = {}
     data.responses = {}
+
+    if #calls >= Config.MaxCallList then
+        table.remove(calls, 1)
+    end
+
     calls[#calls + 1] = data
 
     TriggerClientEvent('ps-dispatch:client:notify', -1, data)

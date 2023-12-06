@@ -52,12 +52,12 @@ end
 local function openMenu()
     if not isJobValid(PlayerData.job.type) then return end
 
-    local data = lib.callback.await('ps-dispatch:callback:getCalls', false)
-    if #data == 0 then
+    local calls = lib.callback.await('ps-dispatch:callback:getCalls', false)
+    if #calls == 0 then
         lib.notify({ description = locale('no_calls'), position = 'top', type = 'error' })
     else
+        SendNUIMessage({ action = 'setDispatchs', data = calls, })
         toggleUI(true)
-        SendNUIMessage({ action = 'setDispatchs', data = data, })
     end
 end
 
