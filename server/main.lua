@@ -24,21 +24,30 @@ RegisterServerEvent('ps-dispatch:server:notify', function(data)
 end)
 
 RegisterServerEvent('ps-dispatch:server:attach', function(id, player)
-    for i=1, #calls[id]['units'] do
-        if calls[id]['units'][i]['citizenid'] == player.citizenid then return end
+    for i=1, #calls do
+        if calls[i]['id'] == id then
+            for j = 1, #calls[i]['units'] do
+                if calls[i]['units'][j]['citizenid'] == player.citizenid then
+                    return
+                end
+            end
+            calls[i]['units'][#calls[i]['units'] + 1] = player
+            return
+        end
     end
-
-    calls[id]['units'][#calls[id]['units'] + 1] = player
 end)
 
 RegisterServerEvent('ps-dispatch:server:detach', function(id, player)
-    if not calls[id] then return end
-    if not calls[id]['units'] then return end
-    if (#calls[id]['units'] or 0) > 0 then
-        for i = #calls[id]['units'], 1, -1 do
-            if calls[id]['units'][i]['citizenid'] == player.citizenid then
-                table.remove(calls[id]['units'], i)
+    for i = #calls, 1, -1 do
+        if calls[i]['id'] == id then
+            if calls[i]['units'] and (#calls[i]['units'] or 0) > 0 then
+                for j = #calls[i]['units'], 1, -1 do
+                    if calls[i]['units'][j]['citizenid'] == player.citizenid then
+                        table.remove(calls[i]['units'], j)
+                    end
+                end
             end
+            return
         end
     end
 end)
