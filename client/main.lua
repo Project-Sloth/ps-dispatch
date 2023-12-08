@@ -17,8 +17,23 @@ local function toggleUI(bool)
 end
 
 local function setupDispatch()
-    PlayerData = QBCore.Functions.GetPlayerData()
+    local playerInfo = QBCore.Functions.GetPlayerData()
     local locales = lib.getLocales()
+    PlayerData = {
+        charinfo = {
+            firstname = playerInfo.charinfo.firstname,
+            lastname = playerInfo.charinfo.lastname
+        },
+        metadata = {
+            callsign = playerInfo.metadata.callsign
+        },
+        citizenid = playerInfo.citizenid,
+        job = {
+            type = playerInfo.job.type,
+            name = playerInfo.job.name,
+            label = playerInfo.job.label
+        },
+    }
 
     Wait(1000)
 
