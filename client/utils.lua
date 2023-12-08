@@ -21,9 +21,8 @@ function GetIsHandcuffed()
 end
 
 function IsOnDuty()
-    PlayerData = QBCore.Functions.GetPlayerData()
     if Config.OnDutyOnly then
-        if PlayerData.job.onduty then
+        if QBCore.Functions.GetPlayerData().job.onduty then
             return true
         else
             return false
