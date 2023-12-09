@@ -77,6 +77,17 @@ Config.Blips = {
         offset = false,
         flash = false
     },
+    ['hitandrun'] = {
+        radius = 0,
+        sprite = 326,
+        color = 84,
+        scale = 1.5,
+        length = 2,
+        sound = 'Lose_1st',
+        sound2 = 'GTAO_FM_Events_Soundset',
+        offset = false,
+        flash = false
+    },
     ['fight'] = {
         radius = 0,
         sprite = 685,

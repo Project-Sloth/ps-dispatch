@@ -114,6 +114,31 @@ local function SpeedingVehicle()
 end
 exports('SpeedingVehicle', SpeedingVehicle)
 
+local function HitandRun()
+    local coords = GetEntityCoords(cache.ped)
+    local vehicle = GetVehicleData(cache.vehicle)
+
+    local dispatchData = {
+        message = locale('hitandrun'),
+        codeName = 'hitandrun',
+        code = '10-11',
+        icon = 'fas fa-car',
+        priority = 2,
+        coords = coords,
+        street = GetStreetAndZone(coords),
+        heading = GetPlayerHeading(),
+        vehicle = vehicle.name,
+        plate = vehicle.plate,
+        color = vehicle.color,
+        class = vehicle.class,
+        doors = vehicle.doors,
+        jobs = { 'leo' }
+    }
+
+    TriggerServerEvent('ps-dispatch:server:notify', dispatchData)
+end
+exports('HitandRun', HitandRun)
+
 local function Fight()
     local coords = GetEntityCoords(cache.ped)
 

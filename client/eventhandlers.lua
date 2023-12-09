@@ -98,6 +98,12 @@ AddEventHandler('gameEventTriggered', function(name, args)
     end)
 end)
 
+
+local function IsHelicopterOrPlane(vehicle)
+    local vehicleClass = GetVehicleClass(vehicle)
+    return vehicleClass == 15 or vehicleClass == 16
+end
+
 local SpeedingEvents = {
     'CEventShockingCarChase',
     'CEventShockingDrivingOnPavement',
@@ -105,7 +111,8 @@ local SpeedingEvents = {
     'CEventShockingMadDriverBicycle',
     'CEventShockingMadDriverExtreme',
     'CEventShockingEngineRevved',
-    'CEventShockingInDangerousVehicle'
+    'CEventShockingInDangerousVehicle',
+    'CEventShockingPedRunOver'
 }
 
 local SpeedTrigger = 0
@@ -114,15 +121,28 @@ for i = 1, #SpeedingEvents do
     AddEventHandler(event, function(_, ped)
         WaitTimer('Speeding', function()
             local currentTime = GetGameTimer()
+  
+            if event == 'CEventShockingPedRunOver' then
+                if IsHelicopterOrPlane(cache.vehicle) then return end
+                if cache.ped ~= GetPedInVehicleSeat(cache.vehicle, -1) then return end
+                if GetEntitySpeed(cache.vehicle) * 3.6 < 65 then return end
+                exports['ps-dispatch']:HitandRun()
+                SpeedTrigger = GetGameTimer()
+                return
+            end
+
+            if GetEntitySpeed(cache.vehicle) * 3.6 < (80 + math.random(0, 20)) then return end
+            if cache.ped ~= GetPedInVehicleSeat(cache.vehicle, -1) then return end
+            if IsHelicopterOrPlane(cache.vehicle) then return end
             if currentTime - SpeedTrigger < 10000 then
                 return
             end
             if cache.ped ~= ped then return end
-
-            if GetEntitySpeed(cache.vehicle) * 3.6 < (80 + math.random(0, 20)) then return end
-
-            if cache.ped ~= GetPedInVehicleSeat(cache.vehicle, -1) then return end
-
+            if PlayerData.job.type == 'leo' then 
+                if not Config.Debug then
+                    return
+                end
+            end
             exports['ps-dispatch']:SpeedingVehicle()
             SpeedTrigger = GetGameTimer()
         end)
