@@ -119,6 +119,12 @@ for i = 1, #SpeedingEvents do
             end
             if cache.ped ~= ped then return end
 
+            if PlayerData.job.type == 'leo' then
+                if not Config.Debug then
+                    return
+                end
+            end
+            
             if GetEntitySpeed(cache.vehicle) * 3.6 < (80 + math.random(0, 20)) then return end
 
             if cache.ped ~= GetPedInVehicleSeat(cache.vehicle, -1) then return end
