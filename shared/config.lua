@@ -19,7 +19,8 @@ Config.DefaultAlerts = {
     Shooting = true,
     Autotheft = true,
     Melee = true,
-    PlayerDowned = true
+    PlayerDowned = true,
+    Explosion = true
 }
 
 Config.MinOffset = 1
