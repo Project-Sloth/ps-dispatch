@@ -247,7 +247,7 @@ local OpenDispatchMenu = lib.addKeybind({
 -- Events
 RegisterNetEvent('ps-dispatch:client:notify', function(data, source)
     local timer = data.alertTime * 1000
-    if timer == 10 then timer = Config.AlertTime * 1000 end
+    if timer == nil then timer = Config.AlertTime * 1000 end
     
     if alertsDisabled then return end
     if not isJobValid(data.jobs) then return end
