@@ -4,7 +4,7 @@ Config.Debug = false -- Enables debug and send alerts when leo break the law.
 
 Config.RespondKeybind = 'E'
 Config.OpenDispatchMenu = 'O'
-Config.AlertTime = 5     -- How many seconds you want the alert to stay on screen
+Config.AlertTime = 5     -- How many seconds you want the alert to stay on screen ( this only works if the alertTime = nil, editable in the alerts.lua)
 
 Config.MaxCallList = 25 -- maximum dispatch calls in dispatch list
 Config.OnDutyOnly = true -- Set true if only on duty players can see the alert
