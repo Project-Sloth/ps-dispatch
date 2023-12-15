@@ -83,12 +83,15 @@ local function setWaypoint()
 
     if not data then return end
 
+    local timer = data.alertTime * 1000
+    if timer == nil then timer = Config.AlertTime * 1000 end
+    
     if not waypointCooldown and lib.table.contains(data.jobs, PlayerData.job.type) then
         SetNewWaypoint(data.coords.x, data.coords.y)
         TriggerServerEvent('ps-dispatch:server:attach', data.id, PlayerData)
         lib.notify({ description = locale('waypoint_set'), position = 'top', type = 'success' })
         waypointCooldown = true
-        SetTimeout(Config.AlertTime * 1000, function()
+        SetTimeout(timer, function()
             waypointCooldown = false
         end)
     end
@@ -243,7 +246,9 @@ local OpenDispatchMenu = lib.addKeybind({
 
 -- Events
 RegisterNetEvent('ps-dispatch:client:notify', function(data, source)
-    local timer = Config.AlertTime * 1000
+    local timer = data.alertTime * 1000
+    if timer == 10 then timer = Config.AlertTime * 1000 end
+    
     if alertsDisabled then return end
     if not isJobValid(data.jobs) then return end
     if not IsOnDuty() then return end
