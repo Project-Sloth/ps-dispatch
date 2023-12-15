@@ -89,7 +89,10 @@ Do not create issues on GitHub if you need help. Issues are for bug reporting an
   - On shared/config.lua make set Config.Debug = true to test calls as police officer.(ONLY to be used as testing, make sure to disable on live production)
 
 * How to change colors of the calls? 
-  - Priority 1 is red and priority 2 is normal on the config. 
+  - Priority 1 is red and priority 2 is normal on the config.
+
+* How to make the calls last longer on the screen? 
+  - Go into alerts.lua and change the ,,alertTime = nil'' to ,,alertTime = 10'' for 10 seconds. 
 
 # Credits
 * [OK1ez](https://github.com/OK1ez)
