@@ -545,7 +545,7 @@ local function CustomAlert(data)
 end
 exports('CustomAlert', CustomAlert)
 
-local function PhoneCall(message, anonymous, job)
+local function PhoneCall(message, anonymous, job, type)
     local coords = GetEntityCoords(cache.ped)
 
     if IsCallAllowed(message) then
@@ -553,8 +553,8 @@ local function PhoneCall(message, anonymous, job)
 
         local dispatchData = {
             message = anonymous and locale('anon_call') or locale('call'),
-            codeName = '911call',
-            code = '911',
+            codeName = type == '311' and '311call' or '911call',
+            code = type,
             icon = 'fas fa-phone',
             priority = 2,
             coords = coords,
@@ -575,7 +575,7 @@ end
 RegisterNetEvent('ps-dispatch:client:sendEmergencyMsg', function(data, type, anonymous)
     local jobs = { ['911'] = { 'leo' }, ['311'] = { 'ems' } }
 
-    PhoneCall(data, anonymous, jobs[type])
+    PhoneCall(data, anonymous, jobs[type], type)
 end)
 
 

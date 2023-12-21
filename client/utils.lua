@@ -142,7 +142,7 @@ function IsCallAllowed(message)
 
     if msgLength == 0 then return false end
     if GetIsHandcuffed() then return false end
-    if Config.PhoneRequired and not HasPhone() then return false end
+    if Config.PhoneRequired and not HasPhone() then QBCore.Functions.Notify('You need a communications device for this.', 'error', 5000) return false end
 
     return true
 end
