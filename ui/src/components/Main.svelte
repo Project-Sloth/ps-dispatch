@@ -39,6 +39,7 @@
       { icon: 'fas fa-user', label: 'Name', value: dispatch.data.name },
       { icon: 'fas fa-phone', label: 'Number', value: dispatch.data.number },
       { icon: 'fas fa-comment', label: 'Information', value: dispatch.data.information },
+      { icon: 'fas fa-video', label: 'Camera ID', value: dispatch.data.camId },      
       { icon: 'fas fa-map-location-dot', label: 'Street', value: dispatch.data.street },
       { icon: 'fas fa-user', label: 'Gender', value: dispatch.data.gender },
       { icon: 'fas fa-gun', label: 'Automatic Gun Fire', value: dispatch.data.automaticGunFire },
