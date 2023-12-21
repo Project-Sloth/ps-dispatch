@@ -30,7 +30,7 @@ end
 ---@return boolean | Returns true if the ped is holding a whitelisted gun
 local function BlacklistedWeapon(ped)
 	for i = 1, #Config.WeaponWhitelist do
-		local weaponHash = GetHashKey(Config.WeaponWhitelist[i])
+		local weaponHash = joaat(Config.WeaponWhitelist[i])
 		if GetSelectedPedWeapon(ped) == weaponHash then
 			return true -- Is a whitelisted weapon
 		end
