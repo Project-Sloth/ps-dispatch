@@ -43,7 +43,7 @@ Config.Locations = {
     },
 }
 
--- Whitelist Guns that do not send Shooting Alerts
+-- Whitelist Guns that do not send shooting alerts
 Config.WeaponWhitelist = {
     'WEAPON_GRENADE',
     'WEAPON_BZGAS',
