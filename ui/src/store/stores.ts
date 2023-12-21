@@ -15,6 +15,8 @@ export const DISPATCH = writable<any[]>(null);
 
 export const IS_RIGHT_MARGIN = writable(true);
 
+export const shortCalls = writable(true);
+
 export function removeDispatch(callID) {
   DISPATCH.update(dispatches => {
     return dispatches.filter(dispatch => dispatch.data.id !== callID);

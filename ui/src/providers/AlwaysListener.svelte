@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ReceiveNUI } from '@utils/ReceiveNUI'
 	import { debugData } from '@utils/debugData'
-	import { VISIBILITY, BROWSER_MODE, DISPATCH_MENU, DISPATCH_MENUS, DISPATCH, PLAYER, Locale, RESPOND_KEYBIND, MAX_CALL_LIST} from '@store/stores'
+	import { VISIBILITY, BROWSER_MODE, DISPATCH_MENU, DISPATCH_MENUS, DISPATCH, PLAYER, Locale, RESPOND_KEYBIND, MAX_CALL_LIST, shortCalls } from '@store/stores';
 
 	debugData([
 		{
@@ -50,6 +50,7 @@
 		Locale.set(data.locales)
 		RESPOND_KEYBIND.set(data.keybind)
 		MAX_CALL_LIST.set(data.maxCallList)
+		shortCalls.set(data.shortCalls)
 	});
 
 </script>
