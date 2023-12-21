@@ -93,6 +93,13 @@ AddEventHandler('CEventShockingCarAlarm', function(_, ped)
     end)
 end)
 
+AddEventHandler('CEventExplosionHeard', function(witnesses, ped)
+    if witnesses and not isPedAWitness(witnesses, ped) then return end
+    WaitTimer('Explosion', function()
+        exports['ps-dispatch']:Explosion()
+    end)
+end)
+
 AddEventHandler('gameEventTriggered', function(name, args)
     if name ~= 'CEventNetworkEntityDamage' then return end
     local victim = args[1]

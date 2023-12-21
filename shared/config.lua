@@ -19,7 +19,8 @@ Config.DefaultAlerts = {
     Shooting = true,
     Autotheft = true,
     Melee = true,
-    PlayerDowned = true
+    PlayerDowned = true,
+    Explosion = true
 }
 
 Config.MinOffset = 1
@@ -420,14 +421,14 @@ Config.Blips = {
         flash = false
     },
     ['explosion'] = {
-        radius = 0,
+        radius = 75.0,
         sprite = 436,
         color = 1,
         scale = 1.5,
         length = 2,
         sound = 'Lose_1st',
         sound2 = 'GTAO_FM_Events_Soundset',
-        offset = false,
+        offset = true,
         flash = false
     }
 }
