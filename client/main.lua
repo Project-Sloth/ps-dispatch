@@ -46,6 +46,7 @@ local function setupDispatch()
             player = PlayerData,
             keybind = Config.RespondKeybind,
             maxCallList = Config.MaxCallList,
+            shortCalls = Config.ShortCalls,
         }
     })
 end

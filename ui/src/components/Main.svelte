@@ -1,6 +1,6 @@
 <script>
   import { onMount, afterUpdate } from 'svelte';
-  import { DISPATCH, removeDispatch, RESPOND_KEYBIND, IS_RIGHT_MARGIN } from '@store/stores';
+  import { DISPATCH, removeDispatch, RESPOND_KEYBIND, IS_RIGHT_MARGIN, shortCalls } from '@store/stores';
   import { fly } from 'svelte/transition';
   import { timeAgo } from '@utils/timeAgo';
 
@@ -34,7 +34,13 @@
   });
 
   function getDispatchData(dispatch) {
-    return [
+    if ($shortCalls) {
+      return [
+        { label: 'Call', value: dispatch.data.message },
+        { icon: 'fas fa-comment', label: 'Information', value: dispatch.data.information },
+      ];
+    } else {
+      return [
       { icon: 'fas fa-clock', label: 'Time', value: timeAgo(dispatch.data.time) },
       { icon: 'fas fa-user', label: 'Name', value: dispatch.data.name },
       { icon: 'fas fa-phone', label: 'Number', value: dispatch.data.number },
@@ -49,7 +55,8 @@
       { icon: 'fas fa-car', label: 'Class', value: dispatch.data.class },
       { icon: 'fas fa-door-open', label: 'Doors', value: dispatch.data.doors },
       { icon: 'fas fa-compass', label: 'Heading', value: dispatch.data.heading },
-    ];
+      ];
+    }
   }
 </script>
 
