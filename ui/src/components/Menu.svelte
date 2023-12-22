@@ -141,7 +141,8 @@
                 {#if field.value}
                   <p>
                     <i class={field.icon + ' mr-[0.5vh]'}></i>
-                    {field.label}: {field.value}
+                    <span class="font-bold">{field.label}:
+                    <span class="font-medium">{field.value}</span>
                   </p>
                 {/if}
               {/each}

@@ -36,7 +36,7 @@
   function getDispatchData(dispatch) {
     if ($shortCalls) {
       return [
-        { label: 'Call', value: dispatch.data.message },
+        { icon: 'fas fa-phone-volume', label: 'Call', value: dispatch.data.message },
         { icon: 'fas fa-comment', label: 'Information', value: dispatch.data.information },
       ];
     } else {
@@ -87,7 +87,8 @@
                   {#if field.value}
                     <p>
                       <i class={field.icon + ' mr-[0.5vh]'}></i>
-                      {field.label}: {field.value}
+                      <span class="font-bold">{field.label}:</span>
+                      <span class="font-medium">{field.value}</span>
                     </p>
                   {/if}
                 {/each}
