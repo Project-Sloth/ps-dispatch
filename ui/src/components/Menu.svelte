@@ -39,7 +39,7 @@
       if (right) {
         IS_RIGHT_MARGIN.set(false)
       } else {
-        IS_RIGHT_MARGIN.set(false)
+        IS_RIGHT_MARGIN.set(true)
       }})
   }
 
