@@ -5,7 +5,6 @@
   import { timeAgo } from '@utils/timeAgo';
 
   let notifications = [];
-  $IS_RIGHT_MARGIN = localStorage.getItem('IsRightMargin') === 'true';
   
   DISPATCH.subscribe(value => {
     notifications = value || [];
