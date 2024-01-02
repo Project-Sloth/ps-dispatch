@@ -6,7 +6,6 @@
   
   let activeCallId = null;
   let additionalUnitsVisible = {};
-  $IS_RIGHT_MARGIN = localStorage.getItem('IsRightMargin') === 'true';
   
   function toggleDispatch(id) {
     if (activeCallId === id) {
@@ -36,14 +35,12 @@
   }
 
   function toggleMargin() {
-    if ($IS_RIGHT_MARGIN) {
-      localStorage.setItem('IsRightMargin', 'false');
-    } else {
-      localStorage.setItem('IsRightMargin', 'true');
-    }
-  
-    $IS_RIGHT_MARGIN = localStorage.getItem('IsRightMargin') === 'true';
-
+    IS_RIGHT_MARGIN.subscribe((right) => {
+      if (right) {
+        IS_RIGHT_MARGIN.set(false)
+      } else {
+        IS_RIGHT_MARGIN.set(false)
+      }
   }
 
   function toggleMute() {
