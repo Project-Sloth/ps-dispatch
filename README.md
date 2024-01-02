@@ -96,7 +96,13 @@ Dispatch notifications are sent containing only the alert name, omitting additio
   - On shared/config.lua make set Config.Debug = true to test calls as police officer.(ONLY to be used as testing, make sure to disable on live production)
 
 * How to change colors of the calls? 
-  - Priority 1 is red and priority 2 is normal on the config. 
+  - Priority 1 is red and priority 2 is normal on the config.
+
+* To increase the time that calls are shown on the screen, do the following:
+  - Find the "alerts.lua" file in the client folder.
+  - Open this file with a text editor or a development tool like Visual Studio Code.
+  - Look for the code "alertTime = nil".
+  - Replace "nil" with the number of seconds you want the calls to display. For example, setting "alertTime = 25" means calls will be shown for 25 seconds.
 
 # Credits
 * [OK1ez](https://github.com/OK1ez)
