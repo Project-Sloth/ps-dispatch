@@ -91,11 +91,11 @@ Do not create issues on GitHub if you need help. Issues are for bug reporting an
 * How to change colors of the calls? 
   - Priority 1 is red and priority 2 is normal on the config.
 
-* To extend the duration of calls displayed on the screen, follow these steps:
-  - Locate the file named "alerts.lua." (Client Folder)
-  - Open the file using a text editor or an integrated development environment (VSC).
-  - Search for the line of code that reads "alertTime = nil"
-  - Change the value assigned to "alertTime" from "nil" to the desired duration in seconds. ( alertTime = 25 -> 25 seconds )
+* To increase the time that calls are shown on the screen, do the following:
+  - Find the "alerts.lua" file in the client folder.
+  - Open this file with a text editor or a development tool like Visual Studio Code.
+  - Look for the code "alertTime = nil".
+  - Replace "nil" with the number of seconds you want the calls to display. For example, setting "alertTime = 25" means calls will be shown for 25 seconds.
 
 # Credits
 * [OK1ez](https://github.com/OK1ez)
