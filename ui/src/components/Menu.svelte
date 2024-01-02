@@ -40,7 +40,7 @@
         IS_RIGHT_MARGIN.set(false)
       } else {
         IS_RIGHT_MARGIN.set(false)
-      }
+      }})
   }
 
   function toggleMute() {
