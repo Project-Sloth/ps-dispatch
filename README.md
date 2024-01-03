@@ -31,7 +31,7 @@ Dispatch notifications are sent containing only the alert name, omitting additio
 <img src="https://github.com/Project-Sloth/ps-dispatch/assets/82112471/7f4a7c76-f92d-4067-9fcb-7c78ee1b067c" width="600">
 <img src="https://github.com/Project-Sloth/ps-dispatch/assets/82112471/01569df8-d5f6-417b-bcd4-422551eaa840" width="600">
 
-### Dispatch Menu
+## Dispatch Menu
 <img src="https://github.com/Project-Sloth/ps-dispatch/assets/82112471/f2b111b2-60c3-428e-b12a-1bfed617f09e" width="800">
 
 # Change Language.
