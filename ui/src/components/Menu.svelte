@@ -50,6 +50,8 @@
 
   function toggleMargin() {
     menuRight = !menuRight;
+
+    IS_RIGHT_MARGIN.set(menuRight);
   }
 
   function toggleMute() {
