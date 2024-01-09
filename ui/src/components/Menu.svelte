@@ -3,9 +3,23 @@
   import { fly, slide } from 'svelte/transition';
 	import { timeAgo } from '@utils/timeAgo'
 	import { SendNUI } from '@utils/SendNUI'
+	import { onDestroy, onMount } from 'svelte'
   
   let activeCallId = null;
   let additionalUnitsVisible = {};
+  let unsubscribe;
+
+  $: menuRight = false;
+
+  onMount(() => {
+    unsubscribe = IS_RIGHT_MARGIN.subscribe((value) => {
+      menuRight = value;
+    })
+  })
+
+  onDestroy(() => {
+    unsubscribe();
+  })
   
   function toggleDispatch(id) {
     if (activeCallId === id) {
@@ -35,12 +49,9 @@
   }
 
   function toggleMargin() {
-    IS_RIGHT_MARGIN.subscribe((right) => {
-      if (right) {
-        IS_RIGHT_MARGIN.set(false)
-      } else {
-        IS_RIGHT_MARGIN.set(true)
-      }})
+    menuRight = !menuRight;
+
+    IS_RIGHT_MARGIN.set(menuRight);
   }
 
   function toggleMute() {
@@ -74,9 +85,9 @@
   }
 </script>
 
-<div class="w-screen h-screen flex items-center justify-end { $IS_RIGHT_MARGIN ? 'flex-row' : 'flex-row-reverse' } " transition:fly="{{ x: $IS_RIGHT_MARGIN ? 400 : -400 }}">
+<div class="w-screen h-screen flex items-center justify-end { menuRight ? 'flex-row' : 'flex-row-reverse' } " transition:fly="{{ x: menuRight ? 400 : -400 }}">
   <!-- CONTROLS -->
-  <div class="w-[3.2vh] h-[85%] flex flex-col gap-[1vh]" class:ml-[1vh]={!$IS_RIGHT_MARGIN} class:mr-[1vh]={$IS_RIGHT_MARGIN}>
+  <div class="w-[3.2vh] h-[85%] flex flex-col gap-[1vh]" class:ml-[1vh]={!menuRight} class:mr-[1vh]={menuRight}>
 
     <!-- REFRESH ALERTS -->
     <button class="w-full h-[3vh] flex items-center justify-center bg-primary hover:bg-secondary"
@@ -112,12 +123,12 @@
     <button class="w-full h-[3vh] flex items-center justify-center bg-primary hover:bg-secondary"
       on:click={toggleMargin}
     >
-    <i class="fas fa-{$IS_RIGHT_MARGIN ? "hand-point-left" : "hand-point-right"} text-[1.5vh]"></i>
+    <i class="fas fa-{menuRight ? "hand-point-left" : "hand-point-right"} text-[1.5vh]"></i>
 
     </button>
   </div>
   <!-- MENU -->
-  <div class="w-[25%] h-[97%] overflow-auto pr-[0.5vh]" class:ml-[2vh]={!$IS_RIGHT_MARGIN} class:mr-[2vh]={$IS_RIGHT_MARGIN}>
+  <div class="w-[25%] h-[97%] overflow-auto pr-[0.5vh]" class:ml-[2vh]={!menuRight} class:mr-[2vh]={menuRight}>
     {#if $DISPATCH_MENU}
     {#each $processedDispatchMenu as dispatch}
     <button class="w-full h-fit mb-[1vh] font-medium {dispatch.priority == 1 ? 'bg-priority_secondary' : 'bg-secondary'}" on:click={() => toggleDispatch(dispatch.id)}>
