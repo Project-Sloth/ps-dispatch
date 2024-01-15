@@ -87,6 +87,51 @@ Dispatch notifications are sent containing only the alert name, omitting additio
 - exports['ps-dispatch']:VehicleTheft(vehicle)
 - exports['ps-dispatch']:YachtHeist()
 ```
+# Steps to Create New Alert
+Add the following into your `alerts.lua` and change to your liking:
+```
+local function TestAlert()
+    local coords = GetEntityCoords(cache.ped)
+    local vehicle = GetVehicleData(cache.vehicle)
+
+    local dispatchData = {
+        message = locale('testalert'), -- add this into your locale
+        codeName = 'testalert', -- this should be the same as in config.lua
+        code = '10-35',
+        icon = 'fas fa-car-burst',
+        priority = 2,
+        coords = coords,
+        street = GetStreetAndZone(coords),
+        heading = GetPlayerHeading(),
+        vehicle = vehicle.name,
+        plate = vehicle.plate,
+        color = vehicle.color,
+        class = vehicle.class,
+        doors = vehicle.doors,
+        jobs = { 'leo' }
+    }
+
+    TriggerServerEvent('ps-dispatch:server:notify', dispatchData)
+end
+exports('TestAlert', TestAlert)
+```
+Add codeName in `config.lua` for the particular robbery to display the blip
+["testalert"] is the codename you passed with the TriggerServerEvent in step 1
+```
+    ['testalert'] = { -- Need to match the codeName in alerts.lua
+        radius = 0,
+        sprite = 119,
+        color = 1,
+        scale = 1.5,
+        length = 2,
+        sound = 'Lose_1st',
+        sound2 = 'GTAO_FM_Events_Soundset',
+        offset = false,
+        flash = false
+    },
+```
+Information about each parameter is in the `alerts.lua` file.
+
 # FAQ
 * There are no calls showing on dispatch or mdt list.
   - Make sure you have a job type specified in your qbcore/shared/jobs.lua like:
