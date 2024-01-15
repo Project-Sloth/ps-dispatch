@@ -745,7 +745,7 @@ exports('UnionRobbery', UnionRobbery)
 
 local function CarBoosting(vehicle)
     local coords = GetEntityCoords(cache.ped)
-    local vehicle = GetVehicleData(cache.vehicle)
+    local vehicle = GetVehicleData(vehicle or cache.vehicle)
 
     local dispatchData = {
         message = locale('carboosting'),
