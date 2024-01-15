@@ -1,3 +1,47 @@
+local function CustomAlert(data)
+    local coords = data.coords or vec3(0.0, 0.0, 0.0)
+    if data.job then job = data.job end
+    local gender = GetPlayerGender()
+    if not data.gender then gender = nil end
+
+
+    local dispatchData = {
+        message = data.message or "", -- title of the alert
+        codeName = data.dispatchCode or "NONE", -- unique name for each alert
+        code = data.code or '10-80', -- code that is displayed before the title
+        icon = data.icon or 'fas fa-question', -- icon that is displaed after the title
+        priority = data.priority or 2, -- changes color of the alert ( 1 = red, 2 = default )
+        coords = coords, -- coords of the player
+        gender = gender, -- gender of the player
+        street = GetStreetAndZone(coords), -- street of the player
+        camId = data.camId or nil, -- camId ( for heists )
+        color = data.firstColor or nil, -- color of the vehicle
+        callsign = data.callsign or nil, -- callsign of a officer/ems
+        name = data.name or nil, -- name of either officer/ems or a player
+        vehicle = data.model or nil, -- vehicle name
+        plate = data.plate or nil, -- vehicle plate
+        alertTime = data.alertTime or nil, -- time how long it stays on the screen
+        doorCount = data.doorCount or nil, -- count of the vehicle doors
+        automaticGunfire = data.automaticGunfire or false, -- is the gun automatic or not
+        alert = {
+            radius = data.radius or 0, -- radius around the blip
+            recipientList = job, -- job
+            sprite = data.sprite or 1, -- sprite of the blip
+            color = data.color or 1, -- color of the blip
+            scale = data.scale or 0.5, -- scale of the blip
+            length = data.length or 2, -- lenth how long it stays on the map
+            sound = data.sound or "Lose_1st", -- alert sound
+            sound2 = data.sound2 or "GTAO_FM_Events_Soundset", -- alert sound
+            offset = data.offset or "false", -- blip / radius offset
+            flash = data.flash or "false" -- blip flash
+        },
+        jobs = { 'leo' },
+    }
+
+    TriggerServerEvent('ps-dispatch:server:notify', dispatchData)
+end
+exports('CustomAlert', CustomAlert)
+
 local function VehicleTheft()
     local coords = GetEntityCoords(cache.ped)
     local vehicle = GetVehicleData(cache.vehicle)
@@ -523,52 +567,6 @@ local function Explosion()
     TriggerServerEvent('ps-dispatch:server:notify', dispatchData)
 end
 exports('Explosion', Explosion)
-
-local function CustomAlert(data)
-    local coords = data.coords or vec3(0.0, 0.0, 0.0)
-    if data.job then job = data.job end
-    local gender = GetPlayerGender()
-    if not data.gender then gender = nil end
-
-
-    local dispatchData = {
-        message = data.message or "",
-        codeName = data.dispatchCode or "NONE",
-        code = data.code or '10-80',
-        icon = 'fas fa-fire',
-        priority = data.priority or 2,
-        coords = coords,
-        gender = gender,
-        street = GetStreetAndZone(coords),
-        camId = data.camId or nil,
-        color = data.firstColor or nil,
-        callsign = data.callsign or nil,
-        name = data.name or nil,
-        vehicle = data.model or nil,
-        plate = data.plate or nil,
-        alertTime = data.alertTime or nil,
-        doorCount = data.doorCount or nil,
-        automaticGunfire = data.automaticGunfire or false,
-        alert = {
-            displayCode = data.dispatchCode or "NONE",
-            description = data.description or "",
-            radius = data.radius or 0,
-            recipientList = job,
-            sprite = data.sprite or 1,
-            color = data.color or 1,
-            scale = data.scale or 0.5,
-            length = data.length or 2,
-            sound = data.sound or "Lose_1st",
-            sound2 = data.sound2 or "GTAO_FM_Events_Soundset",
-            offset = data.offset or "false",
-            flash = data.flash or "false"
-        },
-        jobs = { 'leo' },
-    }
-
-    TriggerServerEvent('ps-dispatch:server:notify', dispatchData)
-end
-exports('CustomAlert', CustomAlert)
 
 local function PhoneCall(message, anonymous, job, type)
     local coords = GetEntityCoords(cache.ped)
