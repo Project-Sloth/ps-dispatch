@@ -46,6 +46,8 @@
   "east": "East Bound",
   "south": "South Bound",
   "west": "West Bound",
+  "male": "Male",
+  "female": "Female",
 
   "anon_call": "Incoming Anonymous Call",
   "anon": "Anonymous",

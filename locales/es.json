@@ -46,6 +46,8 @@
   "east": "Dirección este",
   "south": "Dirección sur",
   "west": "Dirección oeste",
+  "male": "Masculina",
+  "female": "Femenina",
 
   "anon_call": "Llamada Anónima Entrante",
   "anon": "Anónimo",
