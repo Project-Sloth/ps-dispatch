@@ -46,6 +46,8 @@
     "east": "East Bound",
     "south": "South Bound",
     "west": "West Bound",
+    "male": "Male",
+    "female": "Female",
 
     "anon_call": "Příchozí Anonnymní Zpráva",
     "anon": "Anononym",

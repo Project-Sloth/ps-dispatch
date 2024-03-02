@@ -44,6 +44,8 @@
     "east": "Sentido Leste",
     "south": "Sentido Sul",
     "west": "Sentido Oeste",
+    "male": "Macho",
+    "female": "Fêmea",
 
     "anon_call": "Chamada Anônima Recebida",
     "anon": "Anônima",

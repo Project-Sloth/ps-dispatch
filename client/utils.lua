@@ -13,7 +13,11 @@ function GetPlayerHeading()
 end
 
 function GetPlayerGender()
-    return PlayerData.charinfo.gender == 1 and 'Female' or 'Male'
+    local gender = locale('male')
+    if QBCore.Functions.GetPlayerData().charinfo.gender == 1 then
+        gender = locale('female')
+    end
+    return gender
 end
 
 function GetIsHandcuffed()

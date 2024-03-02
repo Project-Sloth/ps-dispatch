@@ -46,6 +46,8 @@
     "east": "Oostwaarts",
     "south": "Zuidwaarts",
     "west": "Westwaarts",
+    "male": "Mannelijk",
+    "female": "Vrouwelijk",
 
     "anon_call": "Inkomende Anonieme Oproep",
     "anon": "Anoniem",
