@@ -52,7 +52,7 @@ end
 ---@param vehicle string
 ---@return string
 local function getVehicleColor(vehicle)
-    local vehicleColor1, vehicleColor2 = GetVehicleColor(vehicle)
+    local vehicleColor1, vehicleColor2 = GetVehicleColours(vehicle)
     local color1 = Config.Colors[tostring(vehicleColor1)]
     local color2 = Config.Colors[tostring(vehicleColor2)]
 
