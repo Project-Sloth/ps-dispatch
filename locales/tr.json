@@ -1,6 +1,6 @@
 {
-    "dispatch_detach": "Detach from Dispatch Call",
-    "dispatch_attach": "Attach to Dispatch Call",
+    "dispatch_detach": "Çağrı Bildiriminden Ayrıl",
+    "dispatch_attach": "Çağrı Bildirimine Katıl",
     "unit": "Birim",
     "units": "Birimler",
     "additionals": "Ek Birimler",
