@@ -52,6 +52,21 @@ RegisterServerEvent('ps-dispatch:server:detach', function(id, player)
     end
 end)
 
+RegisterServerEvent('ps-dispatch:server:removeCall', function(id)
+    local src = source
+    local numCalls = #calls
+    for i = numCalls, 1, -1 do
+        if numCalls > 1 then
+            if calls[i]['id'] == id then
+                table.remove(calls, i)
+                break
+            end
+        else
+            TriggerClientEvent("ox_lib:notify", src, { description = locale('cant_remove'), position = 'top', type = 'error' })
+        end
+    end
+end)
+
 -- Callbacks
 lib.callback.register('ps-dispatch:callback:getLatestDispatch', function(source)
     return calls[#calls]
