@@ -1,7 +1,7 @@
 Config = Config or {}
 
 Config.ShortCalls = false -- Dispatch notifications are sent containing only the alert name, omitting additional details. For more information, the dispatch menu can be accessed.  
-Config.Debug = false -- Enables debug and send alerts when leo break the law.
+Config.Debug = true -- Enables debug and send alerts when leo break the law.
 
 Config.RespondKeybind = 'E'
 Config.OpenDispatchMenu = 'O'
@@ -9,6 +9,8 @@ Config.AlertTime = 5     -- Specify the duration for the alert to appear on the 
 
 Config.MaxCallList = 25 -- maximum dispatch calls in dispatch list
 Config.OnDutyOnly = true -- Set true if only on duty players can see the alert
+
+Config.MinRemoveCallRank = 3 --Specify the minimum rank required to remove calls
 Config.Jobs = { -- Job Types that can access the dispatch menu
     "leo",
     "ems"
