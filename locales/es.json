@@ -4,6 +4,10 @@
   "unit": "Unidad",
   "units": "Unidades",
   "additionals": "Unidades Adicionales",
+  "l_click_to_remove": "Hacer clic izquierdo",
+  "remove_call": "QUITAR LLAMADA",
+  "cant_remove": "No se puede eliminar la última llamada",
+  "not_rank": "El rango mínimo para eliminar llamadas es %s.",
 
   "open_dispatch": "Abrir Menú Dispatch",
   "911_help": "Enviar un mensaje a la policía.",

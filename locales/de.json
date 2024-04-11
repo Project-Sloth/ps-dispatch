@@ -4,6 +4,10 @@
   "unit": "Einheit",
   "units": "Einheiten",
   "additionals": "Weitere Einheiten",
+  "l_click_to_remove": "Linksklick",
+  "remove_call": "DISPATCH ENTFERNEN",
+  "cant_remove": "Kann den letzten Dispatch nicht entfernen",
+  "not_rank": "Mindestrang zum Löschen von Dispatches ist %s.",
 
   "open_dispatch": "Dispatch-Menü öffnen",
   "911_help": "Eine Nachricht an die Polizei senden.",
