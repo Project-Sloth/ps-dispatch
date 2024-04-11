@@ -8,6 +8,7 @@ local radius2 = {}
 local alertsMuted = false
 local alertsDisabled = false
 local waypointCooldown = false
+local timerCheck = false
 
 -- Functions
 ---@param bool boolean Toggles visibilty of the menu
@@ -31,6 +32,7 @@ local function setupDispatch()
         job = {
             type = playerInfo.job.type,
             name = playerInfo.job.name,
+            grade = playerInfo.job.grade.level,
             label = playerInfo.job.label
         },
     }
@@ -249,7 +251,7 @@ local OpenDispatchMenu = lib.addKeybind({
 RegisterNetEvent('ps-dispatch:client:notify', function(data, source)
     if data.alertTime == nil then data.alertTime = Config.AlertTime end
     local timer = data.alertTime * 1000
-    
+
     if alertsDisabled then return end
     if not isJobValid(data.jobs) then return end
     if not IsOnDuty() then return end
@@ -354,6 +356,18 @@ RegisterNUICallback("clearBlips", function(data, cb)
     for k, v in pairs(radius2) do
         RemoveBlip(v)
     end
+    cb("ok")
+end)
+
+RegisterNUICallback("removeCall", function(data, cb)
+    if PlayerData.job.grade >= Config.MinRemoveCallRank then
+        TriggerServerEvent('ps-dispatch:server:removeCall', data.id)
+    else
+        lib.notify({ description = locale('not_rank', Config.MinRemoveCallRank), position = 'top', type = 'error' })
+    end
+
+    local data = lib.callback.await('ps-dispatch:callback:getCalls', false)
+    SendNUIMessage({ action = 'setDispatchs', data = data, })
     cb("ok")
 end)
 
