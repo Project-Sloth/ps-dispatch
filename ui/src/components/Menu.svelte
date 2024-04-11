@@ -6,8 +6,10 @@
 	import { onDestroy, onMount } from 'svelte'
   
   let activeCallId = null;
+  let rclickedCallId = null;
   let additionalUnitsVisible = {};
   let unsubscribe;
+
 
   $: menuRight = false;
 
@@ -26,6 +28,15 @@
       activeCallId = null;
     } else {
       activeCallId = id;
+    }
+  }
+
+  function handleContextMenu(event, id) {
+      event.preventDefault();
+      if (rclickedCallId === id) {
+      rclickedCallId = null;
+    } else {
+      rclickedCallId = id;
     }
   }
 
@@ -131,7 +142,7 @@
   <div class="w-[25%] h-[97%] overflow-auto pr-[0.5vh]" class:ml-[2vh]={!menuRight} class:mr-[2vh]={menuRight}>
     {#if $DISPATCH_MENU}
     {#each $processedDispatchMenu as dispatch}
-    <button class="w-full h-fit mb-[1vh] font-medium {dispatch.priority == 1 ? 'bg-priority_secondary' : 'bg-secondary'}" on:click={() => toggleDispatch(dispatch.id)}>
+    <button class="w-full h-fit mb-[1vh] font-medium {dispatch.priority == 1 ? 'bg-priority_secondary' : 'bg-secondary'}" on:click={() => toggleDispatch(dispatch.id)} on:contextmenu={(event) => handleContextMenu(event, dispatch.id)}>
         <div class="flex items-center gap-[1vh] p-[1vh] text-[1.5vh] {dispatch.priority == 1 ? " bg-priority_primary" : " bg-primary"}">
             <p class="px-[2vh] py-[0.2vh] rounded-full bg-accent_green">
               #{dispatch.id}
@@ -194,6 +205,18 @@
                 {$Locale.dispatch_attach}
               {/if}
             </p>
+          </button>
+        </div>
+        {/if}
+        {#if rclickedCallId === dispatch.id}
+        <div class=" mb-[1vh]" transition:slide={{ duration: 300 }}>
+          <button class="w-full h-[4vh] bg-primary hover:bg-secondary flex items-center font-bold"
+            on:click={() => {
+              SendNUI("removeCall", dispatch );
+            }}>
+            <p class="mx-[2vh] px-[2vh] py-[0.2vh] rounded-full bg-tertiary"> {$Locale.l_click_to_remove} </p>
+            <i class={'ml-[3vh] fas fa-trash mr-[0.5vh]'}></i>
+            {$Locale.remove_call}
           </button>
         </div>
         {/if}
