@@ -4,8 +4,6 @@
   "unit": "Unité",
   "units": "Unités",
   "additionals": "Unités additionnelles",
-  "l_click_to_remove": "Cliquez gauche",
-  "remove_call": "SUPPRIMER L'APPEL",
   "cant_remove": "Impossible de supprimer le dernier appel",
   "not_rank": "Le rang minimum pour supprimer les appels est %s.",
 

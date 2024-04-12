@@ -4,8 +4,6 @@
     "unit": "Eenheid",
     "units": "Eenheden",
     "additionals": "Extra Eenheden",
-    "l_click_to_remove": "Linksklik",
-    "remove_call": "GESPREK VERWIJDEREN",
     "cant_remove": "Kan laatste oproep niet verwijderen",
     "not_rank": "Het minimumrangnummer om oproepen te verwijderen is %s.",
 

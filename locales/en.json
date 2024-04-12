@@ -4,8 +4,6 @@
   "unit": "Unit",
   "units": "Units",
   "additionals": "Additional Units",
-  "l_click_to_remove": "Left Click",
-  "remove_call": "REMOVE CALL",
   "cant_remove": "Can't Remove latest Call",
   "not_rank": "Minimum Rank to delete Calls is %s.",
 
