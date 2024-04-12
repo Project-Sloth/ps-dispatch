@@ -157,7 +157,7 @@
                 {/if}
               {/each}
             </div>
-            <div class="flex w-[10%] items-end justify-end mb-[1vh] mr-[1vh]">
+            <div class="flex w-[7%] items-end justify-end mb-[1vh]">
               <button class="hover:text-accent_red flex items-center justify-center text-[1.3vh]" 
                 on:click={() => { 
                   SendNUI("removeCall", dispatch ); 
@@ -165,49 +165,44 @@
                 <i class={'fas fa-trash'}></i>
               </button>
             </div>
+            <div class="flex w-[7%] items-end justify-end mb-[1vh] mr-[1vh]">
+              <button class="hover:text-accent_green flex items-center justify-center text-[1.3vh]" 
+                on:click={() => { 
+                  if (CheckIfAttached(dispatch.units, $PLAYER.citizenid)) {
+                    SendNUI("detachUnit", dispatch );
+                    SendNUI("refreshAlerts");
+                  } else {
+                    SendNUI("attachUnit", dispatch );
+                    SendNUI("refreshAlerts");
+                  }
+                }}>
+                <i class={'fas fa-reply'}></i>
+              </button>
+            </div>
           </div>
         </button>
         <!-- UNITS, ATTACH AND DETACH -->
         {#if activeCallId === dispatch.id}
-        <div class=" mb-[1vh]" transition:slide={{ duration: 300 }}>
-          {#if dispatch.units.length > 0}
-            <div class="flex flex-col gap-[0.2vh] mb-[1vh] bg-primary">
-              {#each dispatch.units.slice(0, additionalUnitsVisible[dispatch.id] ? dispatch.units.length : 3) as unit}
-                <div class="w-full h-[5vh] flex {dispatch.priority == 1 ? 'bg-priority_tertiary' : 'bg-tertiary'} flex items-center font-medium">
-                  <p class="ml-[2vh] px-[1.4vh] py-[0.2vh] rounded-full {dispatch.priority == 1 ? 'bg-priority_secondary' : 'bg-secondary'}">{unit.metadata.callsign}</p>
-                  <p class="mx-[1vh] px-[1.5vh] py-[0.2vh] rounded-full uppercase {unit.job.type == "leo" ? "bg-[#004ca5] " : unit.job.type == "ems" ? "bg-[#e03535]" : "bg-[#4b4b4b]" }">{unit.job.name}</p>
-                  <p class="ml-[0.5vh]">{unit.charinfo.firstname} {unit.charinfo.lastname}</p>
-                </div>
-              {/each}
-              {#if dispatch.units.length > 3}
-                {#if !additionalUnitsVisible[dispatch.id]}
-                  <button class="w-full h-[5vh] flex items-center justify-center {dispatch.priority == 1 ? 'bg-priority_tertiary' : 'bg-tertiary'} flex items-center font-medium" on:click={() => toggleAdditionalUnits(dispatch.id)}>
-                    <p class="ml-[0.5vh]">+{getAdditionalUnitsCount(dispatch)} {$Locale.additionals}</p>
-                  </button>
+        {#if dispatch.units.length > 0}
+          <div class=" mb-[1vh]" transition:slide={{ duration: 300 }}>
+              <div class="flex flex-col gap-[0.2vh] mb-[1vh] bg-primary">
+                {#each dispatch.units.slice(0, additionalUnitsVisible[dispatch.id] ? dispatch.units.length : 3) as unit}
+                  <div class="w-full h-[5vh] flex {dispatch.priority == 1 ? 'bg-priority_tertiary' : 'bg-tertiary'} flex items-center font-medium">
+                    <p class="ml-[2vh] px-[1.4vh] py-[0.2vh] rounded-full {dispatch.priority == 1 ? 'bg-priority_secondary' : 'bg-secondary'}">{unit.metadata.callsign}</p>
+                    <p class="mx-[1vh] px-[1.5vh] py-[0.2vh] rounded-full uppercase {unit.job.type == "leo" ? "bg-[#004ca5] " : unit.job.type == "ems" ? "bg-[#e03535]" : "bg-[#4b4b4b]" }">{unit.job.name}</p>
+                    <p class="ml-[0.5vh]">{unit.charinfo.firstname} {unit.charinfo.lastname}</p>
+                  </div>
+                {/each}
+                {#if dispatch.units.length > 3}
+                  {#if !additionalUnitsVisible[dispatch.id]}
+                    <button class="w-full h-[5vh] flex items-center justify-center {dispatch.priority == 1 ? 'bg-priority_tertiary' : 'bg-tertiary'} flex items-center font-medium" on:click={() => toggleAdditionalUnits(dispatch.id)}>
+                      <p class="ml-[0.5vh]">+{getAdditionalUnitsCount(dispatch)} {$Locale.additionals}</p>
+                    </button>
+                  {/if}
                 {/if}
-              {/if}
-            </div>
+              </div>
+          </div>
           {/if}
-          <button class="w-full h-[5vh] {dispatch.priority == 1 ? " bg-priority_quaternary" : " bg-accent_green"} flex items-center font-medium"
-            on:click={() => {
-              if (CheckIfAttached(dispatch.units, $PLAYER.citizenid)) {
-                SendNUI("detachUnit", dispatch );
-                SendNUI("refreshAlerts");
-              } else {
-                SendNUI("attachUnit", dispatch );
-                SendNUI("refreshAlerts");
-              }
-            }}>
-            <p class="mx-[2vh] px-[2vh] py-[0.2vh] rounded-full {dispatch.priority == 1 ? " bg-accent_dark_red" : "  bg-accent_dark_green"} ">{dispatch.units.length} {$Locale.units}</p>
-            <p class="ml-[3vh]">
-              {#if CheckIfAttached(dispatch.units, $PLAYER.citizenid)}
-                {$Locale.dispatch_detach}
-              {:else}
-                {$Locale.dispatch_attach}
-              {/if}
-            </p>
-          </button>
-        </div>
         {/if}
       {/each}
     {/if}
