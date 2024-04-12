@@ -6,7 +6,6 @@
 	import { onDestroy, onMount } from 'svelte'
   
   let activeCallId = null;
-  let rclickedCallId = null;
   let additionalUnitsVisible = {};
   let unsubscribe;
 
@@ -23,20 +22,12 @@
     unsubscribe();
   })
   
-  function toggleDispatch(id) {
+  function toggleDispatch(event, id) {
+    event.preventDefault();
     if (activeCallId === id) {
       activeCallId = null;
     } else {
       activeCallId = id;
-    }
-  }
-
-  function handleContextMenu(event, id) {
-      event.preventDefault();
-      if (rclickedCallId === id) {
-      rclickedCallId = null;
-    } else {
-      rclickedCallId = id;
     }
   }
 
@@ -142,7 +133,7 @@
   <div class="w-[25%] h-[97%] overflow-auto pr-[0.5vh]" class:ml-[2vh]={!menuRight} class:mr-[2vh]={menuRight}>
     {#if $DISPATCH_MENU}
     {#each $processedDispatchMenu as dispatch}
-    <button class="w-full h-fit mb-[1vh] font-medium {dispatch.priority == 1 ? 'bg-priority_secondary' : 'bg-secondary'}" on:click={() => toggleDispatch(dispatch.id)} on:contextmenu={(event) => handleContextMenu(event, dispatch.id)}>
+    <button class="w-full h-fit mb-[1vh] font-medium {dispatch.priority == 1 ? 'bg-priority_secondary' : 'bg-secondary'}" on:contextmenu={(event) => toggleDispatch(event, dispatch.id)}>
         <div class="flex items-center gap-[1vh] p-[1vh] text-[1.5vh] {dispatch.priority == 1 ? " bg-priority_primary" : " bg-primary"}">
             <p class="px-[2vh] py-[0.2vh] rounded-full bg-accent_green">
               #{dispatch.id}
@@ -155,7 +146,8 @@
             </p>
             <i class="{dispatch.icon} py-[0.2vh] ml-auto mr-[0.5vh] {dispatch.priority == 1 ? " text-accent_red" : "text-accent_cyan"}"></i>
           </div>
-          <div class="flex flex-col p-[1vh] gap-y-[0.4vh] text-[1.4vh] w-full text-start">
+          <div class="flex">
+            <div class="flex flex-col p-[1vh] gap-y-[0.4vh] text-[1.4vh] w-[100%] text-start">
               {#each getDispatchData(dispatch) as field}
                 {#if field.value}
                   <p>
@@ -164,6 +156,15 @@
                   </p>
                 {/if}
               {/each}
+            </div>
+            <div class="flex w-[10%] items-end justify-end mb-[1vh] mr-[1vh]">
+              <button class="hover:text-accent_red flex items-center justify-center text-[1.3vh]" 
+                on:click={() => { 
+                  SendNUI("removeCall", dispatch ); 
+                }}>
+                <i class={'fas fa-trash'}></i>
+              </button>
+            </div>
           </div>
         </button>
         <!-- UNITS, ATTACH AND DETACH -->
@@ -205,18 +206,6 @@
                 {$Locale.dispatch_attach}
               {/if}
             </p>
-          </button>
-        </div>
-        {/if}
-        {#if rclickedCallId === dispatch.id}
-        <div class=" mb-[1vh]" transition:slide={{ duration: 300 }}>
-          <button class="w-full h-[4vh] bg-primary hover:bg-secondary flex items-center font-bold"
-            on:click={() => {
-              SendNUI("removeCall", dispatch );
-            }}>
-            <p class="mx-[2vh] px-[2vh] py-[0.2vh] rounded-full bg-tertiary"> {$Locale.l_click_to_remove} </p>
-            <i class={'ml-[3vh] fas fa-trash mr-[0.5vh]'}></i>
-            {$Locale.remove_call}
           </button>
         </div>
         {/if}
