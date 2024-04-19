@@ -362,6 +362,8 @@ end)
 RegisterNUICallback("removeCall", function(data, cb)
     if PlayerData.job.grade >= Config.MinRemoveCallRank then
         TriggerServerEvent('ps-dispatch:server:removeCall', data.id)
+        RemoveBlip(blips[data.id])
+        RemoveBlip(radius2[data.id])
     else
         lib.notify({ description = locale('not_rank', Config.MinRemoveCallRank), position = 'top', type = 'error' })
     end
