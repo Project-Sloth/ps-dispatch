@@ -9,6 +9,8 @@ Config.AlertTime = 5     -- Specify the duration for the alert to appear on the 
 
 Config.MaxCallList = 25 -- maximum dispatch calls in dispatch list
 Config.OnDutyOnly = true -- Set true if only on duty players can see the alert
+
+Config.MinRemoveCallRank = 3 --Specify the minimum rank required to remove calls
 Config.Jobs = { -- Job Types that can access the dispatch menu
     "leo",
     "ems"
