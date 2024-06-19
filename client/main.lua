@@ -1,7 +1,7 @@
 QBCore = exports['qb-core']:GetCoreObject()
 PlayerData = {}
 inHuntingZone, inNoDispatchZone = false, false
-huntingzone, nodispatchzone = nil , nil
+huntingzones, nodispatchzones = {}, {}
 
 local blips = {}
 local radius2 = {}
@@ -86,7 +86,7 @@ local function setWaypoint()
 
     if data.alertTime == nil then data.alertTime = Config.AlertTime end
     local timer = data.alertTime * 1000
-    
+
     if not waypointCooldown and lib.table.contains(data.jobs, PlayerData.job.type) then
         SetNewWaypoint(data.coords.x, data.coords.y)
         TriggerServerEvent('ps-dispatch:server:attach', data.id, PlayerData)
@@ -191,7 +191,7 @@ function createZones()
                 EndTextCommandSetBlipName(blip)
             end
             -- Creates the Sphere --
-            huntingzone = lib.zones.sphere({
+            local tmp = lib.zones.sphere({
                 coords = hunting.coords,
                 radius = hunting.radius,
                 debug = Config.Debug,
@@ -202,12 +202,13 @@ function createZones()
                     inHuntingZone = false
                 end
             })
+            table.insert(huntingzones, tmp)
     	end
     end
     -- No Dispatch Zone --
     if Config.Locations['NoDispatchZones'][1] then
     	for _, nodispatch in pairs(Config.Locations["NoDispatchZones"]) do
-            nodispatchzone = lib.zones.box({
+            local tmp = lib.zones.box({
                 coords = nodispatch.coords,
                 size = vec3(nodispatch.length, nodispatch.width, nodispatch.maxZ - nodispatch.minZ),
                 rotation = nodispatch.heading,
@@ -219,15 +220,22 @@ function createZones()
                     inNoDispatchZone = false
                 end
             })
+            table.insert(nodispatchzones, tmp)
     	end
     end
 end
 
 local function removeZones()
     -- Hunting Zone --
-    huntingzone:remove()
+    for _, v in pairs(huntingzones) do
+        v:remove()
+    end
+    huntingzones = {}
     -- No Dispatch Zone --
-    nodispatchzone:remove()
+    for _, v in pairs(nodispatchzones) do
+        v:remove()
+    end
+    nodispatchzones = {}
 end
 
 -- Keybind
