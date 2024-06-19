@@ -14,6 +14,12 @@ RegisterServerEvent('ps-dispatch:server:notify', function(data)
     data.units = {}
     data.responses = {}
 
+    if #calls > 0 then
+        if calls[#calls] == data then
+            return
+        end
+    end
+        
     if #calls >= Config.MaxCallList then
         table.remove(calls, 1)
     end
