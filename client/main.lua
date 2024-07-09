@@ -88,7 +88,6 @@ local function createZones()
 end
 
 local function setupDispatch()
-    removeZones()
     local playerInfo = QBCore.Functions.GetPlayerData()
     local locales = lib.getLocales()
     PlayerData = {
@@ -108,8 +107,6 @@ local function setupDispatch()
     }
 
     Wait(1000)
-
-    createZones()
 
     SendNUIMessage({
         action = "setupUI",
@@ -313,7 +310,10 @@ end)
 -- EventHandlers
 RegisterNetEvent("QBCore:Client:OnJobUpdate", setupDispatch)
 
-AddEventHandler('QBCore:Client:OnPlayerLoaded', setupDispatch)
+AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
+    setupDispatch()
+    createZones()
+end)
 
 AddEventHandler('QBCore:Client:OnPlayerUnload', removeZones)
 
