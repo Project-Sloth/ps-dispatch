@@ -1,7 +1,7 @@
 QBCore = exports['qb-core']:GetCoreObject()
 PlayerData = {}
 inHuntingZone, inNoDispatchZone = false, false
-huntingzone, nodispatchzone = nil , nil
+local huntingZones, nodispatchZones, huntingBlips = {} , {}, {}
 
 local blips = {}
 local radius2 = {}
@@ -14,6 +14,77 @@ local waypointCooldown = false
 local function toggleUI(bool)
     SetNuiFocus(bool, bool)
     SendNUIMessage({ action = "setVisible", data = bool })
+end
+
+-- Zone Functions --
+local function removeZones()
+    -- Hunting Zone --
+    for i = 1, #huntingZones do
+        huntingZones[i]:remove()
+    end
+    -- No Dispatch Zone --
+    for i = 1, #nodispatchZones do
+        nodispatchZones[i]:remove()
+    end
+    -- Hunting Blips --    
+    for i = 1, #huntingBlips do
+        RemoveBlip(huntingBlips[i])
+    end
+end
+
+local function createZones()
+    -- Hunting Zone --
+    if Config.Locations['HuntingZones'][1] then
+    	for _, hunting in pairs(Config.Locations["HuntingZones"]) do
+            -- Creates the Blips
+            if Config.EnableHuntingBlip then
+                local blip = AddBlipForCoord(hunting.coords.x, hunting.coords.y, hunting.coords.z)
+                local huntingradius = AddBlipForRadius(hunting.coords.x, hunting.coords.y, hunting.coords.z, hunting.radius)
+                SetBlipSprite(blip, 442)
+                SetBlipAsShortRange(blip, true)
+                SetBlipScale(blip, 0.8)
+                SetBlipColour(blip, 0)
+                SetBlipColour(huntingradius, 0)
+                SetBlipAlpha(huntingradius, 40)
+                BeginTextCommandSetBlipName("STRING")
+                AddTextComponentString(hunting.label)
+                EndTextCommandSetBlipName(blip)
+                huntingBlips[#huntingBlips+1] = blip
+                huntingBlips[#huntingBlips+1] = huntingradius
+            end
+            -- Creates the Sphere --
+            local huntingZone = lib.zones.sphere({
+                coords = hunting.coords,
+                radius = hunting.radius,
+                debug = Config.Debug,
+                onEnter = function()
+                    inHuntingZone = true
+                end,
+                onExit = function()
+                    inHuntingZone = false
+                end
+            })
+            HuntingZones[#HuntingZones+1] = huntingZone
+    	end
+    end
+    -- No Dispatch Zone --
+    if Config.Locations['NoDispatchZones'][1] then
+    	for _, nodispatch in pairs(Config.Locations["NoDispatchZones"]) do
+            local nodispatchZone = lib.zones.box({
+                coords = nodispatch.coords,
+                size = vec3(nodispatch.length, nodispatch.width, nodispatch.maxZ - nodispatch.minZ),
+                rotation = nodispatch.heading,
+                debug = Config.Debug,
+                onEnter = function()
+                    inNoDispatchZone = true
+                end,
+                onExit = function()
+                    inNoDispatchZone = false
+                end
+            })
+            nodispatchZones[#nodispatchZones+1] = nodispatchZone
+    	end
+    end
 end
 
 local function setupDispatch()
@@ -36,8 +107,6 @@ local function setupDispatch()
     }
 
     Wait(1000)
-
-    createZones()
 
     SendNUIMessage({
         action = "setupUI",
@@ -171,65 +240,6 @@ local function addBlip(data, blipData)
     end
 end
 
--- Zone Functions --
-function createZones()
-    -- Hunting Zone --
-    if Config.Locations['HuntingZones'][1] then
-    	for _, hunting in pairs(Config.Locations["HuntingZones"]) do
-            -- Creates the Blips
-            if Config.EnableHuntingBlip then
-                local blip = AddBlipForCoord(hunting.coords.x, hunting.coords.y, hunting.coords.z)
-                local huntingradius = AddBlipForRadius(hunting.coords.x, hunting.coords.y, hunting.coords.z, hunting.radius)
-                SetBlipSprite(blip, 442)
-                SetBlipAsShortRange(blip, true)
-                SetBlipScale(blip, 0.8)
-                SetBlipColour(blip, 0)
-                SetBlipColour(huntingradius, 0)
-                SetBlipAlpha(huntingradius, 40)
-                BeginTextCommandSetBlipName("STRING")
-                AddTextComponentString(hunting.label)
-                EndTextCommandSetBlipName(blip)
-            end
-            -- Creates the Sphere --
-            huntingzone = lib.zones.sphere({
-                coords = hunting.coords,
-                radius = hunting.radius,
-                debug = Config.Debug,
-                onEnter = function()
-                    inHuntingZone = true
-                end,
-                onExit = function()
-                    inHuntingZone = false
-                end
-            })
-    	end
-    end
-    -- No Dispatch Zone --
-    if Config.Locations['NoDispatchZones'][1] then
-    	for _, nodispatch in pairs(Config.Locations["NoDispatchZones"]) do
-            nodispatchzone = lib.zones.box({
-                coords = nodispatch.coords,
-                size = vec3(nodispatch.length, nodispatch.width, nodispatch.maxZ - nodispatch.minZ),
-                rotation = nodispatch.heading,
-                debug = Config.Debug,
-                onEnter = function()
-                    inNoDispatchZone = true
-                end,
-                onExit = function()
-                    inNoDispatchZone = false
-                end
-            })
-    	end
-    end
-end
-
-local function removeZones()
-    -- Hunting Zone --
-    huntingzone:remove()
-    -- No Dispatch Zone --
-    nodispatchzone:remove()
-end
-
 -- Keybind
 local RespondToDispatch = lib.addKeybind({
     name = 'RespondToDispatch',
@@ -300,7 +310,10 @@ end)
 -- EventHandlers
 RegisterNetEvent("QBCore:Client:OnJobUpdate", setupDispatch)
 
-AddEventHandler('QBCore:Client:OnPlayerLoaded', setupDispatch)
+AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
+    setupDispatch()
+    createZones()
+end)
 
 AddEventHandler('QBCore:Client:OnPlayerUnload', removeZones)
 
