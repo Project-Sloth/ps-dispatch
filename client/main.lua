@@ -30,6 +30,8 @@ local function removeZones()
     for i = 1, #huntingBlips do
         RemoveBlip(huntingBlips[i])
     end
+    -- Reset the stored values too
+    huntingZones, nodispatchZones, huntingBlips = {} , {}, {}
 end
 
 local function createZones()
@@ -64,7 +66,7 @@ local function createZones()
                     inHuntingZone = false
                 end
             })
-            HuntingZones[#HuntingZones+1] = huntingZone
+            huntingZones[#huntingZones+1] = huntingZone
     	end
     end
     -- No Dispatch Zone --
