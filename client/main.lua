@@ -202,7 +202,9 @@ function createZones()
                     inHuntingZone = false
                 end
             })
-            table.insert(huntingzones, tmp)
+            if tmp then
+                table.insert(huntingzones, tmp)
+            end
     	end
     end
     -- No Dispatch Zone --
