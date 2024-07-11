@@ -4,6 +4,8 @@
     "unit": "Jednotka",
     "units": "Jednotky",
     "additionals": "Dodatečné jednotky",
+    "cant_remove": "Nelze odebrat poslední hovor",
+    "not_rank": "Minimální pořadí pro odstranění hovorů je %s.",
 
     "open_dispatch": "Otevřít Dispatch",
     "911_help": "Pošle zprávu policistům.",
