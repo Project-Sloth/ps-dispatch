@@ -222,7 +222,9 @@ function createZones()
                     inNoDispatchZone = false
                 end
             })
-            table.insert(nodispatchzones, tmp)
+            if tmp then
+                table.insert(nodispatchzones, tmp)
+            end
     	end
     end
 end
