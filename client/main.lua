@@ -126,11 +126,12 @@ end
 ---@return boolean -- Returns true if the job is valid
 local function isJobValid(data)
     local jobType = PlayerData.job.type
+    local jobName = PlayerData.job.name
 
     if type(data) == "string" then
-        return lib.table.contains(Config.Jobs, data)
+        return lib.table.contains(Config.Jobs, data) or lib.table.contains(Config.Jobs, jobName)
     elseif type(data) == "table" then
-        return lib.table.contains(data, jobType)
+        return lib.table.contains(data, jobType) or lib.table.contains(data, jobName)
     end
 
     return false
