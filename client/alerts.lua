@@ -32,8 +32,8 @@ local function CustomAlert(data)
             length = data.length or 2, -- How long it stays on the map
             sound = data.sound or "Lose_1st", -- Alert sound
             sound2 = data.sound2 or "GTAO_FM_Events_Soundset", -- Alert sound
-            offset = data.offset or "false", -- Blip / radius offset
-            flash = data.flash or "false" -- Blip flash
+            offset = data.offset or false, -- Blip / radius offset
+            flash = data.flash or false -- Blip flash
         },
         jobs = { 'leo' },
     }
