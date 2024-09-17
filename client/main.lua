@@ -277,7 +277,7 @@ RegisterNetEvent('ps-dispatch:client:notify', function(data, source)
         }
     })
 
-    addBlip(data, Config.Blips[data.codeName] or data)
+    addBlip(data, Config.Blips[data.codeName] or data.alert)
 
     RespondToDispatch:disable(false)
     OpenDispatchMenu:disable(true)
