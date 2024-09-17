@@ -26,7 +26,7 @@ local function removeZones()
     for i = 1, #nodispatchZones do
         nodispatchZones[i]:remove()
     end
-    -- Hunting Blips --    
+    -- Hunting Blips --
     for i = 1, #huntingBlips do
         RemoveBlip(huntingBlips[i])
     end
@@ -151,6 +151,7 @@ end
 
 local function setWaypoint()
     if not isJobValid(PlayerData.job.type) then return end
+    if not IsOnDuty() then return end
 
     local data = lib.callback.await('ps-dispatch:callback:getLatestDispatch', false)
 
@@ -158,7 +159,7 @@ local function setWaypoint()
 
     if data.alertTime == nil then data.alertTime = Config.AlertTime end
     local timer = data.alertTime * 1000
-    
+
     if not waypointCooldown and lib.table.contains(data.jobs, PlayerData.job.type) then
         SetNewWaypoint(data.coords.x, data.coords.y)
         TriggerServerEvent('ps-dispatch:server:attach', data.id, PlayerData)
@@ -262,7 +263,7 @@ local OpenDispatchMenu = lib.addKeybind({
 RegisterNetEvent('ps-dispatch:client:notify', function(data, source)
     if data.alertTime == nil then data.alertTime = Config.AlertTime end
     local timer = data.alertTime * 1000
-    
+
     if alertsDisabled then return end
     if not isJobValid(data.jobs) then return end
     if not IsOnDuty() then return end
@@ -301,6 +302,7 @@ end)
 
 RegisterNetEvent('ps-dispatch:client:openMenu', function(data)
     if not isJobValid(PlayerData.job.type) then return end
+    if not IsOnDuty() then return end
 
     if #data == 0 then
         lib.notify({ description = locale('no_calls'), position = 'top', type = 'error' })

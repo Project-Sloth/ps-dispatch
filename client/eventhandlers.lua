@@ -42,7 +42,7 @@ AddEventHandler('CEventGunShot', function(witnesses, ped)
     if IsPedCurrentWeaponSilenced(cache.ped) then return end
     if inNoDispatchZone then return end
     if BlacklistedWeapon(cache.ped) then return end
-        
+
     WaitTimer('Shooting', function()
         if cache.ped ~= ped then return end
 
@@ -128,6 +128,11 @@ local SpeedingEvents = {
     'CEventShockingInDangerousVehicle'
 }
 
+local exemptVehicleClass = {
+    [15] = true, -- Helicopters
+    [16] = true, -- Planes
+}
+
 local SpeedTrigger = 0
 for i = 1, #SpeedingEvents do
     local event = SpeedingEvents[i]
@@ -144,7 +149,10 @@ for i = 1, #SpeedingEvents do
                     return
                 end
             end
-            
+
+            local vehicleClass = GetVehicleClass(cache.vehicle)
+            if exemptVehicleClass[vehicleClass] then return end
+
             if GetEntitySpeed(cache.vehicle) * 3.6 < (80 + math.random(0, 20)) then return end
 
             if cache.ped ~= GetPedInVehicleSeat(cache.vehicle, -1) then return end
