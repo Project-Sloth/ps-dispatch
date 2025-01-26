@@ -125,6 +125,7 @@ end
 ---@param data string | table -- The player job or an array of jobs to check against
 ---@return boolean -- Returns true if the job is valid
 local function isJobValid(data)
+    if PlayerData.job == nil then return false end
     local jobType = PlayerData.job.type
     local jobName = PlayerData.job.name
 
