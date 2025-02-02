@@ -143,7 +143,7 @@ local function openMenu()
 
     local calls = lib.callback.await('ps-dispatch:callback:getCalls', false)
     if #calls == 0 then
-        lib.notify({ description = locale('no_calls'), position = 'top', type = 'error' })
+        lib.notify({ id = 'no_call',description = locale('no_calls'), position = 'top', type = 'error' })
     else
         SendNUIMessage({ action = 'setDispatchs', data = calls, })
         toggleUI(true)
@@ -164,7 +164,7 @@ local function setWaypoint()
     if not waypointCooldown and lib.table.contains(data.jobs, PlayerData.job.type) then
         SetNewWaypoint(data.coords.x, data.coords.y)
         TriggerServerEvent('ps-dispatch:server:attach', data.id, PlayerData)
-        lib.notify({ description = locale('waypoint_set'), position = 'top', type = 'success' })
+        lib.notify({ id = 'waypoint_set', description = locale('waypoint_set'), position = 'top', type = 'success' })
         waypointCooldown = true
         SetTimeout(timer, function()
             waypointCooldown = false
@@ -306,7 +306,7 @@ RegisterNetEvent('ps-dispatch:client:openMenu', function(data)
     if not IsOnDuty() then return end
 
     if #data == 0 then
-        lib.notify({ description = locale('no_calls'), position = 'top', type = 'error' })
+        lib.notify({ id = 'no_calls', description = locale('no_calls'), position = 'top', type = 'error' })
     else
         toggleUI(true)
         SendNUIMessage({ action = 'setDispatchs', data = data, })
@@ -353,20 +353,20 @@ end)
 
 RegisterNUICallback("toggleMute", function(data, cb)
     local muteStatus = data.boolean and locale('muted') or locale('unmuted')
-    lib.notify({ description = locale('alerts') .. muteStatus, position = 'top', type = 'warning' })
+    lib.notify({ id = 'toggleMute', description = locale('alerts') .. muteStatus, position = 'top', type = 'warning' })
     alertsMuted = data.boolean
     cb("ok")
 end)
 
 RegisterNUICallback("toggleAlerts", function(data, cb)
     local muteStatus = data.boolean and locale('disabled') or locale('enabled')
-    lib.notify({ description = locale('alerts') .. muteStatus, position = 'top', type = 'warning' })
+    lib.notify({ id = 'toggleAlerts', description = locale('alerts') .. muteStatus, position = 'top', type = 'warning' })
     alertsDisabled = data.boolean
     cb("ok")
 end)
 
 RegisterNUICallback("clearBlips", function(data, cb)
-    lib.notify({ description = locale('blips_cleared'), position = 'top', type = 'success' })
+    lib.notify({ id = 'clearBlips', description = locale('blips_cleared'), position = 'top', type = 'success' })
     for k, v in pairs(blips) do
         RemoveBlip(v)
     end
@@ -377,7 +377,7 @@ RegisterNUICallback("clearBlips", function(data, cb)
 end)
 
 RegisterNUICallback("refreshAlerts", function(data, cb)
-    lib.notify({ description = locale('alerts_refreshed'), position = 'top', type = 'success' })
+    lib.notify({ id = 'refreshAlerts', description = locale('alerts_refreshed'), position = 'top', type = 'success' })
     local data = lib.callback.await('ps-dispatch:callback:getCalls', false)
     SendNUIMessage({ action = 'setDispatchs', data = data, })
     cb("ok")
