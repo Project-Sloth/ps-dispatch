@@ -242,7 +242,7 @@ local function addBlip(data, blipData)
         else
             exports.mana_audio:PlaySoundFromEntity({
                 audioBank = 'audiodirectory/dispatch',
-                audioName = blipData.sound,
+                audioName = blipData.sound or blipData.alert.sound,
                 audioRef = 'dispatch_sounds',
                 entity = cache.ped
             })
