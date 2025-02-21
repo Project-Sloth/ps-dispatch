@@ -1,0 +1,61 @@
+<Dat54>
+  <Version value="7314721" />
+  <ContainerPaths>
+    <Item>audiodirectory\dispatch</Item>
+  </ContainerPaths>
+  <Items>
+    <Item type="SimpleSound">
+      <Name>dispatch_sp</Name>
+      <Header>
+        <Flags value="0x00008004" />
+        <Volume value="200" />
+        <Category>scripted</Category>
+      </Header>
+      <ContainerName>audiodirectory/dispatch</ContainerName>
+      <FileName>dispatch</FileName>
+      <WaveSlotNum value="0" />
+    </Item>
+    <Item type="SimpleSound">
+      <Name>panicbutton_sp</Name>
+      <Header>
+        <Flags value="0x00008004" />
+        <Volume value="200" />
+        <Category>scripted</Category>
+      </Header>
+      <ContainerName>audiodirectory/dispatch</ContainerName>
+      <FileName>panicbutton</FileName>
+      <WaveSlotNum value="0" />
+    </Item>
+    <Item type="SimpleSound">
+      <Name>robberysound_sp</Name>
+      <Header>
+        <Flags value="0x00008004" />
+        <Volume value="200" />
+        <Category>scripted</Category>
+      </Header>
+      <ContainerName>audiodirectory/dispatch</ContainerName>
+      <FileName>robberysound</FileName>
+      <WaveSlotNum value="0" />
+    </Item>
+    <Item type="SoundSet">
+      <Name>dispatch_sounds</Name>
+      <Header>
+        <Flags value="0xAAAAAAAA" />
+      </Header>
+      <SoundSets>
+        <Item>
+          <ScriptName>dispatch</ScriptName>
+          <ChildSound>dispatch_sp</ChildSound>
+        </Item>
+        <Item>
+          <ScriptName>panicbutton</ScriptName>
+          <ChildSound>panicbutton_sp</ChildSound>
+        </Item>
+        <Item>
+          <ScriptName>robberysound</ScriptName>
+          <ChildSound>robberysound_sp</ChildSound>
+        </Item>
+      </SoundSets>
+    </Item>
+  </Items>
+</Dat54>

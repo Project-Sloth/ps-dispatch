@@ -240,7 +240,12 @@ local function addBlip(data, blipData)
         if blipData.sound == "Lose_1st" then
             PlaySound(-1, blipData.sound, blipData.sound2, 0, 0, 1)
         else
-            TriggerServerEvent("InteractSound_SV:PlayOnSource", blipData.sound or blipData.alert.sound, 0.25)
+            exports.mana_audio:PlaySoundFromEntity({
+                audioBank = 'audiodirectory/dispatch',
+                audioName = blipData.sound,
+                audioRef = 'dispatch_sounds',
+                entity = cache.ped
+            })
         end
     end
 end

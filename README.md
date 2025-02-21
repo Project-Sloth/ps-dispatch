@@ -2,13 +2,14 @@
 
 Integrated with [ps-mdt](https://github.com/Project-Sloth/ps-mdt)
 
-For all support questions, ask in our [Discord](https://www.discord.gg/projectsloth) support chat. 
+For all support questions, ask in our [Discord](https://www.discord.gg/projectsloth) support chat.
 Do not create issues on GitHub if you need help. Issues are for bug reporting and new features only.
 
 # Depedency
 1. [qb-core](https://github.com/qbcore-framework/qb-core)
 2. [ox_lib](https://github.com/overextended/ox_lib)
-3. [ps-mdt](https://github.com/Project-Sloth/ps-mdt) - Optional but highly recommended.
+3. [mana_audio](https://github.com/Manason/mana_audio)
+4. [ps-mdt](https://github.com/Project-Sloth/ps-mdt) - Optional but highly recommended.
 
 # Installation
 * Download ZIP
@@ -38,7 +39,7 @@ Dispatch notifications are sent containing only the alert name, omitting additio
 
 - Place this `setr ox:locale en` inside your `server.cfg`
 - Change the `en` to your desired language!
-  
+
 **Supported Languages:**
 | **Alias**     | **Language Names** |
 |--------------|---------------|
@@ -136,13 +137,13 @@ Information about each parameter is in the `alerts.lua` file.
 # FAQ
 * There are no calls showing on dispatch or mdt list.
   - Make sure you have a job type specified in your qbcore/shared/jobs.lua like:
-  
+
     ![image](https://github.com/Project-Sloth/ps-dispatch/assets/9503151/7834e878-5020-4fcc-8864-03d44120c160)
 
   - Make sure that you're using the correct job type as leo and make sure your [qb-core](https://github.com/qbcore-framework/qb-core) is fully updated to the latest version.
   - On shared/config.lua make set Config.Debug = true to test calls as police officer.(ONLY to be used as testing, make sure to disable on live production)
 
-* How to change colors of the calls? 
+* How to change colors of the calls?
   - Priority 1 is red and priority 2 is normal on the config.
 
 * To increase the time that calls are shown on the screen, do the following:

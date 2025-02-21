@@ -27,6 +27,11 @@ shared_script {
 files {
   'html/**',
   'locales/*.json',
+  'data/audioexample_sounds.dat54.rel',
+  'audiodirectory/dispatch.awc'
 }
 
 ox_lib 'locale' -- v3.8.0 or above
+
+data_file 'AUDIO_WAVEPACK'  'audiodirectory'
+data_file 'AUDIO_SOUNDDATA' 'data/audioexample_sounds.dat'
