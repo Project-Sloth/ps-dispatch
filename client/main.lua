@@ -153,14 +153,17 @@ end
 local function setWaypoint()
     if not isJobValid(PlayerData.job.type) then return end
     if not IsOnDuty() then return end
-
+    
     local data = lib.callback.await('ps-dispatch:callback:getLatestDispatch', false)
-
+    
     if not data then return end
-
+    
     if data.alertTime == nil then data.alertTime = Config.AlertTime end
+    
+    if data.time < GetGameTimer() * 1000 then return end
+    
     local timer = data.alertTime * 1000
-
+    
     if not waypointCooldown and lib.table.contains(data.jobs, PlayerData.job.type) then
         SetNewWaypoint(data.coords.x, data.coords.y)
         TriggerServerEvent('ps-dispatch:server:attach', data.id, PlayerData)
